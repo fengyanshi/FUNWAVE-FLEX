@@ -157,9 +157,6 @@ MODULE GLOBAL
 ! switch for dispersion
 !   gamma1 is for extra M term
        REAL(SP) :: gamma1
-# if defined (CARTESIAN)
-       REAL(SP) :: gamma2
-# endif
 ! gamma3 is for linear shallow water equation
        REAL(SP) :: gamma3
        REAL(SP) :: Beta_ref=-0.531_SP

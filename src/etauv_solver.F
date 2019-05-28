@@ -421,18 +421,15 @@ SUBROUTINE GET_Eta_U_V_HU_HV
        reta=Eta(I,J)
        retal=Eta(I,J-1)
        retar=Eta(I,J+1)
-       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*depl*dep) &
-             -Gamma2*MASK9(I,J)*((reta+retal)*depl/2.0_SP/DY/DY+(retal+reta)*(retal+reta)/8.0_SP/DY/DY)
-       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY/DY*dep*dep-2.0_SP*b2/DY/DY*dep*dep) &
-             +Gamma2*MASK9(I,J)*((retar+retal+2.0_SP*reta)/2.0_SP/DY/DY &
-                        +(retar*retar+2.0_SP*reta*reta &
-                          +2.0_SP*reta*retar+2.0_SP*retal*reta+retal*retal)/8.0_SP/DY/DY)
-       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*dep*depr) &
-             -Gamma2*MASK9(I,J)*((reta+retar)*depr/2.0_SP/DY/DY+(retar+reta)*(retar+reta)/8.0_SP/DY/DY)
+       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*depl*dep) 
+             
+       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY/DY*dep*dep-2.0_SP*b2/DY/DY*dep*dep) 
+             
+       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*dep*depr) 
+             
        tmp4=Vbar(I,J)*MASK(I,J)/Max(H(I,J),MinDepthFrc)  &
-             + Gamma1*MASK9(I,J)*(-b1/2.0_SP*dep*dep*Uxy(I,J)-b2*dep*DUxy(I,J)) &
-            + Gamma2*MASK9(I,J)*(reta*reta/2.0_SP*Uxy(I,J)+reta*DUxy(I,J) &
-                             + reta*ETAy(I,J)*Ux(I,J) + ETAy(I,J)*DUx(I,J) )
+             + Gamma1*MASK9(I,J)*(-b1/2.0_SP*dep*dep*Uxy(I,J)-b2*dep*DUxy(I,J)) 
+
      ELSE
        tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*depl*dep) 
        tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY/DY*dep*dep-2.0_SP*b2/DY/DY*dep*dep) 

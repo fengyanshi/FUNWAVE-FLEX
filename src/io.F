@@ -2509,20 +2509,6 @@ SUBROUTINE READ_INPUT
        ENDIF
 
 # if defined (CARTESIAN)
-          CALL READ_FLOAT(Gamma2,FILE_NAME,'Gamma2',ierr)
-      IF(ierr==1)THEN
-        Gamma2 = 1.0_SP
-# if defined (PARALLEL)
-      if (myid.eq.0) THEN
-         WRITE(*,'(A50)')'Gamma2 Default:  1.0: Full nonlinear'
-         WRITE(3,'(A50)')'Gamma2 Default:  1.0: Full nonlinear'
-      endif
-# else
-         WRITE(*,'(A50)')'Gamma2 Default:  1.0: Full nonlinear'
-         WRITE(3,'(A50)')'Gamma2 Default:  1.0: Full nonlinear'
-# endif
-       ENDIF
-
           CALL READ_FLOAT(Beta_ref,FILE_NAME,'Beta_ref',ierr)
       IF(ierr==1)THEN
         Beta_ref = - 0.531_SP
@@ -2578,7 +2564,6 @@ SUBROUTINE READ_INPUT
 
        if (myid.eq.0) WRITE(3,'(A10,F12.2)')'Gamma1 = ', Gamma1
 # if defined (CARTESIAN)
-       if (myid.eq.0) WRITE(3,'(A10,F12.2)')'Gamma2 = ', Gamma2
        if (myid.eq.0) WRITE(3,'(A10,F12.2)')'Beta_ref= ', Beta_ref
        if (myid.eq.0) WRITE(3,'(A10,F12.2)')'Gamma3 = ', Gamma3
 # endif
@@ -2586,7 +2571,6 @@ SUBROUTINE READ_INPUT
 
        WRITE(3,'(A10,F12.2)')'Gamma1 = ', Gamma1
 # if defined (CARTESIAN)
-       WRITE(3,'(A10,F12.2)')'Gamma2 = ', Gamma2
        WRITE(3,'(A10,F12.2)')'Beta_ref= ', Beta_ref
 # endif
        WRITE(3,'(A10,F12.2)')'Gamma3 = ', Gamma3

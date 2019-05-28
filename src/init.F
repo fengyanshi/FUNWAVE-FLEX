@@ -530,18 +530,12 @@ SUBROUTINE INITIALIZATION
      ELSE
 !      gamma3 = 0 means linear shallow water equation
       Gamma1 =ZERO
-# if defined (CARTESIAN)
-      Gamma2 = ZERO
-# endif
      ENDIF
 
      IF(DISPERSION)THEN
-        ! make sure gamma1 and gamma2 are right
+        ! make sure gamma1 right
      ELSE
        Gamma1=ZERO
-# if defined (CARTESIAN)
-       Gamma2=ZERO
-# endif
      ENDIF
 
 # if defined (CARTESIAN)

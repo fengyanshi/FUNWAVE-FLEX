@@ -205,7 +205,6 @@ SUBROUTINE SourceTerms
                    + Gamma1*MASK9(I,J)*Max(H(I,J),MinDepthFrc)*(         & 
                      U(I,J)*0.5_SP*(U4(I+1,J)-U4(I-1,J))/DX+V(I,J)*0.5_SP*(U4(I,J+1)-U4(I,J-1))/DY &
                      +U4(I,J)*0.5_SP*(U(I+1,J)-U(I-1,J))/DX+V4(I,J)*0.5_SP*(U(I,J+1)-U(I,J-1))/DY  &
-                     -Gamma2*MASK9(I,J)*(U1pp(I,J)+U2(I,J)+U3(I,J)) &
                      )    &
                         ! Ht(-V4+V1p) = div(M)*(U4-U1p)
                     +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX+(Q(I,J+1)-Q(I,J))/DY) &
@@ -256,7 +255,6 @@ SUBROUTINE SourceTerms
                    + Gamma1*MASK9(I,J)*Max(H(I,J),MinDepthFrc)*(         & 
                      U(I,J)*0.5_SP*(V4(I+1,J)-V4(I-1,J))/DX+V(I,J)*0.5_SP*(V4(I,J+1)-V4(I,J-1))/DY &
                      +U4(I,J)*0.5_SP*(V(I+1,J)-V(I-1,J))/DX+V4(I,J)*0.5_SP*(V(I,J+1)-V(I,J-1))/DY  &
-                     -Gamma2*MASK9(I,J)*(V1pp(I,J)+V2(I,J)+V3(I,J)) &
                      )    &
                           ! Ht(-V4+V1p) = div(Q)*(V4-V1p)
                     +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX+(Q(I,J+1)-Q(I,J))/DY) &
