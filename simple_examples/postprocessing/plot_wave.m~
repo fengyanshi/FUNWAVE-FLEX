@@ -16,7 +16,8 @@ x2=[0:m-1]*dx2;
 y2=[0:n-1]*dy2;
 
 
-nfile=[10 30 50 70 90];
+nfile=[10 20 30 40 50];
+min={'20' '40' '60' '80' '100'};
 
 wid=8;
 len=5;
@@ -38,9 +39,8 @@ subplot(1,2, 1)
 
 pcolor(x1,y1,eta1),shading flat
 hold on
-caxis([-0.5 1.5])
-title(['Stretched, t = ' num2str(num*2) ' sec '])
-axis([0 700 0 500])
+caxis([-0.5 2])
+title(['Stretched, t = ' min{num} ' sec '])
 
 ylabel(' y (m) ')
 xlabel(' x (m) ')
@@ -53,15 +53,15 @@ eta2(mask2==0)=NaN;
 
 pcolor(x2,y2,eta2),shading flat
 hold on
-caxis([-0.5 1.5])
-title(['Constant, t = ' num2str(num*2) ' sec '])
-axis([0 700 0 500])
+caxis([-0.5 2])
+title(['Constant, t = ' min{num} ' sec '])
+
 ylabel(' y (m) ')
 xlabel(' x (m) ')
 
-name=num2str(num*2);
+name=min(num);
 
-print('-djpeg100', ['eta_',name, 'min.jpg']);
+print('-djpeg100', ['eta_',name 'min.jpg']);
 
 end
 %print -djpeg eta_inlet_shoal_irr.jpg

@@ -22,7 +22,7 @@
 #               FLAG_11 = -DSEDIMENT
 #               FLAG_12 = -DCHECK_MASS_CONSERVATION
 #               FLAG_13 = -DDEBUG
-#               FLAG_14 = -DTMP
+               FLAG_14 = -DTMP
 #               FLAG_15 = -DTRACKING
 #--------------------------------------------------------------------------
 #  mpi defs 

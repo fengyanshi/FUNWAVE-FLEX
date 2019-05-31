@@ -248,8 +248,16 @@ SUBROUTINE READ_INPUT
 # else
       WRITE(3,'(A7,I8,A7,I8)') 'Mglob=',Mglob,'Nglob=', Nglob
 # endif
+
 ! grid 
 # if defined (CARTESIAN)
+
+     CALL READ_LOGICAL(StretchGrid,FILE_NAME,'StretchGrid',ierr)   
+     IF(ierr==1)THEN
+       StretchGrid = .FALSE.
+     ENDIF
+
+     IF(.NOT.StretchGrid) THEN
 
       CALL READ_FLOAT(DX_input,FILE_NAME,'DX',ierr)
 
@@ -291,12 +299,10 @@ SUBROUTINE READ_INPUT
       WRITE(3,'(A4,F12.2,A4,F12.2)')'DX=',DX_input,'DY=',DY_input
 # endif
 
-# else
-      CALL READ_LOGICAL(StretchGrid,FILE_NAME,'StretchGrid',ierr)   
-     IF(ierr==1)THEN
-       StretchGrid = .FALSE.
-     ENDIF
-     if (StretchGrid) then
+
+
+    ELSE ! stretched grid
+
         CALL READ_STRING(DX_FILE,FILE_NAME,'DX_FILE',ierr)  
 
       IF(ierr==1)THEN
@@ -329,23 +335,40 @@ SUBROUTINE READ_INPUT
         STOP
       ENDIF
 
-        CALL READ_STRING(Coriolis_FILE,FILE_NAME,'CORIOLIS_FILE',ierr) 
-  
-      IF(ierr==1)THEN
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
+         WRITE(3,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
+         WRITE(*,'(A40,A40)')'DY_FILE =  ', TRIM(DY_FILE)
+         WRITE(3,'(A40,A40)')'DY_FILE =  ', TRIM(DY_FILE)
       endif
-       call MPI_FINALIZE ( ier )
 # else
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
+         WRITE(3,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
 # endif
-        STOP
-      ENDIF
+
+
+!   ignore Coriolis in Cartesian mode
+!        CALL READ_STRING(Coriolis_FILE,FILE_NAME,'CORIOLIS_FILE',ierr) 
+!  
+!      IF(ierr==1)THEN
+!# if defined (PARALLEL)
+!      if (myid.eq.0) THEN
+!         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+!         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+!      endif
+!       call MPI_FINALIZE ( ier )
+!# else
+!         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+!         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
+!# endif
+!        STOP
+!      ENDIF
  
-     else  ! not stretch
+     ENDIF  ! end stretch
+
+# else 
+! spherical
 
       CALL READ_FLOAT(Lon_West,FILE_NAME,'Lon_West',ierr)
 
@@ -411,8 +434,7 @@ SUBROUTINE READ_INPUT
         STOP
       ENDIF
 
-     endif  ! endif stretch
-
+    
 # if defined (PARALLEL)
       if (myid.eq.0) WRITE(3,'(A10,F12.2)')'Lon_West=',Lon_West
       if (myid.eq.0) WRITE(3,'(A11,F12.2)')'Lat_South=',Lat_South

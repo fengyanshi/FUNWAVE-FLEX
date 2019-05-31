@@ -228,6 +228,9 @@ SUBROUTINE INITIALIZATION
      IMPLICIT NONE
      INTEGER :: VTYPE
      CHARACTER(LEN=80) :: WHAT
+     REAL(SP),DIMENSION(Mglob) :: Xglob
+     REAL(SP),DIMENSION(Nglob) :: Yglob
+
 # if defined (PARALLEL)
      REAL(SP),DIMENSION(:,:),ALLOCATABLE :: VarGlob
      REAL(SP) :: myvar_tmp
@@ -236,6 +239,7 @@ SUBROUTINE INITIALIZATION
 # if defined (CARTESIAN)
 
    IF(StretchGrid) THEN
+
 # if defined (PARALLEL)
        CALL GetFile(DX_FILE,Dx)
        CALL GetFile(DY_FILE,Dy)
@@ -257,12 +261,10 @@ SUBROUTINE INITIALIZATION
        DO J=1,Nghost
         Dx(I,J)=Dx(I,Jbeg)
         Dy(I,J)=Dy(I,Jbeg)
-        Coriolis(I,J)=Coriolis(I,Jbeg)
        ENDDO
        DO J=Jend+1,Nloc
         Dx(I,J)=Dx(I,Jend)
         Dy(I,J)=Dy(I,Jend)
-        Coriolis(I,J)=Coriolis(I,Jend)
        ENDDO
      ENDDO
 
@@ -270,17 +272,31 @@ SUBROUTINE INITIALIZATION
        DO I=1,Nghost
         Dx(I,J)=Dx(Ibeg,J)
         Dy(I,J)=Dy(Ibeg,J)
-        Coriolis(I,J)=Coriolis(Ibeg,J)
        ENDDO
        DO I=Iend+1,Mloc
         Dx(I,J)=Dx(Iend,J)
         Dy(I,J)=Dy(Iend,J)
-        Coriolis(I,J)=Coriolis(Iend,J)
        ENDDO
      ENDDO  
 
 # endif
 ! end parallel
+
+! check if dx and dy zero
+
+     DO J=1,Nloc
+     DO I=1,Mloc
+       IF(DX(I,J)==ZERO.OR.DY(I,J)==ZERO)THEN
+         WRITE(3,*)'DX or DY is ZERO, I, J = ', I, J 
+# if defined (PARALLEL)
+         call MPI_FINALIZE ( ier )
+         STOP
+# else
+         STOP
+# endif             
+       ENDIF
+     ENDDO
+     ENDDO
 
    ELSE  ! not stretched
 
@@ -300,61 +316,6 @@ SUBROUTINE INITIALIZATION
      REAL(SP)::Dphi_r,Dtheta_r
 
 ! for spherical coordinates and Coriolis parameter
-
-   IF(StretchGrid) THEN
-# if defined (PARALLEL)
-       CALL GetFile(DX_FILE,Dx)
-       CALL GetFile(DY_FILE,Dy)
-       CALL GetFile(Coriolis_FILE,Coriolis)
-# else
-      OPEN(1,FILE=TRIM(DX_FILE))
-       DO J=Jbeg,Jend
-         READ(1,*)(Dx(I,J),I=Ibeg,Iend)
-       ENDDO
-      CLOSE(1)
-
-      OPEN(1,FILE=TRIM(DY_FILE))
-       DO J=Jbeg,Jend
-         READ(1,*)(Dy(I,J),I=Ibeg,Iend)
-       ENDDO
-      CLOSE(1)
-
-      OPEN(1,FILE=TRIM(Coriolis_FILE))
-       DO J=Jbeg,Jend
-         READ(1,*)(Coriolis(I,J),I=Ibeg,Iend)
-       ENDDO
-      CLOSE(1)
-
-! ghost cells
-     DO I=Ibeg,Iend
-       DO J=1,Nghost
-        Dx(I,J)=Dx(I,Jbeg)
-        Dy(I,J)=Dy(I,Jbeg)
-        Coriolis(I,J)=Coriolis(I,Jbeg)
-       ENDDO
-       DO J=Jend+1,Nloc
-        Dx(I,J)=Dx(I,Jend)
-        Dy(I,J)=Dy(I,Jend)
-        Coriolis(I,J)=Coriolis(I,Jend)
-       ENDDO
-     ENDDO
-
-     DO J=1,Nloc
-       DO I=1,Nghost
-        Dx(I,J)=Dx(Ibeg,J)
-        Dy(I,J)=Dy(Ibeg,J)
-        Coriolis(I,J)=Coriolis(Ibeg,J)
-       ENDDO
-       DO I=Iend+1,Mloc
-        Dx(I,J)=Dx(Iend,J)
-        Dy(I,J)=Dy(Iend,J)
-        Coriolis(I,J)=Coriolis(Iend,J)
-       ENDDO
-     ENDDO  
-
-# endif
-
-    ELSE ! for stretch grid
 
      Dphi_r=Dphi*pi/180.0_SP
      Dtheta_r=Dtheta*pi/180.0_SP
@@ -377,7 +338,6 @@ SUBROUTINE INITIALIZATION
        Coriolis(I,J) = pi*SIN(Lat_theta(I,J)) / 21600.0_SP
      ENDDO
      ENDDO
-    ENDIF ! stretchgrid
 
 # endif
 

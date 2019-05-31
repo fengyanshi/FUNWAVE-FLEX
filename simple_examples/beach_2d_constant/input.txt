@@ -16,20 +16,21 @@ TITLE = 2D_beach
    !              DEPTH_TYPE=SLOPE: idealized slope,  
    !                                 need slope,SLP starting point, Xslp 
    !                                 and depth_flat 
- DEPTH_TYPE = SLOPE 
+ DEPTH_TYPE = DATA 
   ! if depth is flat and slope, specify flat_depth
 DEPTH_FLAT = 8.0
   if depth is slope, specify slope and starting point
 SLP = 0.05
-Xslp = 300.0
+Xslp = 800.0
+DEPTH_FILE = depth1.txt
    ! -------------------PRINT--------------------------------- 
    ! PRINT*, 
    ! result folder 
 RESULT_FOLDER = output/ 
    ! ------------------DIMENSION----------------------------- 
    ! global grid dimension 
- Mglob = 250
- Nglob = 500 
+ Mglob = 360
+ Nglob = 250 
 
    ! ----------------- TIME---------------------------------- 
    ! time: total computational time/ plot time / screen interval  
@@ -43,6 +44,9 @@ RESULT_FOLDER = output/
    ! if use spherical grid, in decimal degrees 
  DX = 2.0 
  DY = 2.0 
+ StretchGrid = F
+ DX_FILE = dx.txt
+ DY_FILE = dy.txt
    ! ----------------WAVEMAKER------------------------------ 
    !  wave maker 
    ! LEF_SOL- left boundary solitary, need AMP,DEP, LAGTIME 
