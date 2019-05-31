@@ -225,11 +225,8 @@ SUBROUTINE ESTIMATE_DT(M,N,DX,DY,U,V,H,MinDepthFrc,DT,CFL,TIME)
      REAL(SP) :: myvar
 # endif
 
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
+
      REAL(SP),INTENT(IN),DIMENSION(M,N)::U,V,H
      REAL(SP),INTENT(IN)::CFL,MinDepthFrc
      REAL(SP),INTENT(OUT)::DT
@@ -242,33 +239,24 @@ SUBROUTINE ESTIMATE_DT(M,N,DX,DY,U,V,H,MinDepthFrc,DT,CFL,TIME)
 ! x direction
       TMP1=ABS(U(I,J))+SQRT(GRAV*MAX(H(I,J),MinDepthFrc))
       IF(TMP1<SMALL)THEN
-# if defined (CARTESIAN)
-       TMP2=DX/SMALL
-# else
+
        TMP2=DX(I,J)/SMALL
-# endif
       ELSE
-# if defined (CARTESIAN)
-       TMP2=DX/TMP1
-# else
+
        TMP2=DX(I,J)/TMP1
-# endif
+
       ENDIF
       IF(TMP2<TMP3)TMP3=TMP2
 ! y direction
       TMP1=ABS(V(I,J))+SQRT(GRAV*MAX(H(I,J),MinDepthFrc))
       IF(TMP1<SMALL)THEN
-# if defined (CARTESIAN)
-       TMP2=DY/SMALL
-# else
+
        TMP2=DY(I,J)/SMALL
-# endif
+
       ELSE
-# if defined (CARTESIAN)
-       TMP2=DY/TMP1
-# else
+
        TMP2=DY(I,J)/TMP1
-# endif
+
       ENDIF
       IF(TMP2<TMP3)TMP3=TMP2      
      ENDDO

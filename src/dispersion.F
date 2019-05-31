@@ -99,7 +99,7 @@ SUBROUTINE CAL_DISPERSION
 ! 05/25/2018, ykchoi pointed a bug: J=1,Nloc, I=1,Mloc
 
 # if defined (CARTESIAN)
-       ETAT(I,J)=-(P(I+1,J)-P(I,J))/DX-(Q(I,J+1)-Q(I,J))/DY
+       ETAT(I,J)=-(P(I+1,J)-P(I,J))/DX(I,J)-(Q(I,J+1)-Q(I,J))/DY(I,J)
 # else
        ETAT(I,J)=-(P(I+1,J)-P(I,J))/DX(I,J)-(Q(I,J+1)-Q(I,J))/DY(I,J)
 # endif

@@ -103,13 +103,8 @@ SUBROUTINE INITIAL_WAVE
 
      do j=1,Nloc
      do i=1,Mloc
-# if defined (CARTESIAN)
-       xx(i,j)=(i-1.)*dx
-       yy(i,j)=(j-1.)*dy
-# else
        xx(i,j)=(i-1.)*dx(I,J)
        yy(i,j)=(j-1.)*dy(I,J)
-# endif
      enddo
      enddo
 

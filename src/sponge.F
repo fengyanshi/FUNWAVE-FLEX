@@ -144,11 +144,9 @@ SUBROUTINE CALCULATE_SPONGE_MAKER(M,N,Nghost,DX,DY,&
 # endif
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,Nghost
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
+
      REAL(SP),INTENT(IN) :: &
                           Sponge_west_width, &
                           R_sponge,A_sponge
@@ -157,11 +155,9 @@ SUBROUTINE CALCULATE_SPONGE_MAKER(M,N,Nghost,DX,DY,&
      INTEGER::Iwidth
 
 
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_west_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
-# endif
+
      DO J=1,N
      DO I=1,Iwidth
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -205,11 +201,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 # endif
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,Nghost
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
      REAL(SP),INTENT(IN) :: &
                           Sponge_west_width,Sponge_east_width,&
                           Sponge_south_width,Sponge_north_width, &
@@ -224,13 +216,8 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! note that I used SPONGE represent CD from input, do not mess up 
 ! with the sponge defined in the direction sponge 
 
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
 
      SPONGE = ZERO
      tmp_2d_2 = ZERO
@@ -239,11 +226,8 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! west
 
      IF(Sponge_west_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_west_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
-# endif
      DO J=1,N
      DO I=1,M
          lim=0.0_SP
@@ -264,11 +248,8 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! east
 
      IF(Sponge_east_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_east_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
-# endif
      DO J=1,N
      DO I=1,M
          lim=0.0_SP
@@ -298,11 +279,9 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! south
 
      IF(Sponge_south_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_south_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -327,11 +306,9 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! north
 
      IF(Sponge_north_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_north_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -387,11 +364,9 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 # endif
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,Nghost
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
+
      REAL(SP),INTENT(IN) :: &
                           Sponge_west_width,Sponge_east_width,&
                           Sponge_south_width,Sponge_north_width, &
@@ -406,22 +381,16 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
      tmp_2d_2 = ZERO
      tmp_2d_1 = ZERO
 
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
+
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
 
 ! west
 
      IF(Sponge_west_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_west_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
-# endif
+
      DO J=1,N
      DO I=1,M
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -446,11 +415,9 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 ! east
 
      IF(Sponge_east_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_east_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
-# endif
+
      DO J=1,N
      DO I=1,M
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -484,11 +451,9 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 ! south
 
      IF(Sponge_south_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_south_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -513,11 +478,9 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 ! north
 
      IF(Sponge_north_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_north_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>0.0_SP)THEN
@@ -573,11 +536,8 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 # endif
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,Nghost
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
      REAL(SP),INTENT(IN) :: &
                           Sponge_west_width,Sponge_east_width,&
                           Sponge_south_width,Sponge_north_width, &
@@ -592,22 +552,15 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
      tmp_2d_2 = ZERO
      tmp_2d_1 = ZERO
 
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
+
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
 
 ! west
 
      IF(Sponge_west_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_west_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
-# endif
      DO J=1,N
      DO I=1,M
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -631,11 +584,9 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 ! east
 
      IF(Sponge_east_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_east_width/DX)+Nghost
-# else
+
      Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
-# endif
+
      DO J=1,N
      DO I=1,M
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -670,11 +621,9 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 ! south
 
      IF(Sponge_south_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_south_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -699,11 +648,9 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 ! north
 
      IF(Sponge_north_width>ZERO)THEN
-# if defined (CARTESIAN)
-     Iwidth=INT(Sponge_north_width/DY)+Nghost
-# else
+
      Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
-# endif
+
      DO I=1,M
      DO J=1,N
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -781,14 +728,9 @@ SUBROUTINE CALCULATE_CD_BREAKWATER
      if (myid.eq.0) then
 # endif
 
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
+
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
-
      CD_breakwater = ZERO
 
 ! global

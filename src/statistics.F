@@ -77,12 +77,12 @@ SUBROUTINE STATISTICS
 
 # if defined (CARTESIAN)
        IF(MASK(I,J)>0)THEN
-         MassVolume=MassVolume+Eta(I,J)*DX*DY
+         MassVolume=MassVolume+Eta(I,J)*DX(I,J)*DY(I,J)
        ENDIF
 
-       Energy=Energy+0.5_SP*H(I,J)*H(I,J)*GRAV*DX*DY &
-             +0.5_SP*U(I,J)*U(I,J)*H(I,J)*DX*DY &
-             +0.5_SP*V(I,J)*V(I,J)*H(I,J)*DX*DY
+       Energy=Energy+0.5_SP*H(I,J)*H(I,J)*GRAV*DX(I,J)*DY(I,J) &
+             +0.5_SP*U(I,J)*U(I,J)*H(I,J)*DX(I,J)*DY(I,J) &
+             +0.5_SP*V(I,J)*V(I,J)*H(I,J)*DX(I,J)*DY(I,J)
 # else
        IF(MASK(I,J)>0)THEN
          MassVolume=MassVolume+Eta(I,J)*DX(I,J)*DY(I,J)

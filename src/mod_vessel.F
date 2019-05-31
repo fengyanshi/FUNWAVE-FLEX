@@ -381,10 +381,10 @@ SUBROUTINE VESSEL_FORCING
 
        VesselPressureX(I,J) = -Grav*H(I,J)*  &
                (VesselPressureTotal(I+1,J)-VesselPressureTotal(I-1,J))/2.0_SP  &
-               /DX
+               /DX(I,J)
        VesselPressureY(I,J) = -Grav*H(I,J)*  &
                (VesselPressureTotal(I,J+1)-VesselPressureTotal(I,J-1))/2.0_SP  &
-               /DY
+               /DY(I,J)
 
     ENDDO
     ENDDO
@@ -489,21 +489,21 @@ SUBROUTINE PRESSURE_SOURCE (Xves,Yves)
          IF(DetaX>=0)THEN
            ResPosX(Kves) = ResPosX(Kves) &
                   +VesselPressureEach(I,J)*RHO_WATER*GRAV  &
-                  *DetaX*DY
+                  *DetaX*DY(I,J)
          ELSE
            ResNegX(Kves) = ResNegX(Kves) &
                   +VesselPressureEach(I,J)*RHO_WATER*GRAV  &
-                  *DetaX*DY           
+                  *DetaX*DY(I,J)          
          ENDIF
 
          IF(DetaY>=0)THEN
            ResPosY(Kves) = ResPosY(Kves) &
                   +VesselPressureEach(I,J)*RHO_WATER*GRAV  &
-                  *DetaY*DX
+                  *DetaY*DX(I,J)
          ELSE
            ResNegY(Kves) = ResNegY(Kves) &
                   +VesselPressureEach(I,J)*RHO_WATER*GRAV  &
-                  *DetaY*DX          
+                  *DetaY*DX(I,J)          
          ENDIF
 
          ResistanceX(Kves) = ResPosX(Kves) + ResNegX(Kves)
@@ -565,11 +565,11 @@ SUBROUTINE GREEN_FUNCTION_SOURCE (Xves,Yves)
          ABS(Wves)>=WidthVessel(Kves)) THEN
 
         Z_prime(I,J) = Pvessel(Kves)
-        W_farfield = - U(I,J)*(Depth(I+1,J)-Depth(I-1,J))/DX*0.5_SP &
-                     - V(I,J)*(Depth(I,J+1)-Depth(I,J-1))/DY*0.5_SP &
+        W_farfield = - U(I,J)*(Depth(I+1,J)-Depth(I-1,J))/DX(I,J)*0.5_SP &
+                     - V(I,J)*(Depth(I,J+1)-Depth(I,J-1))/DY(I,J)*0.5_SP &
                      - (Depth(I,J)-Z_prime(I,J)) &
-                     * (U(I+1,J)-U(I-1,J))/DX*0.5_SP &
-                      + V(I,J+1)-V(I,J-1))/DY*0.5_SP)
+                     * (U(I+1,J)-U(I-1,J))/DX(I,J)*0.5_SP &
+                      + V(I,J+1)-V(I,J-1))/DY(I,J)*0.5_SP)
 
           r3=((Xco(I,J)-Xves)**2+(Yco(I,J)-Yves)**2+Z_prime**2)**(3.0_SP/2.0_SP)
           Gz(I,J) = -2.0_SP*Z_prime(I,J)/MAX(SMALL,r3)
@@ -585,8 +585,8 @@ SUBROUTINE GREEN_FUNCTION_SOURCE (Xves,Yves)
                        +(Z_prime(I,J) + 2.0_SP*km*Depth(I,J))/r3_4m )
         ENDDO
 
-         VesselFluxGradientEach(I,J) = -1.0_SP /2.0_SP /PI *( (Uvel(Kves)-U(I,J))/DX &
-                               (Uvel(Kves)-U(I,J))/DY -W_farfield/Depth(I,J) )
+         VesselFluxGradientEach(I,J) = -1.0_SP /2.0_SP /PI *( (Uvel(Kves)-U(I,J))/DX(I,J) &
+                               (Uvel(Kves)-U(I,J))/DY(I,J) -W_farfield/Depth(I,J) )
                                
      ENDIF  ! end inside vessel body
 

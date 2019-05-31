@@ -48,32 +48,32 @@ SUBROUTINE eval_sed_load
 					k4=5.93*(ustar_c4+ustar_c)*(MAX(H(I,J),MinDepth)+MAX(H(I,J-1),MinDepth))/4.0
 					IF (U(I+1,J).GE.0.0) THEN
 						F1=CH(I,J)*U(I+1,J)*(H(I+1,J)+H(I,J))/2.0 &
-							-k1*(H(I+1,J)+H(I,J))*(CH(I+1,J)-CH(I,J))/2.0/DX
+							-k1*(H(I+1,J)+H(I,J))*(CH(I+1,J)-CH(I,J))/2.0/DX(I,J)
 					ELSE
 						F1=CH(I+1,J)*U(I+1,J)*(H(I+1,J)+H(I,J))/2.0 &
-							-k1*(H(I+1,J)+H(I,J))*(CH(I+1,J)-CH(I,J))/2.0/DX
+							-k1*(H(I+1,J)+H(I,J))*(CH(I+1,J)-CH(I,J))/2.0/DX(I,J)
 					ENDIF
 					IF (U(I,J).GE.0.0) THEN
 						F2=CH(I-1,J)*U(I,J)*(H(I-1,J)+H(I,J))/2.0 &
-							-k2*(H(I-1,J)+H(I,J))*(CH(I,J)-CH(I-1,J))/2.0/DX
+							-k2*(H(I-1,J)+H(I,J))*(CH(I,J)-CH(I-1,J))/2.0/DX(I,J)
 					ELSE
 						F2=CH(I,J)*U(I,J)*(H(I-1,J)+H(I,J))/2.0 &
-							-k2*(H(I-1,J)+H(I,J))*(CH(I,J)-CH(I-1,J))/2.0/DX
+							-k2*(H(I-1,J)+H(I,J))*(CH(I,J)-CH(I-1,J))/2.0/DX(I,J)
 					ENDIF
 
 					IF (V(I,J+1).GE.0.0) THEN
 						F3=CH(I,J)*V(I,J+1)*(H(I,J)+H(I,J+1))/2.0 &
-							-k3*(H(I,J+1)+H(I,J))*(CH(I,J+1)-CH(I,J))/2.0/DY
+							-k3*(H(I,J+1)+H(I,J))*(CH(I,J+1)-CH(I,J))/2.0/DY(I,J)
 					ELSE
 						F3=CH(I,J+1)*V(I,J+1)*(H(I,J)+H(I,J+1))/2.0 &
-							-k3*(H(I,J+1)+H(I,J))*(CH(I,J+1)-CH(I,J))/2.0/DY
+							-k3*(H(I,J+1)+H(I,J))*(CH(I,J+1)-CH(I,J))/2.0/DY(I,J)
 					ENDIF
 					IF (V(I,J).GE.0.0) THEN
 						F4=CH(I,J-1)*V(I,J)*(H(I,J)+H(I,J-1))/2.0 &
-							-k4*(H(I,J+1)+H(I,J))*(CH(I,J)-CH(I,J-1))/2.0/DY
+							-k4*(H(I,J+1)+H(I,J))*(CH(I,J)-CH(I,J-1))/2.0/DY(I,J)
 					ELSE
 						F4=CH(I,J)*V(I,J)*(H(I,J)+H(I,J-1))/2.0 &
-							-k4*(H(I,J-1)+H(I,J))*(CH(I,J)-CH(I,J-1))/2.0/DY
+							-k4*(H(I,J-1)+H(I,J))*(CH(I,J)-CH(I,J-1))/2.0/DY(I,J)
 					ENDIF
 ! BC (Shoreline)
 						IF (MASK(I+1,J).LT.1) THEN
@@ -110,8 +110,8 @@ SUBROUTINE eval_sed_load
 					
 
 
-					Delta_c(I,J)=((Pickup(I,J)-D(I,J))*DX*DY-(F1-F2)*DY-(F3-F4)*DX) &
-								*DT/DX/DY/H(I,J)      !MAX(H(I,J),MinDepth)
+					Delta_c(I,J)=((Pickup(I,J)-D(I,J))*DX(I,J)*DY(I,J)-(F1-F2)*DY(I,J)-(F3-F4)*DX(I,J)) &
+								*DT/DX(I,J)/DY(I,J)/H(I,J)      !MAX(H(I,J),MinDepth)
 					
 					CH(I,J)=CH(I,J)+Delta_c(I,J)
 					
@@ -206,8 +206,8 @@ SUBROUTINE sediment_solver(ISTEP)
 			F_bottom=Gs(I,J)
 			F_top=Gs(I,J+1)
 			Sed_Source=Pickup(I,J)-D(I,J)
-			RS(I,J)=(-1.0_SP/DX*(F_right*n_right+F_left*n_left) &
-                -1.0_SP/DY*(F_top*n_top+F_bottom*n_bottom) &
+			RS(I,J)=(-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
+                -1.0_SP/DY(I,J)*(F_top*n_top+F_bottom*n_bottom) &
                 +Sed_Source)/H(I,J)
             CH(I,J)=MAX(0.0_SP,ALPHA(ISTEP)*CH0(I,J)+BETA(ISTEP)*(CH(I,J)+DT*RS(I,J))) &
             		*FLOAT(MASK(I,J))
@@ -537,23 +537,23 @@ SUBROUTINE update_bed
 							IF(Zb(I,J).GE.(Zs(I,J)-0.001)) Zb(I,J)=Zs(I,J)   
 							IF(Avalanche)THEN
 !x-direction
-								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
+								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
 										IF(Zb(I,J).LT.Zs(I,J)) THEN
 											IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 												Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP
 											ELSEIF(Depth(I-1,J)+Zb(I-1,J).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 												Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP
 											ENDIF			
 										ELSEIF(Depth(I-1,J)+Zb(I-1,J).LT.Depth(I,J)+Zb(I,J)) THEN
 											IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 												Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP	
@@ -562,23 +562,23 @@ SUBROUTINE update_bed
 									ENDIF
 								ENDIF				
 !y-direction
-								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-									IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
+								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+									IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
 										IF(Zb(I,J).LT.Zs(I,J)) THEN
 											IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 												Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP
 											ELSEIF(Depth(I,J-1)+Zb(I,J-1).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 												Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP
 											ENDIF			
 										ELSEIF(Depth(I,J-1)+Zb(I,J-1).LT.Depth(I,J)+Zb(I,J)) THEN
 											IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 												Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 												Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 												ava(I,J)=1.0_SP
@@ -589,17 +589,17 @@ SUBROUTINE update_bed
 							ENDIF	
 						ELSE
 							IF(Avalanche)THEN
-								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 										Zb(I-1,J)=Zb(I-1,J)-u_c1
 										Zb(I,J)=Zb(I,J)+u_c1
 										ava(I,J)=1.0_SP						
 									ENDIF
 								ENDIF
-								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-									IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+									IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 										Zb(I,J-1)=Zb(I,J-1)-u_c1
 										Zb(I,J)=Zb(I,J)+u_c1
 										ava(I,J)=1.0_SP						
@@ -629,23 +629,23 @@ SUBROUTINE update_bed
 							IF(Zb(I,J).GE.(Zs(I,J)-0.001)) Zb(I,J)=Zs(I,J)   
 								IF(Avalanche)THEN
 !x-direction
-									IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-										IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
+									IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+										IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
 											IF(Zb(I,J).LT.Zs(I,J)) THEN
 												IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 													Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP
 												ELSEIF(Depth(I-1,J)+Zb(I-1,J).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 													Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP
 												ENDIF			
 											ELSEIF(Depth(I-1,J)+Zb(I-1,J).LT.Depth(I,J)+Zb(I,J)) THEN
 												IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 													Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP	
@@ -654,23 +654,23 @@ SUBROUTINE update_bed
 										ENDIF
 									ENDIF				
 !y-direction
-									IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-										IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
+									IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+										IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
 											IF(Zb(I,J).LT.Zs(I,J)) THEN
 												IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 													Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP
 												ELSEIF(Depth(I,J-1)+Zb(I,J-1).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 													Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP
 												ENDIF			
 											ELSEIF(Depth(I,J-1)+Zb(I,J-1).LT.Depth(I,J)+Zb(I,J)) THEN
 												IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 													Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 													Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 													ava(I,J)=1.0_SP
@@ -681,17 +681,17 @@ SUBROUTINE update_bed
 								ENDIF	
 						ELSE
 							IF(Avalanche)THEN
-								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
-				u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+								IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+									IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
+				u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 										Zb(I-1,J)=Zb(I-1,J)-u_c1
 										Zb(I,J)=Zb(I,J)+u_c1
 										ava(I,J)=1.0_SP						
 									ENDIF
 								ENDIF
-							IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-								IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
-				u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+							IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+								IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
+				u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=Zb(I,J-1)-u_c1
 									Zb(I,J)=Zb(I,J)+u_c1
 									ava(I,J)=1.0_SP						
@@ -719,17 +719,17 @@ SUBROUTINE update_bed
 				DO I=Ibeg,Iend
 					IF(IN_Mask_s) THEN
 !x-direction
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
 								IF(Zb(I,J).LT.Zs(I,J)) THEN
 									IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
 									GO TO 96
 									ELSEIF(Depth(I-1,J)+Zb(I-1,J).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -737,7 +737,7 @@ SUBROUTINE update_bed
 									ENDIF			
 								ELSEIF(Depth(I-1,J)+Zb(I-1,J).LT.Depth(I,J)+Zb(I,J)) THEN
 									IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -747,17 +747,17 @@ SUBROUTINE update_bed
 							ENDIF
 						ENDIF				
 !y-direction
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
 								IF(Zb(I,J).LT.Zs(I,J)) THEN
 									IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
 									GO TO 96
 									ELSEIF(Depth(I,J-1)+Zb(I,J-1).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -765,7 +765,7 @@ SUBROUTINE update_bed
 									ENDIF			
 								ELSEIF(Depth(I,J-1)+Zb(I,J-1).LT.Depth(I,J)+Zb(I,J)) THEN
 									IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -775,18 +775,18 @@ SUBROUTINE update_bed
 							ENDIF
 						ENDIF	
 					ELSE
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 							Zb(I-1,J)=Zb(I-1,J)-u_c1
 							Zb(I,J)=Zb(I,J)+u_c1
 							ava(I,J)=1.0_SP
 							GO TO 96													
 							ENDIF
 						ENDIF
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 							Zb(I,J-1)=Zb(I,J-1)-u_c1
 							Zb(I,J)=Zb(I,J)+u_c1
 							ava(I,J)=1.0_SP	
@@ -801,17 +801,17 @@ SUBROUTINE update_bed
  				DO J=Jbeg,Jend
 					IF(IN_Mask_s) THEN
 !x-direction
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
 								IF(Zb(I,J).LT.Zs(I,J)) THEN
 									IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
 									GO TO 96
 									ELSEIF(Depth(I-1,J)+Zb(I-1,J).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -819,7 +819,7 @@ SUBROUTINE update_bed
 									ENDIF			
 								ELSEIF(Depth(I-1,J)+Zb(I-1,J).LT.Depth(I,J)+Zb(I,J)) THEN
 									IF(Zb(I-1,J).LT.Zs(I-1,J)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 									Zb(I-1,J)=MIN(Zb(I-1,J)-u_c1,Zs(I-1,J))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -829,17 +829,17 @@ SUBROUTINE update_bed
 							ENDIF
 						ENDIF				
 !y-direction
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
 								IF(Zb(I,J).LT.Zs(I,J)) THEN
 									IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
 									GO TO 96
 									ELSEIF(Depth(I,J-1)+Zb(I,J-1).GT.Depth(I,J)+Zb(I,J)) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -847,7 +847,7 @@ SUBROUTINE update_bed
 									ENDIF			
 								ELSEIF(Depth(I,J-1)+Zb(I,J-1).LT.Depth(I,J)+Zb(I,J)) THEN
 									IF(Zb(I,J-1).LT.Zs(I,J-1)) THEN	
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 									Zb(I,J-1)=MIN(Zb(I,J-1)-u_c1,Zs(I,J-1))
 									Zb(I,J)=MIN(Zb(I,J)+u_c1,Zs(I,J))
 									ava(I,J)=1.0_SP
@@ -857,18 +857,18 @@ SUBROUTINE update_bed
 							ENDIF
 						ENDIF	
 					ELSE
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX*tan_phi)
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I-1,J)-Zb(I-1,J))/DX(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I-1,J))/DX(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I-1,J)+Zb(I-1,J)+DX(I,J)*tan_phi)
 							Zb(I-1,J)=Zb(I-1,J)-u_c1
 							Zb(I,J)=Zb(I,J)+u_c1
 							ava(I,J)=1.0_SP
 							GO TO 96													
 							ENDIF
 						ENDIF
-						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY.GT.tan_phi) THEN 
-							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY.LT.tan_phi) THEN
-					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY*tan_phi)
+						IF(ABS(Depth(I,J)+Zb(I,J)-Depth(I,J-1)-Zb(I,J-1))/DY(I,J).GT.tan_phi) THEN 
+							IF(ABS(Depth(I,J)-Depth(I,J-1))/DY(I,J).LT.tan_phi) THEN
+					u_c1=0.5_sp*(-Depth(I,J)-Zb(I,J)+Depth(I,J-1)+Zb(I,J-1)+DY(I,J)*tan_phi)
 							Zb(I,J-1)=Zb(I,J-1)-u_c1
 							Zb(I,J)=Zb(I,J)+u_c1
 							ava(I,J)=1.0_SP	

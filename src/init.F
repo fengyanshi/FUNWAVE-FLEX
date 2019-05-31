@@ -113,6 +113,7 @@ SUBROUTINE ALLOCATE_VARIABLES
 	        !ykchoi
 	        ETA2sum(Mloc,Nloc), ETA2mean(Mloc,Nloc), &
 			SigWaveHeight(Mloc,Nloc),  &
+                        Dx(Mloc,Nloc),Dy(Mloc,Nloc), &
 # if defined (CARTESIAN)
               U4xL(Mloc1,Nloc),U4xR(Mloc1,Nloc),&
               V4yL(Mloc,Nloc1),V4yR(Mloc,Nloc1), &
@@ -127,7 +128,7 @@ SUBROUTINE ALLOCATE_VARIABLES
 	      V4xL(Mloc1,Nloc),V4xR(Mloc1,Nloc),&  
 	      U4yL(Mloc,Nloc1),U4yR(Mloc,Nloc1), &  
 # endif
-              Dx(Mloc,Nloc),Dy(Mloc,Nloc), Coriolis(Mloc,Nloc), &
+              Coriolis(Mloc,Nloc), &
               SlopeX(Mloc,Nloc),SlopeY(Mloc,Nloc), &
               Lat_theta(Mloc,Nloc) &
 # endif
@@ -231,6 +232,69 @@ SUBROUTINE INITIALIZATION
      REAL(SP),DIMENSION(:,:),ALLOCATABLE :: VarGlob
      REAL(SP) :: myvar_tmp
 # endif
+
+# if defined (CARTESIAN)
+
+   IF(StretchGrid) THEN
+# if defined (PARALLEL)
+       CALL GetFile(DX_FILE,Dx)
+       CALL GetFile(DY_FILE,Dy)
+# else
+      OPEN(1,FILE=TRIM(DX_FILE))
+       DO J=Jbeg,Jend
+         READ(1,*)(Dx(I,J),I=Ibeg,Iend)
+       ENDDO
+      CLOSE(1)
+
+      OPEN(1,FILE=TRIM(DY_FILE))
+       DO J=Jbeg,Jend
+         READ(1,*)(Dy(I,J),I=Ibeg,Iend)
+       ENDDO
+      CLOSE(1)
+
+! ghost cells
+     DO I=Ibeg,Iend
+       DO J=1,Nghost
+        Dx(I,J)=Dx(I,Jbeg)
+        Dy(I,J)=Dy(I,Jbeg)
+        Coriolis(I,J)=Coriolis(I,Jbeg)
+       ENDDO
+       DO J=Jend+1,Nloc
+        Dx(I,J)=Dx(I,Jend)
+        Dy(I,J)=Dy(I,Jend)
+        Coriolis(I,J)=Coriolis(I,Jend)
+       ENDDO
+     ENDDO
+
+     DO J=1,Nloc
+       DO I=1,Nghost
+        Dx(I,J)=Dx(Ibeg,J)
+        Dy(I,J)=Dy(Ibeg,J)
+        Coriolis(I,J)=Coriolis(Ibeg,J)
+       ENDDO
+       DO I=Iend+1,Mloc
+        Dx(I,J)=Dx(Iend,J)
+        Dy(I,J)=Dy(Iend,J)
+        Coriolis(I,J)=Coriolis(Iend,J)
+       ENDDO
+     ENDDO  
+
+# endif
+! end parallel
+
+   ELSE  ! not stretched
+
+     DO J=1,Nloc
+     DO I=1,Mloc
+       DX(I,J)=DX_input
+       DY(I,J)=DY_input
+     ENDDO
+     ENDDO
+
+   ENDIF ! end stretched
+
+# endif
+! end carteisan
 
 # if !defined (CARTESIAN)
      REAL(SP)::Dphi_r,Dtheta_r
@@ -460,12 +524,7 @@ SUBROUTINE INITIALIZATION
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX
-# if defined (CARTESIAN)
-     Xco(Ibeg) = (iista-1)*DX
-# else
     Xco(Ibeg) = (iista-1)*DX(1,1)
-# endif 
 ! cartesian
 !---ykchoi Jan/23/2018]
 # else
@@ -473,45 +532,22 @@ SUBROUTINE INITIALIZATION
 # endif
 
      DO I = Ibeg+1,Mloc
-# if defined (CARTESIAN)
-       Xco(I) = Xco(I-1)+DX
-# else
        Xco(I) = Xco(I-1)+DX(1,1)
-# endif
      ENDDO
      DO I = Ibeg-1,Ibeg-Nghost,-1
-# if defined (CARTESIAN)
-       Xco(I) = Xco(I+1)-DX
-# else
        Xco(I) = Xco(I+1)-DX(1,1)
-# endif
      ENDDO
 
 # if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY
-# if defined (CARTESIAN)
-     Yco(Jbeg) = (jjsta-1)*DY
-# else
      Yco(Jbeg) = (jjsta-1)*DY(1,1)
-#endif
-!---ykchoi Jan/23/2018]
 # else
      Yco(Jbeg) = ZERO
 # endif
      DO J = Jbeg+1,Nloc
-# if defined (CARTESIAN)
-       Yco(J) = Yco(J-1)+DY
-# else
        Yco(J) = Yco(J-1)+DY(1,1)
-# endif
      ENDDO
      DO J = Jbeg-1,Jbeg-Nghost,-1
-# if defined (CARTESIAN)
-       Yco(J) = Yco(J+1)-DY
-# else
        Yco(J) = Yco(J+1)-DY(1,1)
-# endif
      ENDDO
 
           
@@ -613,15 +649,10 @@ SUBROUTINE INITIALIZATION
      DO I=1,Mglob
       VarGlob(I,J) = Depth_FLat
      ENDDO
-# if defined (CARTESIAN)
-     DO I=INT(Xslp/DX)+1,Mglob
-      VarGlob(I,J) = Depth_Flat-SLP*(I-(INT(Xslp/DX)+1))*DX
-     ENDDO
-# else
+
      DO I=INT(Xslp/DX(1,1))+1,Mglob
       VarGlob(I,J) = Depth_Flat-SLP*(I-(INT(Xslp/DX(1,1))+1))*DX(1,1)
      ENDDO
-# endif
     ENDDO ! end of J
 
     CALL DISTRIBUTE_VarGlob (VarGlob,Depth)
@@ -633,30 +664,15 @@ SUBROUTINE INITIALIZATION
 # else
 
   IF(DEPTH_TYPE(1:3)=='SLO') THEN
-# if defined (CARTESIAN)
-! dont need this
-!    IF(INT(Xslp/DX)>Mloc.OR.INT(Xslp/DX)<1)THEN
-# else
-!    IF(INT(Xslp/DX(1,1))>Mloc.OR.INT(Xslp/DX(1,1))<1)THEN
-# endif
-!      WRITE(*,*)'Please reset Xslp, STOP!'
-!      STOP
-!    ENDIF
 
     DO J=Jbeg,Jend
      DO I=Ibeg,Iend
       Depth(I,J) = Depth_FLat
      ENDDO
 
-# if defined (CARTESIAN)
-     DO I=INT(Xslp/DX)+1+Ibeg,Iend
-      Depth(I,J) = Depth_Flat-SLP*(I-(INT(Xslp/DX)+1+Ibeg))*DX
-     ENDDO
-# else
      DO I=INT(Xslp/DX(1,1))+1+Ibeg,Iend
       Depth(I,J) = Depth_Flat-SLP*(I-(INT(Xslp/DX(1,1))+1+Ibeg))*DX(1,1)
      ENDDO
-# endif
     ENDDO
   ENDIF
 # endif
@@ -774,7 +790,7 @@ SUBROUTINE INITIALIZATION
 
 ! initial solitary wave
      IF(WaveMaker(1:7)=='INI_SOL') THEN
-       CALL INITIAL_SOLITARY_WAVE(Mloc,Nloc, DX,Xwavemaker,& 
+       CALL INITIAL_SOLITARY_WAVE(Mloc,Nloc, DX(1,1),Xwavemaker,& 
           AMP_SOLI,Dep_Soli,Beta_ref,U,V,Eta,SolitaryPositiveDirection)
      ENDIF
 
@@ -782,7 +798,7 @@ SUBROUTINE INITIALIZATION
 
 ! initial N wave
      IF(WaveMaker(1:6)=='N_WAVE') THEN
-       CALL INITIAL_N_WAVE(Mloc,Nloc, DX,x1_Nwave,& 
+       CALL INITIAL_N_WAVE(Mloc,Nloc, DX(1,1),x1_Nwave,& 
           x2_Nwave,a0_Nwave,gamma_Nwave,dep_Nwave,U,V,Eta)
      ENDIF
 
@@ -791,7 +807,7 @@ SUBROUTINE INITIALIZATION
 ! initial rectangular hump
      IF(WaveMaker(1:7)=='INI_REC') THEN
 # if defined (CARTESIAN)
-       CALL INITIAL_RECTANGULAR(Mloc,Nloc,Nghost,DX,DY,Xc,Yc,WID,AMP_SOLI, &
+       CALL INITIAL_RECTANGULAR(Mloc,Nloc,Nghost,DX(1,1),DY(1,1),Xc,Yc,WID,AMP_SOLI, &
                       Eta)
 # else
        CALL INITIAL_RECTANGULAR(Mloc,Nloc,Nghost,Dphi,Dtheta,Lon_West,Lat_South, &
@@ -803,7 +819,7 @@ SUBROUTINE INITIALIZATION
 ! initial gausian hump
      IF(WaveMaker(1:7)=='INI_GAU') THEN
 # if defined (CARTESIAN)
-       CALL INITIAL_GAUSIAN(Mloc,Nloc,Nghost,DX,DY,Xc,Yc,AMP_SOLI, WID,&
+       CALL INITIAL_GAUSIAN(Mloc,Nloc,Nghost,DX(1,1),DY(1,1),Xc,Yc,AMP_SOLI, WID,&
                       Eta)
 # else
        CALL INITIAL_GAUSIAN(Mloc,Nloc,Nghost,Dphi,Dtheta,Lon_West,Lat_South, &
@@ -813,7 +829,7 @@ SUBROUTINE INITIALIZATION
 ! initial dipole from x-derivative of gausian hump
      IF(WaveMaker(1:7)=='INI_DIP') THEN
 # if defined (CARTESIAN)
-       CALL INITIAL_DIPOLE(Mloc,Nloc,Nghost,DX,DY,Xc,Yc,AMP_SOLI, WID,&
+       CALL INITIAL_DIPOLE(Mloc,Nloc,Nghost,DX(1,1),DY(1,1),Xc,Yc,AMP_SOLI, WID,&
                       Eta)
 # else
        CALL INITIAL_DIPOLE(Mloc,Nloc,Nghost,Dphi,Dtheta,Lon_West,Lat_South, &

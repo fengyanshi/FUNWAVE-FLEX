@@ -204,11 +204,8 @@ END SUBROUTINE DelxyFun
 SUBROUTINE DelyFun(DY,M,N,DIN,DOUT)
      USE PARAM
      IMPLICIT NONE
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DY
-# endif
+
      INTEGER,INTENT(IN)::M,N
      REAL(SP),INTENT(IN),DIMENSION(M,N)::DIN
      REAL(SP),INTENT(OUT),DIMENSION(M,N)::DOUT
@@ -217,13 +214,10 @@ SUBROUTINE DelyFun(DY,M,N,DIN,DOUT)
 ! van Leer Limiter     
      DO I=1,M
      DO J=2,N-1
-# if defined (CARTESIAN)
-      TMP1=(DIN(I,J+1)-DIN(I,J))/DY
-      TMP2=(DIN(I,J)-DIN(I,J-1))/DY
-# else
+
       TMP1=(DIN(I,J+1)-DIN(I,J))/DY(I,J)
       TMP2=(DIN(I,J)-DIN(I,J-1))/DY(I,J-1)
-# endif
+
       IF((ABS(TMP1)+ABS(TMP2))<SMALL)THEN
 !       !WRITE(*,*)'WARNING É (a+b) in limiter x is too small','(I,J)',I,J
         DOUT(I,J)=ZERO
@@ -236,13 +230,10 @@ SUBROUTINE DelyFun(DY,M,N,DIN,DOUT)
      ENDDO
 
      DO I=1,M
-# if defined (CARTESIAN)
-      DOUT(I,1)=(DIN(I,2)-DIN(I,1))/DY
-      DOUT(I,N)=(DIN(I,N)-DIN(I,N-1))/DY
-# else
+
       DOUT(I,1)=(DIN(I,2)-DIN(I,1))/DY(I,1)
       DOUT(I,N)=(DIN(I,N)-DIN(I,N-1))/DY(I,N)
-# endif
+
      ENDDO
 
 END SUBROUTINE DelyFun
@@ -258,11 +249,8 @@ END SUBROUTINE DelyFun
 SUBROUTINE DelxFun(DX,M,N,DIN,DOUT)
      USE PARAM
      IMPLICIT NONE
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX
-# endif
+
      INTEGER,INTENT(IN)::M,N
      REAL(SP),INTENT(IN),DIMENSION(M,N)::DIN
      REAL(SP),INTENT(OUT),DIMENSION(M,N)::DOUT
@@ -271,13 +259,10 @@ SUBROUTINE DelxFun(DX,M,N,DIN,DOUT)
 ! van Leer Limiter     
      DO I=2,M-1
      DO J=1,N
-# if defined (CARTESIAN)
-      TMP1=(DIN(I+1,J)-DIN(I,J))/DX
-      TMP2=(DIN(I,J)-DIN(I-1,J))/DX
-# else
+
       TMP1=(DIN(I+1,J)-DIN(I,J))/DX(I,J)
       TMP2=(DIN(I,J)-DIN(I-1,J))/DX(I-1,J)
-# endif
+
       IF((ABS(TMP1)+ABS(TMP2))<SMALL)THEN
 !       !WRITE(*,*)'WARNING É (a+b) in limiter y is too small','(I,J)',I,J
         DOUT(I,J)=ZERO
@@ -289,13 +274,10 @@ SUBROUTINE DelxFun(DX,M,N,DIN,DOUT)
      ENDDO
 
      DO J=1,N
-# if defined (CARTESIAN)
-      DOUT(1,J)=(DIN(2,J)-DIN(1,J))/DX
-      DOUT(M,J)=(DIN(M,J)-DIN(M-1,J))/DX
-# else
+
       DOUT(1,J)=(DIN(2,J)-DIN(1,J))/DX(1,J)
       DOUT(M,J)=(DIN(M,J)-DIN(M-1,J))/DX(M,J)
-# endif
+
      ENDDO
 
 END SUBROUTINE DelxFun
@@ -660,11 +642,7 @@ SUBROUTINE CONSTRUCT_Y(M,N,N1,DY,Vin,Din,OutL,OutR,Kappa)
      USE PARAM
      IMPLICIT NONE
      INTEGER,INTENT(IN)::M,N,N1
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DY
-# endif
      REAL(SP),INTENT(IN),DIMENSION(M,N)::Vin,Din
      REAL(SP),INTENT(IN) :: Kappa
      REAL(SP),INTENT(OUT),DIMENSION(M,N1)::OutL,OutR
@@ -677,22 +655,16 @@ SUBROUTINE CONSTRUCT_Y(M,N,N1,DY,Vin,Din,OutL,OutR,Kappa)
      DO I=1,M
         
         DO J=2,N
-# if defined (CARTESIAN)
-           OutL(I,J) = Vin(I,J-1) + 0.5_SP*DY*Din(I,J-1)
-           OutR(I,J) = Vin(I,J) - 0.5_SP*DY*Din(I,J)
-# else
+
            OutL(I,J) = Vin(I,J-1) + 0.5_SP*DY(I,J-1)*Din(I,J-1)
            OutR(I,J) = Vin(I,J) - 0.5_SP*DY(I,J)*Din(I,J)
-# endif
+
         ENDDO
 
-# if defined (CARTESIAN)
-        OutL(I,N1) = Vin(I,N) + 0.5_SP*DY*Din(I,N)
-        OutR(I,1) = Vin(I,1) - 0.5_SP*DY*Din(I,1)
-# else
+
         OutL(I,N1) = Vin(I,N) + 0.5_SP*DY(I,N)*Din(I,N)
         OutR(I,1) = Vin(I,1) - 0.5_SP*DY(I,1)*Din(I,1)
-# endif
+
         OutL(I,1)=OutR(I,1)
         OutR(I,N1)=OutL(I,N1)
 
@@ -717,11 +689,9 @@ SUBROUTINE CONSTRUCT_X(M,M1,N,DX,Vin,Din,OutL,OutR,Kappa)
      USE PARAM
      IMPLICIT NONE
      INTEGER,INTENT(IN)::M,M1,N
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX
-# endif
+
      REAL(SP),INTENT(IN),DIMENSION(M,N)::Vin,Din
      REAL(SP),INTENT(IN)::Kappa
      REAL(SP),INTENT(OUT),DIMENSION(M1,N)::OutL,OutR
@@ -733,21 +703,15 @@ SUBROUTINE CONSTRUCT_X(M,M1,N,DX,Vin,Din,OutL,OutR,Kappa)
      DO J=1,N
         
 	  DO I=2,M
-# if defined (CARTESIAN)
-          OutL(I,J) = Vin(I-1,J) + 0.5_SP*DX*Din(I-1,J)
-          OutR(I,J) = Vin(I,J) - 0.5_SP*DX*Din(I,J)
-# else
+
           OutL(I,J) = Vin(I-1,J) + 0.5_SP*DX(I-1,J)*Din(I-1,J)
           OutR(I,J) = Vin(I,J) - 0.5_SP*DX(I,J)*Din(I,J)
-# endif
+
         ENDDO
-# if defined (CARTESIAN)
-        OutL(M1,J) = Vin(M,J) + 0.5_SP*DX*Din(M,J)
-        OutR(1,J) = Vin(1,J) - 0.5_SP*DX*Din(1,J)
-# else
+
         OutL(M1,J) = Vin(M,J) + 0.5_SP*DX(M,J)*Din(M,J)
         OutR(1,J) = Vin(1,J) - 0.5_SP*DX(1,J)*Din(1,J)
-# endif
+
         OutL(1,J) = OutR(1,J)
         OutR(M1,J) = OutL(M1,J)
 
@@ -995,11 +959,9 @@ SUBROUTINE CONSTRUCT_HO_X_minmod(M,N,M1,Ibeg,Iend,Jbeg,Jend,DX,MASK,Vin,OutL,Out
      USE PARAM
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,M1,Ibeg,Iend,Jbeg,Jend
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX
-# endif
+
      REAL(SP),INTENT(IN),DIMENSION(M,N)::Vin
      INTEGER, INTENT(IN),DIMENSION(M,N):: MASK
      REAL(SP),INTENT(OUT),DIMENSION(M1,N)::OutL,OutR
@@ -1113,11 +1075,9 @@ SUBROUTINE CONSTRUCT_HO_Y_minmod(M,N,N1,Ibeg,Iend,Jbeg,Jend,DY,MASK,Vin,OutL,Out
      USE PARAM
      IMPLICIT NONE
      INTEGER, INTENT(IN)::M,N,N1,Ibeg,Iend,Jbeg,Jend
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DY
-# endif
+
      REAL(SP),INTENT(IN),DIMENSION(M,N)::Vin
      INTEGER, INTENT(IN),DIMENSION(M,N):: MASK
      REAL(SP),INTENT(OUT),DIMENSION(M,N1)::OutL,OutR

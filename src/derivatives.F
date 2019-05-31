@@ -54,23 +54,17 @@ SUBROUTINE DERIVATIVE_Y_High(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DY
-# endif
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I,J+2)+2.0_SP*Uin(I,J+1)    &
-                 -Uin(I,J-2)-2.0_SP*Uin(I,J-1))/DY/8.0_SP*MASK(I,J)
-# else
+
        Uout(I,J)= (Uin(I,J+2)+2.0_SP*Uin(I,J+1)    &
                  -Uin(I,J-2)-2.0_SP*Uin(I,J-1))/DY(I,J)/8.0_SP*MASK(I,J)
-# endif
+
      ENDDO
      ENDDO
 
@@ -90,23 +84,17 @@ SUBROUTINE DERIVATIVE_X_High(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I+2,J)+2.0_SP*Uin(I+1,J)    &
-                 -Uin(I-2,J)-2.0_SP*Uin(I-1,J))/DX/8.0_SP*MASK(I,J)
-# else
+
        Uout(I,J)= (Uin(I+2,J)+2.0_SP*Uin(I+1,J)    &
                  -Uin(I-2,J)-2.0_SP*Uin(I-1,J))/DX(I,J)/8.0_SP*MASK(I,J)
-# endif
      ENDDO
      ENDDO
 
@@ -125,23 +113,18 @@ SUBROUTINE DERIVATIVE_Y(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DY
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I,J+1)   &
-                 -Uin(I,J-1))/DY/2.0_SP*MASK(I,J)
-# else
+
        Uout(I,J)= (Uin(I,J+1)   &
                  -Uin(I,J-1))/DY(I,J)/2.0_SP*MASK(I,J)
-# endif
+
      ENDDO
      ENDDO
 
@@ -160,23 +143,18 @@ SUBROUTINE DERIVATIVE_X(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I+1,J)    &
-                 -Uin(I-1,J))/DX/2.0_SP*MASK(I,J)
-# else
+
        Uout(I,J)= (Uin(I+1,J)    &
                  -Uin(I-1,J))/DX(I,J)/2.0_SP*MASK(I,J)
-# endif
+
      ENDDO
      ENDDO
 
@@ -194,23 +172,15 @@ SUBROUTINE DERIVATIVE_YY(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DY
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I,J+1)-2.0_SP*Uin(I,J) & 
-                 +Uin(I,J-1))/DY/DY*MASK(I,J)
-# else
        Uout(I,J)= (Uin(I,J+1)-2.0_SP*Uin(I,J) & 
                  +Uin(I,J-1))/DY(I,J)/DY(I,J)*MASK(I,J)
-# endif
      ENDDO
      ENDDO
 
@@ -228,25 +198,16 @@ SUBROUTINE DERIVATIVE_XY(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX,DY
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX,DY
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       tmp1=(Uin(I+1,J+1)-Uin(I+1,J-1))/2.0_SP/DY
-       tmp2=(Uin(I-1,J+1)-Uin(I-1,J-1))/2.0_SP/DY
-       Uout(I,J)= (tmp1-tmp2)/2.0_SP/DX*MASK(I,J)
-# else
        tmp1=(Uin(I+1,J+1)-Uin(I+1,J-1))/2.0_SP/DY(I,J)
        tmp2=(Uin(I-1,J+1)-Uin(I-1,J-1))/2.0_SP/DY(I,J)
        Uout(I,J)= (tmp1-tmp2)/2.0_SP/DX(I,J)*MASK(I,J)
-# endif
      ENDDO
      ENDDO
 
@@ -265,24 +226,18 @@ SUBROUTINE DERIVATIVE_XX(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX
-# else
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
 ! I assume no 2nd derivative 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J)= (Uin(I+1,J)-2.0_SP*Uin(I,J) & 
-                 +Uin(I-1,J))/DX/DX*MASK(I,J)
-# else
+
        Uout(I,J)= (Uin(I+1,J)-2.0_SP*Uin(I,J) & 
                  +Uin(I-1,J))/DX(I,J)/DX(I,J)*MASK(I,J)
-# endif
+
      ENDDO
      ENDDO
 
@@ -301,28 +256,14 @@ SUBROUTINE DERIVATIVE_XY_HIGH(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX,DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX,DY
-# endif
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       tmp1=1.0_SP/12.0_SP/DY*(Uin(I-2,J-2)-8.0_SP*Uin(I-2,J-1) &
-                             +8.0_SP*Uin(I-2,J+1)-Uin(I-2,J+2))
-       tmp2=1.0_SP/12.0_SP/DY*(Uin(I-1,J-2)-8.0_SP*Uin(I-1,J-1) &
-                             +8.0_SP*Uin(I-1,J+1)-Uin(I-1,J+2))
-       tmp3=1.0_SP/12.0_SP/DY*(Uin(I+1,J-2)-8.0_SP*Uin(I+1,J-1) &
-                             +8.0_SP*Uin(I+1,J+1)-Uin(I+1,J+2))
-       tmp4=1.0_SP/12.0_SP/DY*(Uin(I+2,J-2)-8.0_SP*Uin(I+2,J-1) &
-                             +8.0_SP*Uin(I+2,J+1)-Uin(I+2,J+2))
-       Uout(I,J)=MASK(I,J)/12.0_SP/DX*(tmp1-8.0_SP*tmp2 &
-                             +8.0_SP*tmp3-tmp4)
-# else
+
 ! to assure symmetric, use locally constant dx and dy
        tmp1=1.0_SP/12.0_SP/DY(I,J)*(Uin(I-2,J-2)-8.0_SP*Uin(I-2,J-1) &
                              +8.0_SP*Uin(I-2,J+1)-Uin(I-2,J+2))
@@ -334,7 +275,6 @@ SUBROUTINE DERIVATIVE_XY_HIGH(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,DY,Uin,Uout)
                              +8.0_SP*Uin(I+2,J+1)-Uin(I+2,J+2))
        Uout(I,J)=MASK(I,J)/12.0_SP/DX(I,J)*(tmp1-8.0_SP*tmp2 &
                              +8.0_SP*tmp3-tmp4)
-# endif
      ENDDO
      ENDDO
 
@@ -353,24 +293,18 @@ SUBROUTINE DERIVATIVE_XX_HIGH(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DX,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DX
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DX
-# endif
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
 ! I assume no 2nd derivative 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J) = MASK(I,J)*1.0_SP/12.0_SP/DX/DX*(-Uin(I-2,J)+16.0_SP*Uin(I-1,J)   &
-                -30.0_SP*Uin(I,J)+16.0_SP*Uin(I+1,J)-Uin(I+2,J))
-# else
+
        Uout(I,J) = MASK(I,J)*1.0_SP/12.0_SP/DX(I,J)/DX(I,J)*(-Uin(I-2,J)+16.0_SP*Uin(I-1,J)   &
                 -30.0_SP*Uin(I,J)+16.0_SP*Uin(I+1,J)-Uin(I+2,J))
-# endif
+
      ENDDO
      ENDDO
 
@@ -389,23 +323,17 @@ SUBROUTINE DERIVATIVE_YY_HIGH(M,N,Ibeg,Iend,Jbeg,Jend,MASK,DY,Uin,Uout)
      IMPLICIT NONE
      INTEGER,INTENT(IN) :: M,N,Ibeg,Iend,Jbeg,Jend
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: Uin
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN) :: DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN) :: DY
-# endif
+
      INTEGER,DIMENSION(M,N),INTENT(IN) :: MASK
      REAL(SP),DIMENSION(M,N),INTENT(OUT) :: Uout
 
      DO J=Jbeg,Jend
      DO I=Ibeg,Iend
-# if defined (CARTESIAN)
-       Uout(I,J) = MASK(I,J)*1.0_SP/12.0_SP/DY/DY*(-Uin(I,J-2)+16.0_SP*Uin(I,J-1)   &
-                -30.0_SP*Uin(I,J)+16.0_SP*Uin(I,J+1)-Uin(I,J+2))
-# else
+
        Uout(I,J) = MASK(I,J)*1.0_SP/12.0_SP/DY(I,J)/DY(I,J)*(-Uin(I,J-2)+16.0_SP*Uin(I,J-1)   &
                 -30.0_SP*Uin(I,J)+16.0_SP*Uin(I,J+1)-Uin(I+2,J+2))
-# endif
      ENDDO
      ENDDO
 

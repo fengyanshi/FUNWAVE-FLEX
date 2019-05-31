@@ -251,44 +251,44 @@ SUBROUTINE READ_INPUT
 ! grid 
 # if defined (CARTESIAN)
 
-      CALL READ_FLOAT(DX,FILE_NAME,'DX',ierr)
+      CALL READ_FLOAT(DX_input,FILE_NAME,'DX',ierr)
 
       IF(ierr==1)THEN
          PRINT *,"Did you intend to use Spherical Coordinates?"
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'DX:', 'NOT DEFINED, STOP'
-         WRITE(3,'(A40,A40)')'DX:', 'NOT DEFINED, STOP'
+         WRITE(*,'(A40,A40)')'DX_input:', 'NOT DEFINED, STOP'
+         WRITE(3,'(A40,A40)')'DX_input:', 'NOT DEFINED, STOP'
       endif
        call MPI_FINALIZE ( ier )
 # else
-         WRITE(*,'(A40,A40)')'DX:', 'NOT DEFINED, STOP'
-         WRITE(3,'(A40,A40)')'DX:', 'NOT DEFINED, STOP'
+         WRITE(*,'(A40,A40)')'DX_input:', 'NOT DEFINED, STOP'
+         WRITE(3,'(A40,A40)')'DX_input:', 'NOT DEFINED, STOP'
 # endif
         STOP
       ENDIF
 
 
-      CALL READ_FLOAT(DY,FILE_NAME,'DY',ierr)
+      CALL READ_FLOAT(DY_input,FILE_NAME,'DY',ierr)
 
       IF(ierr==1)THEN
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'DY:', 'NOT DEFINED, STOP'
-         WRITE(3,'(A40,A40)')'DY:', 'NOT DEFINED, STOP'
+         WRITE(*,'(A40,A40)')'DY_input:', 'NOT DEFINED, STOP'
+         WRITE(3,'(A40,A40)')'DY_input:', 'NOT DEFINED, STOP'
       endif
        call MPI_FINALIZE ( ier )
 # else
-         WRITE(*,'(A40,A40)')'DY:', 'NOT DEFINED, STOP'
-         WRITE(3,'(A40,A40)')'DY:', 'NOT DEFINED, STOP'
+         WRITE(*,'(A40,A40)')'DY_input:', 'NOT DEFINED, STOP'
+         WRITE(3,'(A40,A40)')'DY_input:', 'NOT DEFINED, STOP'
 # endif
         STOP
       ENDIF
 
 # if defined (PARALLEL)
-      if (myid.eq.0) WRITE(3,'(A4,F12.2,A4,F12.2)')'DX=',DX,'DY=',DY
+      if (myid.eq.0) WRITE(3,'(A4,F12.2,A4,F12.2)')'DX=',DX_input,'DY=',DY_input
 # else
-      WRITE(3,'(A4,F12.2,A4,F12.2)')'DX=',DX,'DY=',DY
+      WRITE(3,'(A4,F12.2,A4,F12.2)')'DX=',DX_input,'DY=',DY_input
 # endif
 
 # else

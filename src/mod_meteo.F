@@ -411,33 +411,33 @@ SUBROUTINE Holland_Model_Setup
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!      Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX
-	Xco(Ibeg) = (iista-1)*DX
+!      Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
+	Xco(Ibeg) = (iista-1)*DX(1,1)
 !---ykchoi Jan/23/2018]
 
 # else
      Xco(Ibeg) = ZERO
 # endif
      DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX
+       Xco(I) = Xco(I-1)+DX(1,1)
      ENDDO
      DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX
+       Xco(I) = Xco(I+1)-DX(1,1)
      ENDDO
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY
-      Yco(Jbeg) = (jjsta-1)*DY
+!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
+      Yco(Jbeg) = (jjsta-1)*DY(1,1)
 !---ykchoi Jan/23/2018]
 # else
      Yco(Jbeg) = ZERO
 # endif
      DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY
+       Yco(J) = Yco(J-1)+DY(1,1)
      ENDDO
      DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY
+       Yco(J) = Yco(J+1)-DY(1,1)
      ENDDO
 
     TMP_NAME = TRIM(STORM_FILE)
@@ -658,10 +658,10 @@ SUBROUTINE Holland_Model_Forcing
     DO I=Ibeg,Iend
        StormPressureX(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I+1,J)-StormPressureTotal(I-1,J))/2.0_SP  &
-               /DX
+               /DX(I,J)
        StormPressureY(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I,J+1)-StormPressureTotal(I,J-1))/2.0_SP  &
-               /DY
+               /DY(I,J)
     ENDDO
     ENDDO
    ENDIF
@@ -762,32 +762,32 @@ SUBROUTINE Slide_Model_Setup
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX
-      Xco(Ibeg) = (iista-1)*DX
+!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
+      Xco(Ibeg) = (iista-1)*DX(1,1)
 !---ykchoi Jan/23/2018]
 # else
      Xco(Ibeg) = ZERO
 # endif
      DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX
+       Xco(I) = Xco(I-1)+DX(1,1)
      ENDDO
      DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX
+       Xco(I) = Xco(I+1)-DX(1,1)
      ENDDO
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY
-      Yco(Jbeg) = (jjsta-1)*DY
+!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
+      Yco(Jbeg) = (jjsta-1)*DY(1,1)
 !---ykchoi Jan/23/2018]
 # else
      Yco(Jbeg) = ZERO
 # endif
      DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY
+       Yco(J) = Yco(J-1)+DY(1,1)
      ENDDO
      DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY
+       Yco(J) = Yco(J+1)-DY(1,1)
      ENDDO
 
     TMP_NAME = TRIM(SLIDE_FILE)
@@ -936,10 +936,10 @@ SUBROUTINE Slide_Model_Forcing
     DO I=Ibeg,Iend
        StormPressureX(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I+1,J)-StormPressureTotal(I-1,J))/2.0_SP  &
-               /DX
+               /DX(I,J)
        StormPressureY(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I,J+1)-StormPressureTotal(I,J-1))/2.0_SP  &
-               /DY
+               /DY(I,J)
     ENDDO
     ENDDO
 
@@ -977,32 +977,32 @@ SUBROUTINE MeteoGausian_Setup
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX
-     Xco(Ibeg) = (iista-1)*DX
+!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
+     Xco(Ibeg) = (iista-1)*DX(1,1)
 !---ykchoi Jan/23/2018]
 # else
      Xco(Ibeg) = ZERO
 # endif
      DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX
+       Xco(I) = Xco(I-1)+DX(1,1)
      ENDDO
      DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX
+       Xco(I) = Xco(I+1)-DX(1,1)
      ENDDO
 
 # if defined (PARALLEL)
 ![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY
-     Yco(Jbeg) = (jjsta-1)*DY
+!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
+     Yco(Jbeg) = (jjsta-1)*DY(1,1)
 !---ykchoi Jan/23/2018]
 # else
      Yco(Jbeg) = ZERO
 # endif
      DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY
+       Yco(J) = Yco(J-1)+DY(1,1)
      ENDDO
      DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY
+       Yco(J) = Yco(J+1)-DY(1,1)
      ENDDO
 
     TMP_NAME = TRIM(STORM_FILE)
@@ -1183,10 +1183,10 @@ SUBROUTINE MeteoGausian_Forcing
     DO I=Ibeg,Iend
        StormPressureX(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I+1,J)-StormPressureTotal(I-1,J))/2.0_SP  &
-               /DX
+               /DX(I,J)
        StormPressureY(I,J) = -Grav*H(I,J)*  &
                (StormPressureTotal(I,J+1)-StormPressureTotal(I,J-1))/2.0_SP  &
-               /DY
+               /DY(I,J)
     ENDDO
     ENDDO
 

@@ -124,8 +124,11 @@ MODULE GLOBAL
        INTEGER :: Mglob,Nglob,Mloc,Nloc,Mloc1,Nloc1
        INTEGER, PARAMETER :: Nghost = 3
        INTEGER :: Ibeg,Iend,Jbeg,Jend,Iend1,Jend1
+
+       REAL(SP),DIMENSION(:,:),ALLOCATABLE ::DX,DY
+
 # if defined (CARTESIAN)
-       REAL(SP):: DX,DY
+       REAL(SP) :: DX_input, DY_input
 # else
        REAL(SP) :: Lon_West,Lat_South,Dphi,Dtheta
 # endif
@@ -184,7 +187,7 @@ MODULE GLOBAL
 		V4xL,V4xR,U4yL,U4yR, &   !ykchoi (15.08.06.)
           U4,V4,&
 # endif
-          Dx,Dy, Coriolis,Lat_theta, &
+          Coriolis,Lat_theta, &
           U1p,V1p, SlopeX,SlopeY,&
 # endif
           DelxU,DelxHU,DelxV,DelxEtar,&

@@ -100,11 +100,9 @@ SUBROUTINE BREAKING(M,N,ETAx,ETAy,ETAT,Cbrk1,Cbrk2,H,MinDepthFrc,&
      REAL(SP) :: xmk,ymk,DXg,DYg
      REAL(SP) :: etat_star,B,T_star
 !     REAL(SP) :: lim_breaker=0.10
-# if defined (CARTESIAN)
-     REAL(SP),INTENT(IN)::DX,DY
-# else
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::DX,DY
-# endif
+
      REAL(SP),DIMENSION(M,N),INTENT(IN)::ETAx,ETAy,ETAt,H
      REAL(SP),DIMENSION(M,N),INTENT(OUT)::AGE
      REAL(SP)::C,Angle,AGE1,AGE2,AGE3,propx,propy,propxy
@@ -147,19 +145,11 @@ SUBROUTINE BREAKING(M,N,ETAx,ETAy,ETAT,Cbrk1,Cbrk2,H,MinDepthFrc,&
         tmp1=MAX(SQRT(ETAx(I,J)*ETAx(I,J)+ETAy(I,J)*ETAy(I,J)),SMALL)
         C=MIN(ABS(ETAt(I,J))/tmp1,SQRT(GRAV*ABS(H(I,J))))
 ! propagation time between a dx, dy and ds
-# if defined (CARTESIAN)
-        DXg=DX
-        DYg=DY
-        propxy=SQRT(DX*DX+DY*DY)/MAX(C,SMALL)
-        propx=SQRT(DX*DX)/MAX(C,SMALL)
-        propy=SQRT(DY*DY)/MAX(C,SMALL)
-# else
         DXg=DX(I,J)
         DYg=DY(I,J)
         propxy=SQRT(DX(I,J)*DX(I,J)+DY(I,J)*DY(I,J))/MAX(C,SMALL)
         propx=SQRT(DX(I,J)*DX(I,J))/MAX(C,SMALL)
         propy=SQRT(DY(I,J)*DY(I,J))/MAX(C,SMALL)
-# endif
 
 !  I did two changes
 !  1) conversion 180/pi

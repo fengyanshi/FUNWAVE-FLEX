@@ -625,7 +625,7 @@ SUBROUTINE SEDIMENT_ADVECTION_DIFFUSION(ISTEP)
             ustar_c2= 0.4_SP*u_c2/(-1.0_SP+log(30.0_SP*Hpo(I-1,J)/k_s))			              
             k2=5.93_SP*(ustar_c2+ustar_c)*(Hpo(I-1,J)+Hpo(I,J))/4.0_SP
          Scalx(I,J)=Scalx(I,J) &
-              - k2*(Hpo(I-1,J)+Hpo(I,J))*(CH(I,J)-CH(I-1,J))/2.0_SP/DX
+              - k2*(Hpo(I-1,J)+Hpo(I,J))*(CH(I,J)-CH(I-1,J))/2.0_SP/DX(I,J)
 
          ENDIF ! mask x
 
@@ -634,7 +634,7 @@ SUBROUTINE SEDIMENT_ADVECTION_DIFFUSION(ISTEP)
             ustar_c4= 0.4_SP*u_c4/(-1.0_SP+log(30.0_SP*Hpo(I,J-1)/k_s))
             k4=5.93_SP*(ustar_c4+ustar_c)*(Hpo(I,J)+Hpo(I,J-1))/4.0_SP
          Scaly(I,J)=Scaly(I,J) &
-              - k4*(Hpo(I,J-1)+Hpo(I,J))*(CH(I,J)-CH(I,J-1))/2.0_SP/DY
+              - k4*(Hpo(I,J-1)+Hpo(I,J))*(CH(I,J)-CH(I,J-1))/2.0_SP/DY(I,J)
 
          ENDIF  ! mask y
        ENDIF !  mask
@@ -653,8 +653,8 @@ SUBROUTINE SEDIMENT_ADVECTION_DIFFUSION(ISTEP)
       
        IF(MASK(I,J).GT.0)THEN
 
-       R1(I,J)= - ((Scalx(i+1,j)-Scalx(i,j))/DX  &
-                            + (Scaly(i,j+1)-Scaly(i,j))/DY) &
+       R1(I,J)= - ((Scalx(i+1,j)-Scalx(i,j))/DX(I,J)  &
+                            + (Scaly(i,j+1)-Scaly(i,j))/DY(I,J)) &
                 + Pickup(I,J)-D(I,J)
 
         CHH(I,J)=ALPHA(ISTEP)*CHH0(I,J)+BETA(ISTEP)*(CHH(I,J)+DT*R1(I,J))
@@ -852,8 +852,8 @@ SUBROUTINE MORPHOLOGICAL_CHANGE
     DO I=1,Mloc
       TotalSuspendLoad(I,J) = TotalSuspendLoad(I,J)+(-Pickup(I,J)+D(I,J))*DT
       TotalBedLoad(I,J) = TotalBedLoad(I,J)  &
-                    -(BedFluxX(I+1,J)-BedFluxX(I-1,J))/2.0_SP/DX*DT  &
-                    -(BedFluxY(I,J+1)-BedFluxY(I,J-1))/2.0_SP/DY*DT
+                    -(BedFluxX(I+1,J)-BedFluxX(I-1,J))/2.0_SP/DX(I,J)*DT  &
+                    -(BedFluxY(I,J+1)-BedFluxY(I,J-1))/2.0_SP/DY(I,J)*DT
     ENDDO
     ENDDO
 

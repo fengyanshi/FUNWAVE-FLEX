@@ -100,7 +100,7 @@ SUBROUTINE UPDATE_MASK
 
           IF(I.GE.Ibeg.AND.I.LE.Iend.AND.J.GE.Jbeg.AND.J.LE.Jend)THEN
 # if defined (CARTESIAN)
-          Dmass = Dmass + (ETAtmp(I,J)-ETA(I,J))*DX*DY
+          Dmass = Dmass + (ETAtmp(I,J)-ETA(I,J))*DX(I,J)*DY(I,J)
 # else
           Dmass = Dmass + (ETAtmp(I,J)-ETA(I,J))*DX(I,J)*DY(I,J)
 # endif
@@ -167,7 +167,7 @@ SUBROUTINE UPDATE_MASK
 
 # if defined (CARTESIAN)
        IF(MASK(I,J)>0)THEN
-         WetArea = WetArea + DX*DY
+         WetArea = WetArea + DX(I,J)*DY(I,J)
        ENDIF
 # else
        IF(MASK(I,J)>0)THEN
@@ -186,7 +186,7 @@ SUBROUTINE UPDATE_MASK
 
 ! calculate deta
 # if defined (CARTESIAN)
-     DwetEta = Dmass / Max(DX*DY,WetArea)
+     DwetEta = Dmass / Max(DX(1,1)*DY(1,1),WetArea)
 # else
      DwetEta = Dmass / Max(DX(1,1)*DY(1,1),WetArea)
 # endif

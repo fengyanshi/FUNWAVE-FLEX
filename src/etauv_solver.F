@@ -69,14 +69,10 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
 
 ! MUSCL-Hancock, Zhou et al., p. 7
 
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
 ! only for wavemaker
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
+
 
 ! solve eta
      DO J=Jbeg,Jend
@@ -192,8 +188,8 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
       ELSE ! no wk_wavemaker, theres bug in version 1.1 Dxg,Dyg should be 
            ! replaced by Dxg() and Dy()
 # if defined (CARTESIAN)
-        R1(I,J)=-1.0_SP/DXg*(F_right*n_right+F_left*n_left) &
-                   -1.0_SP/DYg*(F_top*n_top+F_bottom*n_bottom)
+        R1(I,J)=-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
+                   -1.0_SP/DY(I,J)*(F_top*n_top+F_bottom*n_bottom)
 # if defined (VESSEL)
         R1(I,J)=R1(I,J) +VesselFluxGradient(I,J)
 # endif
@@ -242,8 +238,8 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
       F_bottom=Fy(I,J)
       F_top=Fy(I,J+1)
 # if defined (CARTESIAN)
-      R2(I,J)=-1.0_SP/DX*(F_right*n_right+F_left*n_left) &
-                       -1.0_SP/DY*(F_top*n_top+F_bottom*n_bottom) &
+      R2(I,J)=-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
+                       -1.0_SP/DY(I,J)*(F_top*n_top+F_bottom*n_bottom) &
                         +SourceX(I,J)
 # else
       R2(I,J)=-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
@@ -266,8 +262,8 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
       F_bottom=Gy(I,J)
       F_top=Gy(I,J+1)
 # if defined (CARTESIAN)
-      R3(I,J)=-1.0_SP/DX*(F_right*n_right+F_left*n_left) &
-                       -1.0_SP/DY*(F_top*n_top+F_bottom*n_bottom) &
+      R3(I,J)=-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
+                       -1.0_SP/DY(I,J)*(F_top*n_top+F_bottom*n_bottom) &
                        +SourceY(I,J)
 # else
       R3(I,J)=-1.0_SP/DX(I,J)*(F_right*n_right+F_left*n_left) &
@@ -339,9 +335,9 @@ SUBROUTINE GET_Eta_U_V_HU_HV
        depr=Max(Depth(I+1,J),MinDepthFrc)
 
 # if defined (CARTESIAN)
-       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DX/DX*dep*dep + b2/DX/DX*depl*dep)
-       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DX/DX*dep*dep-2.0_SP*b2/DX/DX*dep*dep)
-       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DX/DX*dep*dep + b2/DX/DX*dep*depr)
+       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DX(I,J)/DX(I,J)*dep*dep + b2/DX(I,J)/DX(I,J)*depl*dep)
+       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DX(I,J)/DX(I,J)*dep*dep-2.0_SP*b2/DX(I,J)/DX(I,J)*dep*dep)
+       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DX(I,J)/DX(I,J)*dep*dep + b2/DX(I,J)/DX(I,J)*dep*depr)
        tmp4=Ubar(I,J)*MASK(I,J)/Max(H(I,J),MinDepthFrc)  &
             + Gamma1*MASK9(I,J)*( -b1/2.0_SP*dep*dep*Vxy(I,J)-b2*dep*DVxy(I,J))
 # else
@@ -421,19 +417,19 @@ SUBROUTINE GET_Eta_U_V_HU_HV
        reta=Eta(I,J)
        retal=Eta(I,J-1)
        retar=Eta(I,J+1)
-       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*depl*dep) 
+       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY(I,J)/DY(I,J)*dep*dep + b2/DY(I,J)/DY(I,J)*depl*dep) 
              
-       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY/DY*dep*dep-2.0_SP*b2/DY/DY*dep*dep) 
+       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY(I,J)/DY(I,J)*dep*dep-2.0_SP*b2/DY(I,J)/DY(I,J)*dep*dep) 
              
-       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*dep*depr) 
+       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY(I,J)/DY(I,J)*dep*dep + b2/DY(I,J)/DY(I,J)*dep*depr) 
              
        tmp4=Vbar(I,J)*MASK(I,J)/Max(H(I,J),MinDepthFrc)  &
              + Gamma1*MASK9(I,J)*(-b1/2.0_SP*dep*dep*Uxy(I,J)-b2*dep*DUxy(I,J)) 
 
      ELSE
-       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*depl*dep) 
-       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY/DY*dep*dep-2.0_SP*b2/DY/DY*dep*dep) 
-       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY/DY*dep*dep + b2/DY/DY*dep*depr)
+       tmp1=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY(I,J)/DY(I,J)*dep*dep + b2/DY(I,J)/DY(I,J)*depl*dep) 
+       tmp2=1.0_SP+Gamma1*MASK9(I,J)*(-b1/DY(I,J)/DY(I,J)*dep*dep-2.0_SP*b2/DY(I,J)/DY(I,J)*dep*dep) 
+       tmp3=Gamma1*MASK9(I,J)*(b1/2.0_SP/DY(I,J)/DY(I,J)*dep*dep + b2/DY(I,J)/DY(I,J)*dep*depr)
        tmp4=Vbar(I,J)*MASK(I,J)/Max(H(I,J),MinDepthFrc)  &
              + Gamma1*MASK9(I,J)*(-b1/2.0_SP*dep*dep*Uxy(I,J)-b2*dep*DUxy(I,J))
      ENDIF  

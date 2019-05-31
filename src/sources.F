@@ -68,16 +68,8 @@ SUBROUTINE SourceTerms
      REAL(SP) :: xmk,ymk,Dxg,Dyg,WK_Source
      INTEGER :: kd,kf
 
-
-# if defined (CARTESIAN)
-     DXg=DX
-     DYg=DY
-# else
-! only for wavemaker
      DXg=DX(1,1)
      DYg=DY(1,1)
-# endif
-
 
 ! wavemaker fyshi 02/08/2016
 
@@ -190,7 +182,7 @@ SUBROUTINE SourceTerms
 # if defined (CARTESIAN)
 
 ! second order, move the second term to left-hand side
-       SourceX(I,J)=GRAV*(Eta(I,J))/DX*(Depthx(I+1,J)-Depthx(I,J))*MASK(I,J) &
+       SourceX(I,J)=GRAV*(Eta(I,J))/DX(I,J)*(Depthx(I+1,J)-Depthx(I,J))*MASK(I,J) &
  ! friction
 # if defined (MANNING)
                    -(GRAV*Cd(I,J)**2/  &
@@ -203,11 +195,11 @@ SUBROUTINE SourceTerms
                        ! dispersion
                        ! (h+eta)(u*\nabla V4 + V4 * \nabla u - v1pp-v2-v3)
                    + Gamma1*MASK9(I,J)*Max(H(I,J),MinDepthFrc)*(         & 
-                     U(I,J)*0.5_SP*(U4(I+1,J)-U4(I-1,J))/DX+V(I,J)*0.5_SP*(U4(I,J+1)-U4(I,J-1))/DY &
-                     +U4(I,J)*0.5_SP*(U(I+1,J)-U(I-1,J))/DX+V4(I,J)*0.5_SP*(U(I,J+1)-U(I,J-1))/DY  &
+                     U(I,J)*0.5_SP*(U4(I+1,J)-U4(I-1,J))/DX(I,J)+V(I,J)*0.5_SP*(U4(I,J+1)-U4(I,J-1))/DY(I,J) &
+                     +U4(I,J)*0.5_SP*(U(I+1,J)-U(I-1,J))/DX(I,J)+V4(I,J)*0.5_SP*(U(I,J+1)-U(I,J-1))/DY(I,J)  &
                      )    &
                         ! Ht(-V4+V1p) = div(M)*(U4-U1p)
-                    +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX+(Q(I,J+1)-Q(I,J))/DY) &
+                    +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX(I,J)+(Q(I,J+1)-Q(I,J))/DY(I,J)) &
                       *(U4(I,J)-U1p(I,J)) &
 ! wavemaker
                    +WaveMaker_Mass(I,J)*U(I,J)
@@ -241,7 +233,7 @@ SUBROUTINE SourceTerms
                    *Depth(I,J)
        ENDIF
           
-       SourceY(I,J)=GRAV*(Eta(I,J))/DY*(Depthy(I,J+1)-Depthy(I,J))*MASK(I,J) &
+       SourceY(I,J)=GRAV*(Eta(I,J))/DY(I,J)*(Depthy(I,J+1)-Depthy(I,J))*MASK(I,J) &
                           ! friction
 # if defined (MANNING)
                    -(GRAV*Cd(I,J)**2/  &
@@ -253,11 +245,11 @@ SUBROUTINE SourceTerms
 		          ! dispersion
                           ! (h+eta)(u*\nabla V4 + V4 * \nabla u -v1pp-v2-v3)
                    + Gamma1*MASK9(I,J)*Max(H(I,J),MinDepthFrc)*(         & 
-                     U(I,J)*0.5_SP*(V4(I+1,J)-V4(I-1,J))/DX+V(I,J)*0.5_SP*(V4(I,J+1)-V4(I,J-1))/DY &
-                     +U4(I,J)*0.5_SP*(V(I+1,J)-V(I-1,J))/DX+V4(I,J)*0.5_SP*(V(I,J+1)-V(I,J-1))/DY  &
+                     U(I,J)*0.5_SP*(V4(I+1,J)-V4(I-1,J))/DX(I,J)+V(I,J)*0.5_SP*(V4(I,J+1)-V4(I,J-1))/DY(I,J) &
+                     +U4(I,J)*0.5_SP*(V(I+1,J)-V(I-1,J))/DX(I,J)+V4(I,J)*0.5_SP*(V(I,J+1)-V(I,J-1))/DY(I,J)  &
                      )    &
                           ! Ht(-V4+V1p) = div(Q)*(V4-V1p)
-                    +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX+(Q(I,J+1)-Q(I,J))/DY) &
+                    +Gamma1*MASK9(I,J)*((P(I+1,J)-P(I,J))/DX(I,J)+(Q(I,J+1)-Q(I,J))/DY(I,J)) &
                       *(V4(I,J)-V1p(I,J))  &
 ! wavemaker
                    +WaveMaker_Mass(I,J)*V(I,J)
@@ -304,25 +296,25 @@ SUBROUTINE SourceTerms
 
 
 # if defined (MIXING)
-       SourceX(I,J) = SourceX(I,J) + 1.0_SP/DX*( &
-                   0.5_SP*(nu_smg(I,J)+nu_smg(I+1,J))*1.0_SP/DX*(P(I+1,J)-P(I,J))  &
-                 - 0.5_SP*(nu_smg(I,J)+nu_smg(I-1,J))*1.0_SP/DX*(P(I,J)-P(I-1,J)) ) &
-               + 0.5_SP/DY*( &
-                   0.5_SP*(nu_smg(I,J+1)+nu_smg(I,J))*1.0_SP/DY*(P(I,J+1)-P(I,J)) &
-                  -0.5_SP*(nu_smg(I,J-1)+nu_smg(I,J))*1.0_SP/DY*(P(I,J)-P(I,J-1))  ) &   
-               + 1.0_SP/DY*( &
-                   nu_smg(I,J+1)*0.5_SP/DX*(Q(I+1,J+1)-Q(I-1,J+1)) &
-                  -nu_smg(I,J-1)*0.5_SP/DX*(Q(I+1,J-1)-Q(I-1,J-1))  )
+       SourceX(I,J) = SourceX(I,J) + 1.0_SP/DX(I,J)*( &
+                   0.5_SP*(nu_smg(I,J)+nu_smg(I+1,J))*1.0_SP/DX(I,J)*(P(I+1,J)-P(I,J))  &
+                 - 0.5_SP*(nu_smg(I,J)+nu_smg(I-1,J))*1.0_SP/DX(I,J)*(P(I,J)-P(I-1,J)) ) &
+               + 0.5_SP/DY(I,J)*( &
+                   0.5_SP*(nu_smg(I,J+1)+nu_smg(I,J))*1.0_SP/DY(I,J)*(P(I,J+1)-P(I,J)) &
+                  -0.5_SP*(nu_smg(I,J-1)+nu_smg(I,J))*1.0_SP/DY(I,J)*(P(I,J)-P(I,J-1))  ) &   
+               + 1.0_SP/DY(I,J)*( &
+                   nu_smg(I,J+1)*0.5_SP/DX(I,J)*(Q(I+1,J+1)-Q(I-1,J+1)) &
+                  -nu_smg(I,J-1)*0.5_SP/DX(I,J)*(Q(I+1,J-1)-Q(I-1,J-1))  )
 
-       SourceY(I,J) = SourceY(I,J) + 1.0_SP/DY*( &
-                   0.5_SP*(nu_smg(I,J)+nu_smg(I,J+1))*1.0_SP/DY*(Q(I,J+1)-Q(I,J))  &
-                 - 0.5_SP*(nu_smg(I,J)+nu_smg(I,J-1))*1.0_SP/DY*(Q(I,J)-Q(I,J-1)) ) &
-               + 0.5_SP/DX*( &
-                   0.5_SP*(nu_smg(I+1,J)+nu_smg(I,J))*1.0_SP/DX*(Q(I+1,J)-Q(I,J)) &
-                  -0.5_SP*(nu_smg(I-1,J)+nu_smg(I,J))*1.0_SP/DX*(Q(I,J)-Q(I-1,J))  ) &   
-               + 1.0_SP/DX*( &
-                   nu_smg(I+1,J)*0.5_SP/DY*(P(I+1,J+1)-P(I+1,J-1)) &
-                  -nu_smg(I-1,J)*0.5_SP/DY*(P(I-1,J+1)-P(I-1,J-1))  )
+       SourceY(I,J) = SourceY(I,J) + 1.0_SP/DY(I,J)*( &
+                   0.5_SP*(nu_smg(I,J)+nu_smg(I,J+1))*1.0_SP/DY(I,J)*(Q(I,J+1)-Q(I,J))  &
+                 - 0.5_SP*(nu_smg(I,J)+nu_smg(I,J-1))*1.0_SP/DY(I,J)*(Q(I,J)-Q(I,J-1)) ) &
+               + 0.5_SP/DX(I,J)*( &
+                   0.5_SP*(nu_smg(I+1,J)+nu_smg(I,J))*1.0_SP/DX(I,J)*(Q(I+1,J)-Q(I,J)) &
+                  -0.5_SP*(nu_smg(I-1,J)+nu_smg(I,J))*1.0_SP/DX(I,J)*(Q(I,J)-Q(I-1,J))  ) &   
+               + 1.0_SP/DX(I,J)*( &
+                   nu_smg(I+1,J)*0.5_SP/DY(I,J)*(P(I+1,J+1)-P(I+1,J-1)) &
+                  -nu_smg(I-1,J)*0.5_SP/DY(I,J)*(P(I-1,J+1)-P(I-1,J-1))  )
 
 # endif
 
@@ -337,55 +329,55 @@ SUBROUTINE SourceTerms
 !      it turns out P and Q are not exchanged at processor interface
 !      it affects edges, make PQ_scheme=false
 
-       SourceX(I,J) = SourceX(I,J) + 0.5_SP/DX*( &
+       SourceX(I,J) = SourceX(I,J) + 0.5_SP/DX(I,J)*( &
                        nu_vis(I+1,J)* &
-                       1.0_SP/DX*(P(I+2,J)-P(I+1,J)) &
+                       1.0_SP/DX(I,J)*(P(I+2,J)-P(I+1,J)) &
                       -nu_vis(I-1,J)* &
-                       1.0_SP/DX*(P(I,J)-P(I-1,J)) ) &
+                       1.0_SP/DX(I,J)*(P(I,J)-P(I-1,J)) ) &
 !
-                                   + 1.0_SP/DY*( &
+                                   + 1.0_SP/DY(I,J)*( &
                        0.5_SP*(nu_vis(I,J+1)+nu_vis(I,J))* &                 
-                       0.5_SP/DY*(P(I,J+1)+P(I+1,J+1)-P(I,J)-P(I+1,J)) &
+                       0.5_SP/DY(I,J)*(P(I,J+1)+P(I+1,J+1)-P(I,J)-P(I+1,J)) &
                       -0.5_SP*(nu_vis(I,J-1)+nu_vis(I,J))* &
-                       0.5_SP/DY*(P(I,J)+P(I+1,J)-P(I,J-1)-P(I+1,J-1)) )
+                       0.5_SP/DY(I,J)*(P(I,J)+P(I+1,J)-P(I,J-1)-P(I+1,J-1)) )
 
-       SourceY(I,J) = SourceY(I,J) + 0.5_SP/DY*( &
+       SourceY(I,J) = SourceY(I,J) + 0.5_SP/DY(I,J)*( &
                        nu_vis(I,J+1)* &
-                       1.0_SP/DY*(Q(I,J+2)-Q(I,J+1)) &
+                       1.0_SP/DY(I,J)*(Q(I,J+2)-Q(I,J+1)) &
                       -nu_vis(I,J-1)* &
-                       1.0_SP/DY*(Q(I,J)-Q(I,J-1)) ) &
+                       1.0_SP/DY(I,J)*(Q(I,J)-Q(I,J-1)) ) &
 !
-                                   + 1.0_SP/DX*( &
+                                   + 1.0_SP/DX(I,J)*( &
                        0.5_SP*(nu_vis(I+1,J)+nu_vis(I,J))* &                 
-                       0.5_SP/DX*(Q(I+1,J)+Q(I+1,J+1)-Q(I,J)-Q(I,J+1)) &
+                       0.5_SP/DX(I,J)*(Q(I+1,J)+Q(I+1,J+1)-Q(I,J)-Q(I,J+1)) &
                       -0.5_SP*(nu_vis(I-1,J)+nu_vis(I,J))* &
-                       0.5_SP/DX*(Q(I,J)+Q(I,J+1)-Q(I-1,J)-Q(I-1,J+1)) )
+                       0.5_SP/DX(I,J)*(Q(I,J)+Q(I,J+1)-Q(I-1,J)-Q(I-1,J+1)) )
 
      ELSE
-       SourceX(I,J) = SourceX(I,J) + 0.5_SP/DX*( &
+       SourceX(I,J) = SourceX(I,J) + 0.5_SP/DX(I,J)*( &
                       (nu_vis(I+1,J)+nu_vis(I,J)) &
-                      *1.0_SP/DX*(HU(I+1,J)-HU(I,J)) &
+                      *1.0_SP/DX(I,J)*(HU(I+1,J)-HU(I,J)) &
                      -(nu_vis(I-1,J)+nu_vis(I,J)) &
-                      *1.0_SP/DX*(HU(I,J)-HU(I-1,J)) ) &
-                                   + 0.5_SP/DY*( &
+                      *1.0_SP/DX(I,J)*(HU(I,J)-HU(I-1,J)) ) &
+                                   + 0.5_SP/DY(I,J)*( &
                       (nu_vis(I,J+1)+nu_vis(I,J)) &
-                      *1.0_SP/DY*(HU(I,J+1)-HU(I,J)) &
+                      *1.0_SP/DY(I,J)*(HU(I,J+1)-HU(I,J)) &
                      -(nu_vis(I,J-1)+nu_vis(I,J)) &
-                      *1.0_SP/DY*(HU(I,J)-HU(I,J-1)) )
+                      *1.0_SP/DY(I,J)*(HU(I,J)-HU(I,J-1)) )
 
 
                      
 
-       SourceY(I,J) = SourceY(I,J) + 0.5_SP/DX*( &
+       SourceY(I,J) = SourceY(I,J) + 0.5_SP/DX(I,J)*( &
                       (nu_vis(I+1,J)+nu_vis(I,J)) &
-                      *1.0_SP/DX*(HV(I+1,J)-HV(I,J)) &
+                      *1.0_SP/DX(I,J)*(HV(I+1,J)-HV(I,J)) &
                      -(nu_vis(I-1,J)+nu_vis(I,J)) &
-                      *1.0_SP/DX*(HV(I,J)-HV(I-1,J)) ) &
-                                   + 0.5_SP/DY*( &
+                      *1.0_SP/DX(I,J)*(HV(I,J)-HV(I-1,J)) ) &
+                                   + 0.5_SP/DY(I,J)*( &
                       (nu_vis(I,J+1)+nu_vis(I,J)) &
-                      *1.0_SP/DY*(HV(I,J+1)-HV(I,J)) &
+                      *1.0_SP/DY(I,J)*(HV(I,J+1)-HV(I,J)) &
                      -(nu_vis(I,J-1)+nu_vis(I,J)) &
-                      *1.0_SP/DY*(HV(I,J)-HV(I,J-1)) )
+                      *1.0_SP/DY(I,J)*(HV(I,J)-HV(I,J-1)) )
 
      ENDIF ! end pq_scheme
 
