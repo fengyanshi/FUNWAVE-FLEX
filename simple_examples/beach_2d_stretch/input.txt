@@ -45,8 +45,10 @@ RESULT_FOLDER = output/
  DX = 2.0 
  DY = 2.0 
  StretchGrid = T
- DX_FILE = dx.txt
- DY_FILE = dy.txt
+ X_FILE = x.txt
+ Y_FILE = y.txt
+ DX_wavemaker = 2.0
+ DY_wavemaker = 2.0
    ! ----------------WAVEMAKER------------------------------ 
    !  wave maker 
    ! LEF_SOL- left boundary solitary, need AMP,DEP, LAGTIME 

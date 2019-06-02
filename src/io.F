@@ -303,50 +303,84 @@ SUBROUTINE READ_INPUT
 
     ELSE ! stretched grid
 
-        CALL READ_STRING(DX_FILE,FILE_NAME,'DX_FILE',ierr)  
+        CALL READ_STRING(X_FILE,FILE_NAME,'X_FILE',ierr)  
 
       IF(ierr==1)THEN
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no DX_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no DX_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no X_FILE found, STOP'
+         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no X_FILE found, STOP'
       endif
        call MPI_FINALIZE ( ier )
 # else
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no DX_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no DX_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no X_FILE found, STOP'
+         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no X_FILE found, STOP'
 # endif
         STOP
       ENDIF
 
-        CALL READ_STRING(DY_FILE,FILE_NAME,'DY_FILE',ierr)   
+        CALL READ_STRING(Y_FILE,FILE_NAME,'Y_FILE',ierr)   
 
       IF(ierr==1)THEN
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no DY_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no DY_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no Y_FILE found, STOP'
+         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no Y_FILE found, STOP'
       endif
        call MPI_FINALIZE ( ier )
 # else
-         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no DY_FILE found, STOP'
-         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no DY_FILE found, STOP'
+         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no Y_FILE found, STOP'
+         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no Y_FILE found, STOP'
 # endif
         STOP
       ENDIF
 
 # if defined (PARALLEL)
       if (myid.eq.0) THEN
-         WRITE(*,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
-         WRITE(3,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
-         WRITE(*,'(A40,A40)')'DY_FILE =  ', TRIM(DY_FILE)
-         WRITE(3,'(A40,A40)')'DY_FILE =  ', TRIM(DY_FILE)
+         WRITE(*,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
+         WRITE(3,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
+         WRITE(*,'(A40,A40)')'Y_FILE =  ', TRIM(Y_FILE)
+         WRITE(3,'(A40,A40)')'Y_FILE =  ', TRIM(Y_FILE)
       endif
 # else
-         WRITE(*,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
-         WRITE(3,'(A40,A40)')'DX_FILE =  ', TRIM(DX_FILE)
+         WRITE(*,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
+         WRITE(3,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
 # endif
 
+
+      CALL READ_FLOAT(DX_wavemaker,FILE_NAME,'DX_wavemaker',ierr)
+
+      IF(ierr==1)THEN
+        DX_wavemaker = 1.0_SP
+# if defined (PARALLEL)
+      if (myid.eq.0) THEN
+         WRITE(*,'(A80)')'DX_wavemaker not specified, STOP'
+         WRITE(3,'(A80)')'DX_wavemaker not specified, STOP'
+         call MPI_FINALIZE ( ier )
+      endif
+# else
+         WRITE(*,'(A80)')'DX_wavemaker not specified, STOP'
+         WRITE(3,'(A80)')'DX_wavemaker not specified, STOP'
+         STOP
+# endif
+      ENDIF
+
+      CALL READ_FLOAT(DY_wavemaker,FILE_NAME,'DY_wavemaker',ierr)
+
+      IF(ierr==1)THEN
+        DY_wavemaker = 1.0_SP
+# if defined (PARALLEL)
+      if (myid.eq.0) THEN
+         WRITE(*,'(A80)')'DY_wavemaker not specified, STOP'
+         WRITE(3,'(A80)')'DY_wavemaker not specified, STOP'
+         call MPI_FINALIZE ( ier )
+      endif
+# else
+         WRITE(*,'(A80)')'DY_wavemaker not specified, STOP'
+         WRITE(3,'(A80)')'DY_wavemaker not specified, STOP'
+         STOP
+# endif
+      ENDIF
 
 !   ignore Coriolis in Cartesian mode
 !        CALL READ_STRING(Coriolis_FILE,FILE_NAME,'CORIOLIS_FILE',ierr) 

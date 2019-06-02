@@ -64,23 +64,6 @@ SUBROUTINE WAVEMAKER_INITIALIZATION
 ! internal wavemaker of wei and kirby
 
      IF(WaveMaker(1:6)=='WK_REG') THEN
-
-! Reniel complaint about regular wave case with wrong Yc
-! it turns out this part is a redefinition of Yc_WK, remove it (07/08/2016)
-
-!# if defined (PARALLEL)
-!# if defined (CARTESIAN)
-!     Yc_WK=(INT((Nloc-1)/2)+Nghost)*DY
-!# else
-!     Yc_WK=(INT((Nloc-1)/2)+Nghost)*DY(1,1)
-!# endif
-!# else
-!# if defined (CARTESIAN)
-!     Yc_WK=INT(Nglob/2)*DY
-!# else
-!     Yc_WK=INT(Nglob/2)*DY(1,1)
-!# endif
-!# endif
     
      IF(PERIODIC)THEN
 
@@ -108,11 +91,10 @@ SUBROUTINE WAVEMAKER_INITIALIZATION
        I=0
        Do WHILE (tmp3<Theta_WK)
          I=I+1
-!         tmp2=I*2.0_SP*pi/DY(1,1)/(Jend-Jbeg)     ! rlamda
 # if defined (CARTESIAN)
-          tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)
+          tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)
 # else
-          tmp2=I*2.0_SP*pi/DY(1,1)(1,1)/(Nglob-1.0_SP)
+          tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)
 # endif
          IF(tmp2.GE.tmp1)THEN
           tmp3=90.0
@@ -142,11 +124,11 @@ SUBROUTINE WAVEMAKER_INITIALIZATION
        I=0
        Do WHILE (tmp3>Theta_WK)
          I=I+1
-!         tmp2=I*2.0_SP*pi/DY(1,1)/(Jend-Jbeg)     ! rlamda
+!         tmp2=I*2.0_SP*pi/DY_wavemaker/(Jend-Jbeg)     ! rlamda
 # if defined (CARTESIAN)
-         tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+         tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # else
-         tmp2=I*2.0_SP*pi/DY(1,1)(1,1)/(Nglob-1.0_SP)     ! rlamda
+         tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # endif
          IF(tmp2.GE.tmp1)THEN
           tmp3=-90.0
@@ -298,10 +280,10 @@ SUBROUTINE WAVEMAKER_INITIALIZATION
 
 
 # if defined (CARTESIAN)
-      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX(1,1),DY(1,1),Xc_WK,Ibeg,Jbeg,NumFreq,NumDir,&
+      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX_wavemaker,DY_wavemaker,Xc_WK,Ibeg,Jbeg,NumFreq,NumDir,&
                D_gen2D,Phase2D,Width_WK,rlamda2D,beta_gen2D,Cm,Sm)
 # else
-      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX(1,1),DY(1,1),Xc_WK,Ibeg,Jbeg,NumFreq,NumDir,&
+      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX_wavemaker,DY_wavemaker,Xc_WK,Ibeg,Jbeg,NumFreq,NumDir,&
                D_gen2D,Phase2D,Width_WK,rlamda2D,beta_gen2D,Cm,Sm)
 # endif
 
@@ -356,22 +338,22 @@ SUBROUTINE WAVEMAKER_INITIALIZATION
       CALL WK_WAVEMAKER_IRREGULAR_WAVE & 
        (Nfreq,Ntheta,delta_WK,DEP_WK,FreqPeak,FreqMax,FreqMin,GammaTMA,Hmo,ThetaPeak, &
          sigma_theta,rlamda_ir,beta_gen_ir,D_gen_ir,Phase_ir,Width_WK,omgn_ir,&
-         Periodic,DY(1,1),Nglob)
+         Periodic,DY_wavemaker,Nglob)
     ELSE
       CALL WK_EQUAL_DFREQ_IRREGULAR_WAVE &
        (Nfreq,Ntheta,delta_WK,DEP_WK,FreqPeak,FreqMax,FreqMin,GammaTMA,Hmo,ThetaPeak, &
          sigma_theta,rlamda_ir,beta_gen_ir,D_gen_ir,Phase_ir,Width_WK,omgn_ir,&
-         Periodic,DY(1,1),Nglob)
+         Periodic,DY_wavemaker,Nglob)
     ENDIF
 
-      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX(1,1),DY(1,1),Xc_WK,Ibeg,Jbeg,Nfreq,Ntheta,&
+      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX_wavemaker,DY_wavemaker,Xc_WK,Ibeg,Jbeg,Nfreq,Ntheta,&
                D_gen_ir,Phase_ir,Width_WK,rlamda_ir,beta_gen_ir,Cm,Sm)
 # else
       CALL WK_WAVEMAKER_IRREGULAR_WAVE & 
        (Nfreq,Ntheta,delta_WK,DEP_WK,FreqPeak,FreqMax,FreqMin,GammaTMA,Hmo,ThetaPeak, &
          sigma_theta,rlamda_ir,beta_gen_ir,D_gen_ir,Phase_ir,Width_WK,omgn_ir,&
-         Periodic,DY(1,1),Nglob)
-      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX(1,1),DY(1,1),Xc_WK,Ibeg,Jbeg,Nfreq,Ntheta,&
+         Periodic,DY_wavemaker,Nglob)
+      CALL CALCULATE_Cm_Sm(Mloc,Nloc,DX_wavemaker,DY_wavemaker,Xc_WK,Ibeg,Jbeg,Nfreq,Ntheta,&
                D_gen_ir,Phase_ir,Width_WK,rlamda_ir,beta_gen_ir,Cm,Sm)
 # endif
 
@@ -420,7 +402,7 @@ END SUBROUTINE WAVEMAKER_INITIALIZATION
 SUBROUTINE WK_WAVEMAKER_2D_SPECTRAL_DATA & 
                (NumFreq,NumDir,Freq,DireD,WAVE_COMP,PeakPeriod,H_gen,delta,D_gen,beta_gen,rlamda,width)
      USE PARAM
-     USE GLOBAL, ONLY : PERIODIC,DY,Nglob
+     USE GLOBAL, ONLY : PERIODIC,DY,Nglob,DY_wavemaker, DX_wavemaker
 # if defined (PARALLEL)
      USE GLOBAL,ONLY : myid,ier
 # endif
@@ -463,7 +445,7 @@ SUBROUTINE WK_WAVEMAKER_2D_SPECTRAL_DATA &
        Do WHILE (tmp3<Dire(ndir))
          I=I+1
 
-         tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+         tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 
          IF(tmp2.GE.tmp1)THEN
           tmp3=pi*0.5_SP-SMALL
@@ -505,7 +487,7 @@ SUBROUTINE WK_WAVEMAKER_2D_SPECTRAL_DATA &
 
 ! judge between I-1 and I which is closer
 
-         angle1=-ASIN((I-1)*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)/tmp1)
+         angle1=-ASIN((I-1)*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)/tmp1)
 
          if (abs(angle1-Dire(ndir))<abs(Dire(ndir)-tmp3))then
             angle2=angle1
@@ -685,7 +667,7 @@ END SUBROUTINE CALCULATE_Cm_Sm
 !
 !-------------------------------------------------------------------------------------
 SUBROUTINE CALCULATE_DATA2D_Cm_Sm
-     USE GLOBAL, ONLY : Mloc,Nloc,MASK,I,J,DX,DY,ZERO,Beta_ref
+     USE GLOBAL, ONLY : Mloc,Nloc,MASK,I,J,DX,DY,ZERO,Beta_ref,Xco,Yco
      USE GLOBAL, ONLY : SP,PI,Grav,TIME,Amp_Ser,Per_Ser,Phase_Ser,Dep_Ser,&
                        Theta_Ser, Ibeg,Iend,Jbeg,Jend,&
                        Wave_Number_Ser,Stokes_Drift_Ser,NumFreq,NumDir,&
@@ -756,29 +738,23 @@ SUBROUTINE CALCULATE_DATA2D_Cm_Sm
        DO I=1,Mloc
 # if defined (PARALLEL)
 # if defined (CARTESIAN)
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(1,1)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(1,1)
-         X_maker=( I-Ibeg+(iista-1) )*DX(1,1)
-         Y_maker=( J-Jbeg+(jjsta-1) )*DY(1,1)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 !---ykchoi Jan/23/2018] 
 # else
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(I,J)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(I,J)
-         X_maker=( I-Ibeg+(iista-1) )*DX(I,J)
-         Y_maker=( J-Jbeg+(jjsta-1) )*DY(I,J)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 !---ykchoi Jan/23/2018]
 # endif
 
 # else
 
 # if defined (CARTESIAN)
-         X_maker=(I-Ibeg)*DX(1,1)
-         Y_maker=(J-Jbeg)*DY(1,1)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # else
-         X_maker=(I-Ibeg)*DX(I,J)
-         Y_maker=(J-Jbeg)*DY(I,J)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # endif
 
 # endif
@@ -835,7 +811,7 @@ END SUBROUTINE CALCULATE_DATA2D_Cm_Sm
 !-------------------------------------------------------------------------------------
 SUBROUTINE CalcPeriodicTheta(WaveNumber,InputRAD,OutputRAD)
      USE PARAM
-     USE GLOBAL,ONLY : DY,Nglob
+     USE GLOBAL,ONLY : DY,Nglob,DY_wavemaker,DX_wavemaker
 # if defined (PARALLEL)
      USE GLOBAL,ONLY : myid,ier
 # endif
@@ -865,9 +841,9 @@ SUBROUTINE CalcPeriodicTheta(WaveNumber,InputRAD,OutputRAD)
          Do WHILE (tmp3<InputRAD)
          I=I+1
 # if defined (CARTESIAN)
-         tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+         tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # else
-         tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+         tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # endif
          IF(tmp2.GE.WaveNumber)THEN
           tmp3=pi*0.5_SP-SMALL
@@ -880,9 +856,9 @@ SUBROUTINE CalcPeriodicTheta(WaveNumber,InputRAD,OutputRAD)
        ENDDO
 ! judge between I-1 and I which is closer
 # if defined (CARTESIAN)
-         angle1=ASIN((I-1)*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)/WaveNumber)
+         angle1=ASIN((I-1)*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)/WaveNumber)
 # else
-         angle1=ASIN((I-1)*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)/WaveNumber)
+         angle1=ASIN((I-1)*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)/WaveNumber)
 # endif
          if (abs(angle1-InputRAD)<abs(InputRAD-tmp3))then
             angle2=angle1
@@ -897,9 +873,9 @@ SUBROUTINE CalcPeriodicTheta(WaveNumber,InputRAD,OutputRAD)
          Do WHILE (tmp3>InputRAD)
            I=I+1
 # if defined (CARTESIAN)
-           tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+           tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # else
-           tmp2=I*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)     ! rlamda
+           tmp2=I*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)     ! rlamda
 # endif
            IF(tmp2.GE.WaveNumber)THEN
             tmp3=-pi*0.5_SP+SMALL
@@ -913,9 +889,9 @@ SUBROUTINE CalcPeriodicTheta(WaveNumber,InputRAD,OutputRAD)
 
 ! judge between I-1 and I which is closer
 # if defined (CARTESIAN)
-         angle1=-ASIN((I-1)*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)/WaveNumber)
+         angle1=-ASIN((I-1)*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)/WaveNumber)
 # else
-         angle1=-ASIN((I-1)*2.0_SP*pi/DY(1,1)/(Nglob-1.0_SP)/WaveNumber)
+         angle1=-ASIN((I-1)*2.0_SP*pi/DY_wavemaker/(Nglob-1.0_SP)/WaveNumber)
 # endif
 
          if (abs(angle1-InputRAD)<abs(InputRAD-tmp3))then
@@ -977,7 +953,7 @@ SUBROUTINE CALCULATE_TMA_Cm_Sm &
                 sigma_theta_input)
      USE PARAM
 ! *** from data2d_cm_sm
-     USE GLOBAL, ONLY : Mloc,Nloc,I,J,DX,DY,ZERO,Beta_ref,PERIODIC
+     USE GLOBAL, ONLY : Mloc,Nloc,I,J,DX,DY,ZERO,Beta_ref,PERIODIC,Xco,Yco
      USE GLOBAL, ONLY : Amp_Ser,Per_Ser,Phase_Ser,Dep_Ser,&
                        Theta_Ser, Ibeg,Iend,Jbeg,Jend,&
                        Wave_Number_Ser,Stokes_Drift_Ser,NumFreq,NumDir,&
@@ -1231,29 +1207,21 @@ SUBROUTINE CALCULATE_TMA_Cm_Sm &
        DO I=1,Mloc
 # if defined (PARALLEL)
 # if defined (CARTESIAN)
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(1,1)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(1,1)
-         X_maker=( I-Ibeg+(iista - 1) )*DX(1,1)
-         Y_maker=( J-Jbeg+(jjsta - 1) )*DY(1,1)
-!---ykchoi Jan/23/2018]
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # else
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(I,J)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(I,J)
-         X_maker=( I-Ibeg+(iista - 1) )*DX(I,J)
-         Y_maker=( J-Jbeg+(jjsta - 1) )*DY(I,J)
-!---ykchoi Jan/23/2018]
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # endif
 
 # else
 
 # if defined (CARTESIAN)
-         X_maker=(I-Ibeg)*DX(1,1)
-         Y_maker=(J-Jbeg)*DY(1,1)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # else
-         X_maker=(I-Ibeg)*DX(I,J)
-         Y_maker=(J-Jbeg)*DY(I,J)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # endif
 
 # endif
@@ -1320,7 +1288,7 @@ SUBROUTINE CALCULATE_TMA_Cm_Sm_EQUAL_DFREQ &
                 sigma_theta_input)
      USE PARAM
 ! *** from data2d_cm_sm
-     USE GLOBAL, ONLY : Mloc,Nloc,I,J,DX,DY,ZERO,Beta_ref,PERIODIC
+     USE GLOBAL, ONLY : Mloc,Nloc,I,J,DX,DY,ZERO,Beta_ref,PERIODIC,Xco,Yco
      USE GLOBAL, ONLY : Amp_Ser,Per_Ser,Phase_Ser,Dep_Ser,&
                        Theta_Ser, Ibeg,Iend,Jbeg,Jend,&
                        Wave_Number_Ser,Stokes_Drift_Ser,NumFreq,NumDir,&
@@ -1534,29 +1502,21 @@ SUBROUTINE CALCULATE_TMA_Cm_Sm_EQUAL_DFREQ &
        DO I=1,Mloc
 # if defined (PARALLEL)
 # if defined (CARTESIAN)
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(1,1)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(1,1)
-         X_maker=( I-Ibeg+(iista-1) )*DX(1,1)
-         Y_maker=( J-Jbeg+(jjsta-1) )*DY(1,1)
-!---ykchoi Jan/23/2018]
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # else
-![---ykchoi Jan/23/2018
-!         X_maker=(I-Ibeg+npx*Mglob/px)*DX(I,J)
-!         Y_maker=(J-Jbeg+npy*Nglob/py)*DY(I,J)
-         X_maker=( I-Ibeg+(iista-1) )*DX(I,J)
-         Y_maker=( J-Jbeg+(jjsta-1) )*DY(I,J)
-!---ykchoi Jan/23/2018]
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # endif
 
 # else
 
 # if defined (CARTESIAN)
-         X_maker=(I-Ibeg)*DX(1,1)
-         Y_maker=(J-Jbeg)*DY(1,1)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # else
-         X_maker=(I-Ibeg)*DX(I,J)
-         Y_maker=(J-Jbeg)*DY(I,J)
+         X_maker=Xco(I)
+         Y_maker=Yco(J)
 # endif
 
 # endif
@@ -2267,7 +2227,9 @@ END SUBROUTINE WK_WAVEMAKER_TIME_SERIES
 SUBROUTINE VISCOSITY_WMAKER (M,N,ETAT,visbrk,H,MinDepthFrc,DX,DY)
      USE PARAM
      USE GLOBAL,ONLY : Depth,nu_break,ETA,Nghost,Xc_WK,Yc_WK,Ibeg,&
-                       Jbeg,Width_WK,Xc_WK,Yc_WK,Ywidth_WK,WAVEMAKER_visbrk,nu_bkg
+                       Jbeg,Width_WK,Xc_WK,Yc_WK,Ywidth_WK,  &
+                       WAVEMAKER_visbrk,nu_bkg,DX_wavemaker,DY_wavemaker, &
+                       Xco,Yco
 # if defined(PARALLEL)
      USE GLOBAL,ONLY : npx,npy, &
 	                 iista,jjsta    !ykchoi Jan/23/2018
@@ -2289,21 +2251,18 @@ SUBROUTINE VISCOSITY_WMAKER (M,N,ETAT,visbrk,H,MinDepthFrc,DX,DY)
         tmp2=visbrk*tmp3
 
 # if defined (CARTESIAN)
-                DXg=DX(1,1)
-		DYg=DY(1,1)
+                DXg=DX_wavemaker
+		DYg=DY_wavemaker
 # else
-		DXg=DX(I,J)
-		DYg=DY(I,J)
+		DXg=DX_wavemaker
+		DYg=DY_wavemaker
 # endif
 
 ! set viscosity
 ! wavemaker
 # if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!        xmk=(I-Ibeg)*DXg+npx*(M-2*Nghost)*DXg
-!        ymk=(J-Jbeg)*DYg+npy*(N-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
+	      xmk=Xco(I)
+	      ymk=Yco(J)
 !---ykchoi Jan/23/2018]
 # else
         xmk=(I-Ibeg)*DXg

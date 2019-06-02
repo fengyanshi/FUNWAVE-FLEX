@@ -114,6 +114,8 @@ SUBROUTINE ALLOCATE_VARIABLES
 	        ETA2sum(Mloc,Nloc), ETA2mean(Mloc,Nloc), &
 			SigWaveHeight(Mloc,Nloc),  &
                         Dx(Mloc,Nloc),Dy(Mloc,Nloc), &
+                        DX_1D(Mglob+2*Nghost),DY_1D(Nglob+2*Nghost), &
+                        X_1D(Mglob+2*Nghost),Y_1D(Nglob+2*Nghost), & 
 # if defined (CARTESIAN)
               U4xL(Mloc1,Nloc),U4xR(Mloc1,Nloc),&
               V4yL(Mloc,Nloc1),V4yR(Mloc,Nloc1), &
@@ -240,48 +242,57 @@ SUBROUTINE INITIALIZATION
 
    IF(StretchGrid) THEN
 
+      OPEN(1,FILE=TRIM(X_FILE))
+       DO I=Nghost+1,Mglob+Nghost
+         READ(1,*) X_1D(I)
+       ENDDO
+      CLOSE(1)
+
+      OPEN(1,FILE=TRIM(Y_FILE))
+       DO J=Nghost+1,Nglob+Nghost
+         READ(1,*) Y_1D(J)
+       ENDDO
+      CLOSE(1)
+
+      DO I=1,Nghost
+        X_1D(I)=-(X_1D(Nghost+2)-X_1D(Nghost+1))*(Nghost-I+1)
+        X_1D(Mglob+Nghost+I)=X_1D(Mglob+Nghost) +  &
+                             (X_1D(Mglob+Nghost)-X_1D(Mglob+Nghost-1))*I
+      ENDDO
+      DO J=1,Nghost
+        Y_1D(J)=-(Y_1D(Nghost+2)-Y_1D(Nghost+1))*(Nghost-J+1)
+        Y_1D(Nglob+Nghost+J)=Y_1D(Nglob+Nghost) + &
+                             (Y_1D(Nglob+Nghost)-Y_1D(Nglob+Nghost-1))*J
+      ENDDO
+
+      DO I=1,Mglob+2*Nghost-1
+        DX_1D(I)=X_1D(I+1)-X_1D(I)
+      ENDDO
+        DX_1D(Mglob+2*Nghost)=DX_1D(Mglob+2*Nghost-1)
+
+      DO J=1,Nglob+2*Nghost-1
+        DY_1D(J)=Y_1D(J+1)-Y_1D(J)
+      ENDDO
+        DY_1D(Nglob+2*Nghost)=DY_1D(Nglob+2*Nghost-1)
+
 # if defined (PARALLEL)
-       CALL GetFile(DX_FILE,Dx)
-       CALL GetFile(DY_FILE,Dy)
+      DO J=1,Nloc
+      DO I=1,Mloc
+        DX(I,J) = DX_1D(I+iista-1)
+        DY(I,J) = DY_1D(J+jjsta-1)
+      ENDDO
+      ENDDO
+
 # else
-      OPEN(1,FILE=TRIM(DX_FILE))
-       DO J=Jbeg,Jend
-         READ(1,*)(Dx(I,J),I=Ibeg,Iend)
-       ENDDO
-      CLOSE(1)
-
-      OPEN(1,FILE=TRIM(DY_FILE))
-       DO J=Jbeg,Jend
-         READ(1,*)(Dy(I,J),I=Ibeg,Iend)
-       ENDDO
-      CLOSE(1)
-
-! ghost cells
-     DO I=Ibeg,Iend
-       DO J=1,Nghost
-        Dx(I,J)=Dx(I,Jbeg)
-        Dy(I,J)=Dy(I,Jbeg)
-       ENDDO
-       DO J=Jend+1,Nloc
-        Dx(I,J)=Dx(I,Jend)
-        Dy(I,J)=Dy(I,Jend)
-       ENDDO
-     ENDDO
-
-     DO J=1,Nloc
-       DO I=1,Nghost
-        Dx(I,J)=Dx(Ibeg,J)
-        Dy(I,J)=Dy(Ibeg,J)
-       ENDDO
-       DO I=Iend+1,Mloc
-        Dx(I,J)=Dx(Iend,J)
-        Dy(I,J)=Dy(Iend,J)
-       ENDDO
-     ENDDO  
-
-# endif
-! end parallel
-
+      DO J=1,Nloc
+      DO I=1,Mloc
+        DX(I,J) = DX_1D(I)
+        DY(I,J) = DY_1D(J)
+      ENDDO
+      ENDDO
+# endif 
+  ! end parallel
+       
 ! check if dx and dy zero
 
      DO J=1,Nloc
@@ -306,6 +317,8 @@ SUBROUTINE INITIALIZATION
        DY(I,J)=DY_input
      ENDDO
      ENDDO
+     DX_wavemaker = DX(1,1)
+     DY_wavemaker = DY(1,1)
 
    ENDIF ! end stretched
 
@@ -483,33 +496,21 @@ SUBROUTINE INITIALIZATION
 ! Xco, and Yco
 
 # if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-    Xco(Ibeg) = (iista-1)*DX(1,1)
-! cartesian
-!---ykchoi Jan/23/2018]
+    DO I=1,Mloc
+      Xco(I)=X_1D(iista+I-1)
+    ENDDO
+    DO J=1,Nloc
+      Yco(J)=Y_1D(jjsta+J-1)
+    ENDDO
 # else
-     Xco(Ibeg) = ZERO
+    DO I=1,Mloc
+      Xco(I)=X_1D(I)
+    ENDDO
+    DO J=1,Nloc
+      Yco(J)=Y_1D(J)
+    ENDDO
 # endif
-
-     DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX(1,1)
-     ENDDO
-     DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX(1,1)
-     ENDDO
-
-# if defined (PARALLEL)
-     Yco(Jbeg) = (jjsta-1)*DY(1,1)
-# else
-     Yco(Jbeg) = ZERO
-# endif
-     DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY(1,1)
-     ENDDO
-     DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY(1,1)
-     ENDDO
-
+ ! end parallel
           
      IF(SHOW_BREAKING)THEN
      AGE_BREAKING = ZERO
