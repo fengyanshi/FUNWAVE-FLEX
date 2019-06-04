@@ -70,8 +70,8 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
 ! MUSCL-Hancock, Zhou et al., p. 7
 
 ! only for wavemaker
-     DXg=DX(1,1)
-     DYg=DY(1,1)
+     DXg=DX_typical
+     DYg=DY_typical
 
 
 ! solve eta
@@ -84,73 +84,45 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
 ! now work for spherical # if defined (CARTESIAN)
         IF(WaveMaker(1:6)=='WK_IRR'.OR.WaveMaker(1:6)=='TMA_1D'  &
            .OR.WaveMaker(1:6)=='JON_1D'.OR.WaveMaker(1:6)=='JON_2D')THEN
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!            xmk=(I-Ibeg)*DXg+npx*(Mloc-2*Nghost)*DXg
-!            ymk=(J-Jbeg)*DYg+npy*(Nloc-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-!---ykchoi Jan/23/2018]
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
 
-! WaveMaker_Mass was done in sources.F 02/27/2017
-
-!          WK_Source=ZERO
-!          DO kf=1,Nfreq
-!           WK_Source=WK_Source+TANH(PI/(Time_ramp/FreqPeak)*TIME)*(Cm(I,J,kf) &
-!                       *COS(OMGN_IR(KF)*TIME) &
-!                       +Sm(I,J,kf)*SIN(OMGN_IR(KF)*TIME))
-!          ENDDO
 
           R1(I,J)=-1.0_SP/DXg*(F_right*n_right+F_left*n_left) &
                 -1.0_SP/DYg*(F_top*n_top+F_bottom*n_bottom) &
         ! wavemaker
                  +WaveMaker_Mass(I,J)
-!                +WK_Source      
+     
          ELSE
          R1(I,J)=-1.0_SP/DXg*(F_right*n_right+F_left*n_left) &
                    -1.0_SP/DYg*(F_top*n_top+F_bottom*n_bottom)
          ENDIF
        ELSEIF(WAVEMAKER(1:6)=='WK_REG')THEN
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!            xmk=(I-Ibeg)*DXg+npx*(Mloc-2*Nghost)*DXg
-!            ymk=(J-Jbeg)*DYg+npy*(Nloc-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-!---ykchoi Jan/23/2018]
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
           
           R1(I,J)=-1.0_SP/DXg*(F_right*n_right+F_left*n_left) &
                 -1.0_SP/DYg*(F_top*n_top+F_bottom*n_bottom) &
         ! wavemaker 
-                 +WaveMaker_Mass(I,J)    
+                 +WaveMaker_Mass(I,J)   
+
          ELSE
          R1(I,J)=-1.0_SP/DXg*(F_right*n_right+F_left*n_left) &
                    -1.0_SP/DYg*(F_top*n_top+F_bottom*n_bottom)
          ENDIF
        ELSEIF(WAVEMAKER(1:7)=='WK_TIME')THEN
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!            xmk=(I-Ibeg)*DXg+npx*(Mloc-2*Nghost)*DXg
-!            ymk=(J-Jbeg)*DYg+npy*(Nloc-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-!---ykchoi Jan/23/2018]
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
           
@@ -163,17 +135,10 @@ SUBROUTINE ESTIMATE_HUV(ISTEP)
          ENDIF   
 
        ELSEIF(WAVEMAKER(1:9)=='WK_DATA2D')THEN
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!            xmk=(I-Ibeg)*DXg+npx*(Mloc-2*Nghost)*DXg
-!            ymk=(J-Jbeg)*DYg+npy*(Nloc-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-!---ykchoi Jan/23/2018]
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN!
           

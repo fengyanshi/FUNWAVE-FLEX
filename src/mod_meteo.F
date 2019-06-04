@@ -380,7 +380,7 @@ SUBROUTINE METEO_FORCING
 END SUBROUTINE METEO_FORCING
 
 SUBROUTINE Holland_Model_Setup
-  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE
+  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE,Xco,Yco
 # if defined (PARALLEL)
   USE GLOBAL,ONLY :   iista,jjsta  !ykchoi Jan/23/2018
 # endif
@@ -402,43 +402,6 @@ SUBROUTINE Holland_Model_Setup
 # else
       WRITE(3,'(A15,A50)')'STORM_FILE:', STORM_FILE
 # endif
-
-
-      ALLOCATE (Xco(Mloc),Yco(Nloc))
-
-      
-! Xco, and Yco
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!      Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
-	Xco(Ibeg) = (iista-1)*DX(1,1)
-!---ykchoi Jan/23/2018]
-
-# else
-     Xco(Ibeg) = ZERO
-# endif
-     DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX(1,1)
-     ENDDO
-     DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX(1,1)
-     ENDDO
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
-      Yco(Jbeg) = (jjsta-1)*DY(1,1)
-!---ykchoi Jan/23/2018]
-# else
-     Yco(Jbeg) = ZERO
-# endif
-     DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY(1,1)
-     ENDDO
-     DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY(1,1)
-     ENDDO
 
     TMP_NAME = TRIM(STORM_FILE)
 
@@ -729,7 +692,7 @@ SUBROUTINE Constant_Wind_Forcing
 END SUBROUTINE Constant_Wind_Forcing
 
 SUBROUTINE Slide_Model_Setup
-  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE
+  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE,Xco,Yco
 # if defined (PARALLEL)
   USE GLOBAL,ONLY : iista,jjsta    !ykchoi Jan/23/2018
 # endif
@@ -755,41 +718,7 @@ SUBROUTINE Slide_Model_Setup
 # else
       WRITE(3,'(A15,A50)')'SLIDE_FILE:', SLIDE_FILE
 # endif
-
-      ALLOCATE (Xco(Mloc),Yco(Nloc))
       
-! Xco, and Yco
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
-      Xco(Ibeg) = (iista-1)*DX(1,1)
-!---ykchoi Jan/23/2018]
-# else
-     Xco(Ibeg) = ZERO
-# endif
-     DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX(1,1)
-     ENDDO
-     DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX(1,1)
-     ENDDO
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
-      Yco(Jbeg) = (jjsta-1)*DY(1,1)
-!---ykchoi Jan/23/2018]
-# else
-     Yco(Jbeg) = ZERO
-# endif
-     DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY(1,1)
-     ENDDO
-     DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY(1,1)
-     ENDDO
-
     TMP_NAME = TRIM(SLIDE_FILE)
 
 ! check existing
@@ -946,7 +875,7 @@ SUBROUTINE Slide_Model_Forcing
 END SUBROUTINE Slide_Model_Forcing
 
 SUBROUTINE MeteoGausian_Setup
-  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE
+  USE GLOBAL,ONLY : itmp1,itmp2,itmp3,itmp4,SMALL,LARGE,Xco,Yco
 # if defined (PARALLEL)
   USE GLOBAL,ONLY : iista,jjsta   !ykchoi Jan/23/2018
 # endif
@@ -968,43 +897,7 @@ SUBROUTINE MeteoGausian_Setup
 # else
       WRITE(3,'(A15,A50)')'STORM_FILE:', STORM_FILE
 # endif
-
-
-      ALLOCATE (Xco(Mloc),Yco(Nloc))
-
       
-! Xco, and Yco
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Xco(Ibeg) = npx*(Mloc-2*Nghost)*DX(1,1)
-     Xco(Ibeg) = (iista-1)*DX(1,1)
-!---ykchoi Jan/23/2018]
-# else
-     Xco(Ibeg) = ZERO
-# endif
-     DO I = Ibeg+1,Mloc
-       Xco(I) = Xco(I-1)+DX(1,1)
-     ENDDO
-     DO I = Ibeg-1,Ibeg-Nghost,-1
-       Xco(I) = Xco(I+1)-DX(1,1)
-     ENDDO
-
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!     Yco(Jbeg) = npy*(Nloc-2*Nghost)*DY(1,1)
-     Yco(Jbeg) = (jjsta-1)*DY(1,1)
-!---ykchoi Jan/23/2018]
-# else
-     Yco(Jbeg) = ZERO
-# endif
-     DO J = Jbeg+1,Nloc
-       Yco(J) = Yco(J-1)+DY(1,1)
-     ENDDO
-     DO J = Jbeg-1,Jbeg-Nghost,-1
-       Yco(J) = Yco(J+1)-DY(1,1)
-     ENDDO
-
     TMP_NAME = TRIM(STORM_FILE)
 
 ! check existing

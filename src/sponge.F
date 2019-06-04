@@ -137,6 +137,7 @@ SUBROUTINE CALCULATE_SPONGE_MAKER(M,N,Nghost,DX,DY,&
                             Sponge_west_width, &
                             R_sponge,A_sponge,SPONGE)
      USE PARAM
+     USE GLOBAL, ONLY : DX_typical,DY_typical
 # if defined (PARALLEL)
      USE GLOBAL, ONLY : n_west, n_east, n_suth, n_nrth,&
                  px,py,npx,npy,Mglob,Nglob, &
@@ -156,7 +157,7 @@ SUBROUTINE CALCULATE_SPONGE_MAKER(M,N,Nghost,DX,DY,&
 
 
 
-     Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_west_width/DX_typical)+Nghost
 
      DO J=1,N
      DO I=1,Iwidth
@@ -192,7 +193,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
                             Sponge_south_width,Sponge_north_width, &
                             R_sponge,A_sponge,SPONGE)
      USE PARAM
-     USE GLOBAL, ONLY : depth,MinDepthFrc,CDsponge
+     USE GLOBAL, ONLY : depth,MinDepthFrc,CDsponge,DX_typical,DY_typical
                         
 # if defined (PARALLEL)
      USE GLOBAL, ONLY : n_west, n_east, n_suth, n_nrth,px,py,npx,npy,&
@@ -216,8 +217,8 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 ! note that I used SPONGE represent CD from input, do not mess up 
 ! with the sponge defined in the direction sponge 
 
-     DXg=DX(1,1)
-     DYg=DY(1,1)
+     DXg=DX_typical
+     DYg=DY_typical
 
      SPONGE = ZERO
      tmp_2d_2 = ZERO
@@ -227,7 +228,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_west_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_west_width/DXg)+Nghost
      DO J=1,N
      DO I=1,M
          lim=0.0_SP
@@ -249,7 +250,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_east_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_east_width/DXg)+Nghost
      DO J=1,N
      DO I=1,M
          lim=0.0_SP
@@ -280,7 +281,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_south_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_south_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -307,7 +308,7 @@ SUBROUTINE CALCULATE_FRICTION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_north_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_north_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -355,7 +356,7 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
                             Sponge_south_width,Sponge_north_width, &
                             R_sponge,A_sponge,SPONGE)
      USE PARAM
-     USE GLOBAL, ONLY : depth,MinDepthFrc,Csp
+     USE GLOBAL, ONLY : depth,MinDepthFrc,Csp,DX_typical,DY_typical
                         
 # if defined (PARALLEL)
      USE GLOBAL, ONLY : n_west, n_east, n_suth, n_nrth,px,py,npx,npy,&
@@ -382,14 +383,14 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
      tmp_2d_1 = ZERO
 
 
-     DXg=DX(1,1)
-     DYg=DY(1,1)
+     DXg=DX_typical
+     DYg=DY_typical
 
 ! west
 
      IF(Sponge_west_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_west_width/DXg)+Nghost
 
      DO J=1,N
      DO I=1,M
@@ -416,7 +417,7 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_east_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_east_width/DXg)+Nghost
 
      DO J=1,N
      DO I=1,M
@@ -452,7 +453,7 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_south_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_south_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -479,7 +480,7 @@ SUBROUTINE CALCULATE_DIFFUSION_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_north_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_north_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -528,7 +529,7 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
                             R_sponge,A_sponge,SPONGE)
 
      USE PARAM
-     USE GLOBAL, ONLY : depth,MinDepthFrc
+     USE GLOBAL, ONLY : depth,MinDepthFrc,DX_typical,DY_typical
 # if defined (PARALLEL)
      USE GLOBAL, ONLY : n_west, n_east, n_suth, n_nrth,px,py,npx,npy,&
                         Mglob,Nglob, &
@@ -553,14 +554,14 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
      tmp_2d_1 = ZERO
 
 
-     DXg=DX(1,1)
-     DYg=DY(1,1)
+     DXg=DX_typical
+     DYg=DY_typical
 
 ! west
 
      IF(Sponge_west_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_west_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_west_width/DXg)+Nghost
      DO J=1,N
      DO I=1,M
        IF(SPONGE(I,J)>1.0_SP)THEN
@@ -585,7 +586,7 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_east_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_east_width/DX(1,1))+Nghost
+     Iwidth=INT(Sponge_east_width/DXg)+Nghost
 
      DO J=1,N
      DO I=1,M
@@ -622,7 +623,7 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_south_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_south_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_south_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -649,7 +650,7 @@ SUBROUTINE CALCULATE_SPONGE(M,N,Nghost,DX,DY,&
 
      IF(Sponge_north_width>ZERO)THEN
 
-     Iwidth=INT(Sponge_north_width/DY(1,1))+Nghost
+     Iwidth=INT(Sponge_north_width/DYg)+Nghost
 
      DO I=1,M
      DO J=1,N
@@ -697,7 +698,7 @@ SUBROUTINE CALCULATE_CD_BREAKWATER
      USE PARAM
      USE GLOBAL, ONLY : depth,MinDepthFrc,CD_breakwater,BreakWaterWidth, &
                         Mglob,Nglob,Ibeg,Iend,Jbeg,Jend,Nghost,DX,DY,&
-                        Mloc,Nloc,BreakWaterAbsorbCoef
+                        Mloc,Nloc,BreakWaterAbsorbCoef,DX_typical,DY_typical
 # if defined (PARALLEL)
      USE GLOBAL, ONLY : px,py,npx,npy,myid,ier,NumberProcessor, &
                         iista, iiend, jjsta, jjend    !ykchoi (28/Jan/2018)   
@@ -729,8 +730,8 @@ SUBROUTINE CALCULATE_CD_BREAKWATER
 # endif
 
 
-     DXg=DX(1,1)
-     DYg=DY(1,1)
+     DXg=DX_typical
+     DYg=DY_typical
      CD_breakwater = ZERO
 
 ! global

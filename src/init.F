@@ -275,6 +275,24 @@ SUBROUTINE INITIALIZATION
       ENDDO
         DY_1D(Nglob+2*Nghost)=DY_1D(Nglob+2*Nghost-1)
 
+! wavemaker
+
+     DX_typical = DX_1D(1)
+     DY_typical = DY_1D(1)
+
+     IF(WAVEMAKER(1:2)=='WK')THEN
+        DO I=1,Mglob
+           IF(X_1D(I)<Xc_WK.AND.X_1D(I+1)>=Xc_WK)THEN
+             DX_typical = DX_1D(I)
+           ENDIF
+        ENDDO
+        DO J=1,Nglob
+           IF(Y_1D(J)<Yc_WK.AND.Y_1D(J+1)>=Yc_WK)THEN
+             DY_typical = DY_1D(J)
+           ENDIF
+        ENDDO
+     ENDIF
+
 # if defined (PARALLEL)
       DO J=1,Nloc
       DO I=1,Mloc
@@ -317,8 +335,8 @@ SUBROUTINE INITIALIZATION
        DY(I,J)=DY_input
      ENDDO
      ENDDO
-     DX_wavemaker = DX(1,1)
-     DY_wavemaker = DY(1,1)
+     DX_typical = DX(1,1)
+     DY_typical = DY(1,1)
 
    ENDIF ! end stretched
 
@@ -495,6 +513,7 @@ SUBROUTINE INITIALIZATION
 ! coordinate for cartesian only
 ! Xco, and Yco
 
+  IF(StretchGrid)THEN
 # if defined (PARALLEL)
     DO I=1,Mloc
       Xco(I)=X_1D(iista+I-1)
@@ -511,6 +530,34 @@ SUBROUTINE INITIALIZATION
     ENDDO
 # endif
  ! end parallel
+   ELSE ! not stretched grid
+
+# if defined (PARALLEL)
+    Xco(Ibeg) = (iista-1)*DX(1,1)
+# else
+     Xco(Ibeg) = ZERO
+# endif
+
+     DO I = Ibeg+1,Mloc
+       Xco(I) = Xco(I-1)+DX(1,1)
+     ENDDO
+     DO I = Ibeg-1,Ibeg-Nghost,-1
+       Xco(I) = Xco(I+1)-DX(1,1)
+     ENDDO
+
+# if defined (PARALLEL)
+     Yco(Jbeg) = (jjsta-1)*DY(1,1)
+# else
+     Yco(Jbeg) = ZERO
+# endif
+     DO J = Jbeg+1,Nloc
+       Yco(J) = Yco(J-1)+DY(1,1)
+     ENDDO
+     DO J = Jbeg-1,Jbeg-Nghost,-1
+       Yco(J) = Yco(J+1)-DY(1,1)
+     ENDDO
+
+   ENDIF ! end stretch grid
           
      IF(SHOW_BREAKING)THEN
      AGE_BREAKING = ZERO

@@ -346,58 +346,6 @@ SUBROUTINE READ_INPUT
          WRITE(*,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
          WRITE(3,'(A40,A40)')'X_FILE =  ', TRIM(X_FILE)
 # endif
-
-
-      CALL READ_FLOAT(DX_wavemaker,FILE_NAME,'DX_wavemaker',ierr)
-
-      IF(ierr==1)THEN
-        DX_wavemaker = 1.0_SP
-# if defined (PARALLEL)
-      if (myid.eq.0) THEN
-         WRITE(*,'(A80)')'DX_wavemaker not specified, STOP'
-         WRITE(3,'(A80)')'DX_wavemaker not specified, STOP'
-         call MPI_FINALIZE ( ier )
-      endif
-# else
-         WRITE(*,'(A80)')'DX_wavemaker not specified, STOP'
-         WRITE(3,'(A80)')'DX_wavemaker not specified, STOP'
-         STOP
-# endif
-      ENDIF
-
-      CALL READ_FLOAT(DY_wavemaker,FILE_NAME,'DY_wavemaker',ierr)
-
-      IF(ierr==1)THEN
-        DY_wavemaker = 1.0_SP
-# if defined (PARALLEL)
-      if (myid.eq.0) THEN
-         WRITE(*,'(A80)')'DY_wavemaker not specified, STOP'
-         WRITE(3,'(A80)')'DY_wavemaker not specified, STOP'
-         call MPI_FINALIZE ( ier )
-      endif
-# else
-         WRITE(*,'(A80)')'DY_wavemaker not specified, STOP'
-         WRITE(3,'(A80)')'DY_wavemaker not specified, STOP'
-         STOP
-# endif
-      ENDIF
-
-!   ignore Coriolis in Cartesian mode
-!        CALL READ_STRING(Coriolis_FILE,FILE_NAME,'CORIOLIS_FILE',ierr) 
-!  
-!      IF(ierr==1)THEN
-!# if defined (PARALLEL)
-!      if (myid.eq.0) THEN
-!         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-!         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-!      endif
-!       call MPI_FINALIZE ( ier )
-!# else
-!         WRITE(*,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-!         WRITE(3,'(A40,A40)')'You use StretchGrid ', 'but no CORIOLIS_FILE found, STOP'
-!# endif
-!        STOP
-!      ENDIF
  
      ENDIF  ! end stretch
 

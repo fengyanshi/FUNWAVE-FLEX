@@ -65,28 +65,18 @@ SUBROUTINE SourceTerms
      IMPLICIT NONE
      REAL,DIMENSION(Mloc,Nloc) :: nu_vis
      LOGICAL :: PQ_scheme = .FALSE.
-     REAL(SP) :: xmk,ymk,Dxg,Dyg,WK_Source
+     REAL(SP) :: xmk,ymk,WK_Source
      INTEGER :: kd,kf
 
-     DXg=DX(1,1)
-     DYg=DY(1,1)
 
 ! wavemaker fyshi 02/08/2016
 
           DO J=1,Nloc
           DO I=1,Mloc
 
-# if defined (PARALLEL)
-![---ykchoi Jan/23/2018
-!            xmk=(I-Ibeg)*DXg+npx*(Mloc-2*Nghost)*DXg
-!            ymk=(J-Jbeg)*DYg+npy*(Nloc-2*Nghost)*DYg
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-!---ykchoi Jan/23/2018]
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
 
@@ -212,13 +202,8 @@ SUBROUTINE SourceTerms
        ENDIF
 
        IF(WaveMakerCurrentBalance)THEN
-# if defined (PARALLEL)
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+            xmk=Xco(I)
+            ymk=Yco(J)
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
             SourceX(I,J) = SourceX(I,J) &
@@ -261,13 +246,9 @@ SUBROUTINE SourceTerms
        ENDIF
 
        IF(WaveMakerCurrentBalance)THEN
-# if defined (PARALLEL)
-	      xmk=(I-Ibeg)*DXg + (iista-1)*DXg
-	      ymk=(J-Jbeg)*DYg + (jjsta-1)*DYg
-# else
-            xmk=(I-Ibeg)*DXg
-            ymk=(J-Jbeg)*DYg
-# endif
+            xmk=Xco(I)
+            ymk=Yco(J)
+
          IF(ABS(xmk-Xc_WK)<Width_WK.AND. &
             ABS(ymk-Yc_WK)<Ywidth_WK/2.0_SP)THEN
             SourceY(I,J) = SourceY(I,J) &

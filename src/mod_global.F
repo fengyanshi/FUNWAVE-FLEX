@@ -127,7 +127,7 @@ MODULE GLOBAL
 
        REAL(SP),DIMENSION(:,:),ALLOCATABLE ::DX,DY
        REAL(SP),DIMENSION(:),ALLOCATABLE ::DX_1D,DY_1D,X_1D,Y_1D
-       REAL(SP) :: DX_wavemaker,DY_wavemaker
+       REAL(SP) :: DX_typical,DY_typical
 
 # if defined (CARTESIAN)
        REAL(SP) :: DX_input, DY_input

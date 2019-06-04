@@ -186,9 +186,9 @@ SUBROUTINE UPDATE_MASK
 
 ! calculate deta
 # if defined (CARTESIAN)
-     DwetEta = Dmass / Max(DX(1,1)*DY(1,1),WetArea)
+     DwetEta = Dmass / Max(DX_wavemaker*DY_wavemaker,WetArea)
 # else
-     DwetEta = Dmass / Max(DX(1,1)*DY(1,1),WetArea)
+     DwetEta = Dmass / Max(DX_wavemaker*DY_wavemaker,WetArea)
 # endif
 
      DO J=Jbeg,Jend
