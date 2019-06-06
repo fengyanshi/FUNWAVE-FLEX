@@ -2,13 +2,10 @@
  2D_beach                                                                        
   --------------input start --------------
                                           
- -------------- PARALLEL -----------------
- PX   =  2 PY   =  2
                                           
  -------------- GRID INFO -----------------
  Mglob=     500 Nglob=     250
                               X_FILE =                                     x.txt
-                              Y_FILE =                                     y.txt
  DEPTH_TYPE:DATA                                              
  DEPTH_FILE:depth.txt                                         
                                           
@@ -32,7 +29,7 @@
  Xc_WK   =        150.00
  Yc_WK   =        0.00
  Ywidth_WK=   999999.00
- DEP_WK  =          8.00
+ DEP_WK  =         10.00
  Time_ramp=         0.00
  Delta_WK=          0.50
     Nfreq=            45
@@ -94,9 +91,9 @@ Cd_fixed             0.00
              MinDepthFrc Default:  0.1 m
           USE MIN(MinDepthFrc, MinDepth)
  MinDepth=    0.100000
- MinDepthFrc=    0.100000
+ MinDepthFrc=        0.10
                                           
- --------- WAVE BREAKING -----------------
+ -------- WAVE BREAKING -----------------
             SHOW_BREAKING Default:  TRUE
  Cbrk1 =    0.650000
  Cbrk2 =    0.350000
@@ -104,7 +101,7 @@ Cd_fixed             0.00
   WAVEMAKER_Cbrk =         1.000000
            WAVEMAKER_VIS Default:  FALSE
                                           
- -------- WAVE-AVERAGED PROPERTY -----------------
+ ------- WAVE-AVERAGED PROPERTY -----------------
                      C_smg Default:  0.0
  T_INTV_mean =  100.000000
  STEADY_TIME =  100.000000
@@ -113,7 +110,6 @@ Cd_fixed             0.00
                                           
  -------------- OUTPUT INFO -----------------
  RESULT_FOLDER:output/                                           
- FIELD_IO_TYPE = ASCII                                                                           
          OUTPUT_RES NOT FOUND, OUTPUT_RES=1: full resolution
      OUTPUT_RES         1
       OUT_DEPTH T
@@ -154,17 +150,17 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.050     -54.783     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.050     -49.565     -90.000
+       0.050     -49.565     -23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050     -44.348     -20.548
+       0.050     -44.348     -23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050     -39.130     -20.548
+       0.050     -39.130     -23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050     -33.913     -20.548
+       0.050     -33.913     -23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050     -28.696     -20.548
+       0.050     -28.696     -23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050     -23.478     -20.548
+       0.050     -23.478     -23.022
      For periodic bc, Freq, Dir, New Dir
        0.050     -18.261      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -182,37 +178,37 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.050      18.261       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.050      23.478      20.548
+       0.050      23.478      23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050      28.696      20.548
+       0.050      28.696      23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050      33.913      20.548
+       0.050      33.913      23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050      39.130      20.548
+       0.050      39.130      23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050      44.348      20.548
+       0.050      44.348      23.022
      For periodic bc, Freq, Dir, New Dir
-       0.050      49.565      90.000
+       0.050      49.565      23.022
      For periodic bc, Freq, Dir, New Dir
        0.050      54.783      90.000
      For periodic bc, Freq, Dir, New Dir
        0.050      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056     -60.000     -38.924
+       0.056     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056     -54.783     -38.924
+       0.056     -54.783     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056     -49.565     -38.924
+       0.056     -49.565     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056     -44.348     -38.924
+       0.056     -44.348     -20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056     -39.130     -38.924
+       0.056     -39.130     -20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056     -33.913     -18.309
+       0.056     -33.913     -20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056     -28.696     -18.309
+       0.056     -28.696     -20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056     -23.478     -18.309
+       0.056     -23.478     -20.471
      For periodic bc, Freq, Dir, New Dir
        0.056     -18.261      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -230,39 +226,39 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.056      18.261       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.056      23.478      18.309
+       0.056      23.478      20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056      28.696      18.309
+       0.056      28.696      20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056      33.913      18.309
+       0.056      33.913      20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056      39.130      38.924
+       0.056      39.130      20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056      44.348      38.924
+       0.056      44.348      20.471
      For periodic bc, Freq, Dir, New Dir
-       0.056      49.565      38.924
+       0.056      49.565      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056      54.783      38.924
+       0.056      54.783      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.056      60.000      38.924
+       0.056      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.061     -60.000     -90.000
+       0.061     -60.000     -39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061     -54.783     -34.613
+       0.061     -54.783     -39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061     -49.565     -34.613
+       0.061     -49.565     -39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061     -44.348     -34.613
+       0.061     -44.348     -39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061     -39.130     -34.613
+       0.061     -39.130     -18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061     -33.913     -16.500
+       0.061     -33.913     -18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061     -28.696     -16.500
+       0.061     -28.696     -18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061     -23.478     -16.500
+       0.061     -23.478     -18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061     -18.261     -16.500
+       0.061     -18.261      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.061     -13.043      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -276,41 +272,41 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.061      13.043       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.061      18.261      16.500
+       0.061      18.261       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.061      23.478      16.500
+       0.061      23.478      18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061      28.696      16.500
+       0.061      28.696      18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061      33.913      16.500
+       0.061      33.913      18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061      39.130      34.613
+       0.061      39.130      18.415
      For periodic bc, Freq, Dir, New Dir
-       0.061      44.348      34.613
+       0.061      44.348      39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061      49.565      34.613
+       0.061      49.565      39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061      54.783      34.613
+       0.061      54.783      39.182
      For periodic bc, Freq, Dir, New Dir
-       0.061      60.000      90.000
+       0.061      60.000      39.182
      For periodic bc, Freq, Dir, New Dir
        0.067     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.067     -54.783     -90.000
+       0.067     -54.783     -35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067     -49.565     -31.185
+       0.067     -49.565     -35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067     -44.348     -31.185
+       0.067     -44.348     -35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067     -39.130     -31.185
+       0.067     -39.130     -35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067     -33.913     -31.185
+       0.067     -33.913     -16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067     -28.696     -15.005
+       0.067     -28.696     -16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067     -23.478     -15.005
+       0.067     -23.478     -16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067     -18.261     -15.005
+       0.067     -18.261     -16.718
      For periodic bc, Freq, Dir, New Dir
        0.067     -13.043      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -324,41 +320,41 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.067      13.043       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.067      18.261      15.005
+       0.067      18.261      16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067      23.478      15.005
+       0.067      23.478      16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067      28.696      15.005
+       0.067      28.696      16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067      33.913      31.185
+       0.067      33.913      16.718
      For periodic bc, Freq, Dir, New Dir
-       0.067      39.130      31.185
+       0.067      39.130      35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067      44.348      31.185
+       0.067      44.348      35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067      49.565      31.185
+       0.067      49.565      35.122
      For periodic bc, Freq, Dir, New Dir
-       0.067      54.783      90.000
+       0.067      54.783      35.122
      For periodic bc, Freq, Dir, New Dir
        0.067      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.073     -60.000     -45.470
+       0.073     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.073     -54.783     -45.470
+       0.073     -54.783     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.073     -49.565     -45.470
+       0.073     -49.565     -31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073     -44.348     -28.376
+       0.073     -44.348     -31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073     -39.130     -28.376
+       0.073     -39.130     -31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073     -33.913     -28.376
+       0.073     -33.913     -31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073     -28.696     -28.376
+       0.073     -28.696     -15.291
      For periodic bc, Freq, Dir, New Dir
-       0.073     -23.478     -13.747
+       0.073     -23.478     -15.291
      For periodic bc, Freq, Dir, New Dir
-       0.073     -18.261     -13.747
+       0.073     -18.261     -15.291
      For periodic bc, Freq, Dir, New Dir
        0.073     -13.043      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -372,43 +368,43 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.073      13.043       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.073      18.261      13.747
+       0.073      18.261      15.291
      For periodic bc, Freq, Dir, New Dir
-       0.073      23.478      13.747
+       0.073      23.478      15.291
      For periodic bc, Freq, Dir, New Dir
-       0.073      28.696      28.376
+       0.073      28.696      15.291
      For periodic bc, Freq, Dir, New Dir
-       0.073      33.913      28.376
+       0.073      33.913      31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073      39.130      28.376
+       0.073      39.130      31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073      44.348      28.376
+       0.073      44.348      31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073      49.565      45.470
+       0.073      49.565      31.832
      For periodic bc, Freq, Dir, New Dir
-       0.073      54.783      45.470
+       0.073      54.783      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.073      60.000      45.470
+       0.073      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.078     -60.000     -41.152
+       0.078     -60.000     -46.836
      For periodic bc, Freq, Dir, New Dir
-       0.078     -54.783     -41.152
+       0.078     -54.783     -46.836
      For periodic bc, Freq, Dir, New Dir
-       0.078     -49.565     -41.152
+       0.078     -49.565     -46.836
      For periodic bc, Freq, Dir, New Dir
-       0.078     -44.348     -41.152
+       0.078     -44.348     -29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078     -39.130     -26.021
+       0.078     -39.130     -29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078     -33.913     -26.021
+       0.078     -33.913     -29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078     -28.696     -26.021
+       0.078     -28.696     -14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078     -23.478     -12.671
+       0.078     -23.478     -14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078     -18.261     -12.671
+       0.078     -18.261     -14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078     -13.043     -12.671
+       0.078     -13.043      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.078      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -418,45 +414,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.078       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.078      13.043      12.671
+       0.078      13.043       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.078      18.261      12.671
+       0.078      18.261      14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078      23.478      12.671
+       0.078      23.478      14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078      28.696      26.021
+       0.078      28.696      14.071
      For periodic bc, Freq, Dir, New Dir
-       0.078      33.913      26.021
+       0.078      33.913      29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078      39.130      26.021
+       0.078      39.130      29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078      44.348      41.152
+       0.078      44.348      29.095
      For periodic bc, Freq, Dir, New Dir
-       0.078      49.565      41.152
+       0.078      49.565      46.836
      For periodic bc, Freq, Dir, New Dir
-       0.078      54.783      41.152
+       0.078      54.783      46.836
      For periodic bc, Freq, Dir, New Dir
-       0.078      60.000      41.152
+       0.078      60.000      46.836
      For periodic bc, Freq, Dir, New Dir
-       0.084     -60.000     -90.000
+       0.084     -60.000     -42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084     -54.783     -90.000
+       0.084     -54.783     -42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084     -49.565     -37.620
+       0.084     -49.565     -42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084     -44.348     -37.620
+       0.084     -44.348     -42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084     -39.130     -37.620
+       0.084     -39.130     -26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084     -33.913     -24.013
+       0.084     -33.913     -26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084     -28.696     -24.013
+       0.084     -28.696     -26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084     -23.478     -11.740
+       0.084     -23.478     -13.016
      For periodic bc, Freq, Dir, New Dir
-       0.084     -18.261     -11.740
+       0.084     -18.261     -13.016
      For periodic bc, Freq, Dir, New Dir
-       0.084     -13.043     -11.740
+       0.084     -13.043     -13.016
      For periodic bc, Freq, Dir, New Dir
        0.084      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -466,45 +462,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.084       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.084      13.043      11.740
+       0.084      13.043      13.016
      For periodic bc, Freq, Dir, New Dir
-       0.084      18.261      11.740
+       0.084      18.261      13.016
      For periodic bc, Freq, Dir, New Dir
-       0.084      23.478      11.740
+       0.084      23.478      13.016
      For periodic bc, Freq, Dir, New Dir
-       0.084      28.696      24.013
+       0.084      28.696      26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084      33.913      24.013
+       0.084      33.913      26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084      39.130      37.620
+       0.084      39.130      26.772
      For periodic bc, Freq, Dir, New Dir
-       0.084      44.348      37.620
+       0.084      44.348      42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084      49.565      37.620
+       0.084      49.565      42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084      54.783      90.000
+       0.084      54.783      42.506
      For periodic bc, Freq, Dir, New Dir
-       0.084      60.000      90.000
+       0.084      60.000      42.506
      For periodic bc, Freq, Dir, New Dir
-       0.090     -60.000     -49.300
+       0.090     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.090     -54.783     -49.300
+       0.090     -54.783     -38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090     -49.565     -49.300
+       0.090     -49.565     -38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090     -44.348     -34.653
+       0.090     -44.348     -38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090     -39.130     -34.653
+       0.090     -39.130     -38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090     -33.913     -22.276
+       0.090     -33.913     -24.769
      For periodic bc, Freq, Dir, New Dir
-       0.090     -28.696     -22.276
+       0.090     -28.696     -24.769
      For periodic bc, Freq, Dir, New Dir
-       0.090     -23.478     -22.276
+       0.090     -23.478     -12.092
      For periodic bc, Freq, Dir, New Dir
-       0.090     -18.261     -10.926
+       0.090     -18.261     -12.092
      For periodic bc, Freq, Dir, New Dir
-       0.090     -13.043     -10.926
+       0.090     -13.043     -12.092
      For periodic bc, Freq, Dir, New Dir
        0.090      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -514,45 +510,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.090       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.090      13.043      10.926
+       0.090      13.043      12.092
      For periodic bc, Freq, Dir, New Dir
-       0.090      18.261      10.926
+       0.090      18.261      12.092
      For periodic bc, Freq, Dir, New Dir
-       0.090      23.478      22.276
+       0.090      23.478      12.092
      For periodic bc, Freq, Dir, New Dir
-       0.090      28.696      22.276
+       0.090      28.696      24.769
      For periodic bc, Freq, Dir, New Dir
-       0.090      33.913      22.276
+       0.090      33.913      24.769
      For periodic bc, Freq, Dir, New Dir
-       0.090      39.130      34.653
+       0.090      39.130      38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090      44.348      34.653
+       0.090      44.348      38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090      49.565      49.300
+       0.090      49.565      38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090      54.783      49.300
+       0.090      54.783      38.936
      For periodic bc, Freq, Dir, New Dir
-       0.090      60.000      49.300
+       0.090      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.095     -60.000     -45.133
+       0.095     -60.000     -51.452
      For periodic bc, Freq, Dir, New Dir
-       0.095     -54.783     -45.133
+       0.095     -54.783     -51.452
      For periodic bc, Freq, Dir, New Dir
-       0.095     -49.565     -45.133
+       0.095     -49.565     -35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095     -44.348     -32.111
+       0.095     -44.348     -35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095     -39.130     -32.111
+       0.095     -39.130     -35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095     -33.913     -32.111
+       0.095     -33.913     -23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095     -28.696     -20.755
+       0.095     -28.696     -23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095     -23.478     -20.755
+       0.095     -23.478     -23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095     -18.261     -10.206
+       0.095     -18.261     -11.275
      For periodic bc, Freq, Dir, New Dir
-       0.095     -13.043     -10.206
+       0.095     -13.043     -11.275
      For periodic bc, Freq, Dir, New Dir
        0.095      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -562,45 +558,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.095       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.095      13.043      10.206
+       0.095      13.043      11.275
      For periodic bc, Freq, Dir, New Dir
-       0.095      18.261      10.206
+       0.095      18.261      11.275
      For periodic bc, Freq, Dir, New Dir
-       0.095      23.478      20.755
+       0.095      23.478      23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095      28.696      20.755
+       0.095      28.696      23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095      33.913      32.111
+       0.095      33.913      23.019
      For periodic bc, Freq, Dir, New Dir
-       0.095      39.130      32.111
+       0.095      39.130      35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095      44.348      32.111
+       0.095      44.348      35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095      49.565      45.133
+       0.095      49.565      35.914
      For periodic bc, Freq, Dir, New Dir
-       0.095      54.783      45.133
+       0.095      54.783      51.452
      For periodic bc, Freq, Dir, New Dir
-       0.095      60.000      45.133
+       0.095      60.000      51.452
      For periodic bc, Freq, Dir, New Dir
-       0.101     -60.000     -56.184
+       0.101     -60.000     -47.069
      For periodic bc, Freq, Dir, New Dir
-       0.101     -54.783     -41.657
+       0.101     -54.783     -47.069
      For periodic bc, Freq, Dir, New Dir
-       0.101     -49.565     -41.657
+       0.101     -49.565     -47.069
      For periodic bc, Freq, Dir, New Dir
-       0.101     -44.348     -41.657
+       0.101     -44.348     -33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101     -39.130     -29.901
+       0.101     -39.130     -33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101     -33.913     -29.901
+       0.101     -33.913     -33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101     -28.696     -19.410
+       0.101     -28.696     -21.474
      For periodic bc, Freq, Dir, New Dir
-       0.101     -23.478     -19.410
+       0.101     -23.478     -21.474
      For periodic bc, Freq, Dir, New Dir
-       0.101     -18.261      -9.565
+       0.101     -18.261     -10.547
      For periodic bc, Freq, Dir, New Dir
-       0.101     -13.043      -9.565
+       0.101     -13.043     -10.547
      For periodic bc, Freq, Dir, New Dir
        0.101      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -610,45 +606,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.101       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.101      13.043       9.565
+       0.101      13.043      10.547
      For periodic bc, Freq, Dir, New Dir
-       0.101      18.261       9.565
+       0.101      18.261      10.547
      For periodic bc, Freq, Dir, New Dir
-       0.101      23.478      19.410
+       0.101      23.478      21.474
      For periodic bc, Freq, Dir, New Dir
-       0.101      28.696      19.410
+       0.101      28.696      21.474
      For periodic bc, Freq, Dir, New Dir
-       0.101      33.913      29.901
+       0.101      33.913      33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101      39.130      29.901
+       0.101      39.130      33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101      44.348      41.657
+       0.101      44.348      33.307
      For periodic bc, Freq, Dir, New Dir
-       0.101      49.565      41.657
+       0.101      49.565      47.069
      For periodic bc, Freq, Dir, New Dir
-       0.101      54.783      41.657
+       0.101      54.783      47.069
      For periodic bc, Freq, Dir, New Dir
-       0.101      60.000      56.184
+       0.101      60.000      47.069
      For periodic bc, Freq, Dir, New Dir
-       0.107     -60.000     -51.379
+       0.107     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.107     -54.783     -51.379
+       0.107     -54.783     -43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107     -49.565     -38.684
+       0.107     -49.565     -43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107     -44.348     -38.684
+       0.107     -44.348     -43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107     -39.130     -38.684
+       0.107     -39.130     -31.026
      For periodic bc, Freq, Dir, New Dir
-       0.107     -33.913     -27.955
+       0.107     -33.913     -31.026
      For periodic bc, Freq, Dir, New Dir
-       0.107     -28.696     -27.955
+       0.107     -28.696     -20.098
      For periodic bc, Freq, Dir, New Dir
-       0.107     -23.478     -18.211
+       0.107     -23.478     -20.098
      For periodic bc, Freq, Dir, New Dir
-       0.107     -18.261     -18.211
+       0.107     -18.261      -9.893
      For periodic bc, Freq, Dir, New Dir
-       0.107     -13.043      -8.990
+       0.107     -13.043      -9.893
      For periodic bc, Freq, Dir, New Dir
        0.107      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -658,45 +654,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.107       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.107      13.043       8.990
+       0.107      13.043       9.893
      For periodic bc, Freq, Dir, New Dir
-       0.107      18.261      18.211
+       0.107      18.261       9.893
      For periodic bc, Freq, Dir, New Dir
-       0.107      23.478      18.211
+       0.107      23.478      20.098
      For periodic bc, Freq, Dir, New Dir
-       0.107      28.696      27.955
+       0.107      28.696      20.098
      For periodic bc, Freq, Dir, New Dir
-       0.107      33.913      27.955
+       0.107      33.913      31.026
      For periodic bc, Freq, Dir, New Dir
-       0.107      39.130      38.684
+       0.107      39.130      31.026
      For periodic bc, Freq, Dir, New Dir
-       0.107      44.348      38.684
+       0.107      44.348      43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107      49.565      38.684
+       0.107      49.565      43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107      54.783      51.379
+       0.107      54.783      43.412
      For periodic bc, Freq, Dir, New Dir
-       0.107      60.000      51.379
+       0.107      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.112     -60.000     -47.431
+       0.112     -60.000     -53.917
      For periodic bc, Freq, Dir, New Dir
-       0.112     -54.783     -47.431
+       0.112     -54.783     -53.917
      For periodic bc, Freq, Dir, New Dir
-       0.112     -49.565     -47.431
+       0.112     -49.565     -40.280
      For periodic bc, Freq, Dir, New Dir
-       0.112     -44.348     -36.098
+       0.112     -44.348     -40.280
      For periodic bc, Freq, Dir, New Dir
-       0.112     -39.130     -36.098
+       0.112     -39.130     -29.006
      For periodic bc, Freq, Dir, New Dir
-       0.112     -33.913     -26.224
+       0.112     -33.913     -29.006
      For periodic bc, Freq, Dir, New Dir
-       0.112     -28.696     -26.224
+       0.112     -28.696     -18.860
      For periodic bc, Freq, Dir, New Dir
-       0.112     -23.478     -17.133
+       0.112     -23.478     -18.860
      For periodic bc, Freq, Dir, New Dir
-       0.112     -18.261     -17.133
+       0.112     -18.261      -9.302
      For periodic bc, Freq, Dir, New Dir
-       0.112     -13.043      -8.470
+       0.112     -13.043      -9.302
      For periodic bc, Freq, Dir, New Dir
        0.112      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -706,45 +702,45 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.112       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.112      13.043       8.470
+       0.112      13.043       9.302
      For periodic bc, Freq, Dir, New Dir
-       0.112      18.261      17.133
+       0.112      18.261       9.302
      For periodic bc, Freq, Dir, New Dir
-       0.112      23.478      17.133
+       0.112      23.478      18.860
      For periodic bc, Freq, Dir, New Dir
-       0.112      28.696      26.224
+       0.112      28.696      18.860
      For periodic bc, Freq, Dir, New Dir
-       0.112      33.913      26.224
+       0.112      33.913      29.006
      For periodic bc, Freq, Dir, New Dir
-       0.112      39.130      36.098
+       0.112      39.130      29.006
      For periodic bc, Freq, Dir, New Dir
-       0.112      44.348      36.098
+       0.112      44.348      40.280
      For periodic bc, Freq, Dir, New Dir
-       0.112      49.565      47.431
+       0.112      49.565      40.280
      For periodic bc, Freq, Dir, New Dir
-       0.112      54.783      47.431
+       0.112      54.783      53.917
      For periodic bc, Freq, Dir, New Dir
-       0.112      60.000      47.431
+       0.112      60.000      53.917
      For periodic bc, Freq, Dir, New Dir
-       0.118     -60.000     -56.598
+       0.118     -60.000     -49.623
      For periodic bc, Freq, Dir, New Dir
-       0.118     -54.783     -44.082
+       0.118     -54.783     -49.623
      For periodic bc, Freq, Dir, New Dir
-       0.118     -49.565     -44.082
+       0.118     -49.565     -37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118     -44.348     -44.082
+       0.118     -44.348     -37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118     -39.130     -33.818
+       0.118     -39.130     -37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118     -33.913     -33.818
+       0.118     -33.913     -27.199
      For periodic bc, Freq, Dir, New Dir
-       0.118     -28.696     -24.671
+       0.118     -28.696     -27.199
      For periodic bc, Freq, Dir, New Dir
-       0.118     -23.478     -16.157
+       0.118     -23.478     -17.741
      For periodic bc, Freq, Dir, New Dir
-       0.118     -18.261     -16.157
+       0.118     -18.261     -17.741
      For periodic bc, Freq, Dir, New Dir
-       0.118     -13.043      -7.998
+       0.118     -13.043      -8.764
      For periodic bc, Freq, Dir, New Dir
        0.118      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
@@ -754,1594 +750,1497 @@ Cd_fixed             0.00
      For periodic bc, Freq, Dir, New Dir
        0.118       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.118      13.043       7.998
+       0.118      13.043       8.764
      For periodic bc, Freq, Dir, New Dir
-       0.118      18.261      16.157
+       0.118      18.261      17.741
      For periodic bc, Freq, Dir, New Dir
-       0.118      23.478      16.157
+       0.118      23.478      17.741
      For periodic bc, Freq, Dir, New Dir
-       0.118      28.696      24.671
+       0.118      28.696      27.199
      For periodic bc, Freq, Dir, New Dir
-       0.118      33.913      33.818
+       0.118      33.913      27.199
      For periodic bc, Freq, Dir, New Dir
-       0.118      39.130      33.818
+       0.118      39.130      37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118      44.348      44.082
+       0.118      44.348      37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118      49.565      44.082
+       0.118      49.565      37.549
      For periodic bc, Freq, Dir, New Dir
-       0.118      54.783      44.082
+       0.118      54.783      49.623
      For periodic bc, Freq, Dir, New Dir
-       0.118      60.000      56.598
+       0.118      60.000      49.623
      For periodic bc, Freq, Dir, New Dir
-       0.124     -60.000     -52.192
+       0.124     -60.000     -90.000
      For periodic bc, Freq, Dir, New Dir
-       0.124     -54.783     -52.192
+       0.124     -54.783     -46.000
      For periodic bc, Freq, Dir, New Dir
-       0.124     -49.565     -41.178
+       0.124     -49.565     -46.000
      For periodic bc, Freq, Dir, New Dir
-       0.124     -44.348     -41.178
+       0.124     -44.348     -35.133
      For periodic bc, Freq, Dir, New Dir
-       0.124     -39.130     -31.784
+       0.124     -39.130     -35.133
      For periodic bc, Freq, Dir, New Dir
-       0.124     -33.913     -31.784
+       0.124     -33.913     -25.569
      For periodic bc, Freq, Dir, New Dir
-       0.124     -28.696     -23.268
+       0.124     -28.696     -25.569
      For periodic bc, Freq, Dir, New Dir
-       0.124     -23.478     -23.268
+       0.124     -23.478     -16.722
      For periodic bc, Freq, Dir, New Dir
-       0.124     -18.261     -15.269
+       0.124     -18.261     -16.722
      For periodic bc, Freq, Dir, New Dir
-       0.124     -13.043      -7.567
+       0.124     -13.043      -8.272
      For periodic bc, Freq, Dir, New Dir
-       0.124      -7.826      -7.567
+       0.124      -7.826      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.124      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.124       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.124       7.826       7.567
+       0.124       7.826       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.124      13.043       7.567
+       0.124      13.043       8.272
      For periodic bc, Freq, Dir, New Dir
-       0.124      18.261      15.269
+       0.124      18.261      16.722
      For periodic bc, Freq, Dir, New Dir
-       0.124      23.478      23.268
+       0.124      23.478      16.722
      For periodic bc, Freq, Dir, New Dir
-       0.124      28.696      23.268
+       0.124      28.696      25.569
      For periodic bc, Freq, Dir, New Dir
-       0.124      33.913      31.784
+       0.124      33.913      25.569
      For periodic bc, Freq, Dir, New Dir
-       0.124      39.130      31.784
+       0.124      39.130      35.133
      For periodic bc, Freq, Dir, New Dir
-       0.124      44.348      41.178
+       0.124      44.348      35.133
      For periodic bc, Freq, Dir, New Dir
-       0.124      49.565      41.178
+       0.124      49.565      46.000
      For periodic bc, Freq, Dir, New Dir
-       0.124      54.783      52.192
+       0.124      54.783      46.000
      For periodic bc, Freq, Dir, New Dir
-       0.124      60.000      52.192
+       0.124      60.000      90.000
      For periodic bc, Freq, Dir, New Dir
-       0.130     -60.000     -48.500
+       0.130     -60.000     -54.719
      For periodic bc, Freq, Dir, New Dir
-       0.130     -54.783     -48.500
+       0.130     -54.783     -54.719
      For periodic bc, Freq, Dir, New Dir
-       0.130     -49.565     -48.500
+       0.130     -49.565     -42.865
      For periodic bc, Freq, Dir, New Dir
-       0.130     -44.348     -38.619
+       0.130     -44.348     -42.865
      For periodic bc, Freq, Dir, New Dir
-       0.130     -39.130     -38.619
+       0.130     -39.130     -32.971
      For periodic bc, Freq, Dir, New Dir
-       0.130     -33.913     -29.954
+       0.130     -33.913     -32.971
      For periodic bc, Freq, Dir, New Dir
-       0.130     -28.696     -21.992
+       0.130     -28.696     -24.089
      For periodic bc, Freq, Dir, New Dir
-       0.130     -23.478     -21.992
+       0.130     -23.478     -15.790
      For periodic bc, Freq, Dir, New Dir
-       0.130     -18.261     -14.457
+       0.130     -18.261     -15.790
      For periodic bc, Freq, Dir, New Dir
-       0.130     -13.043      -7.171
+       0.130     -13.043      -7.820
      For periodic bc, Freq, Dir, New Dir
-       0.130      -7.826      -7.171
+       0.130      -7.826      -7.820
      For periodic bc, Freq, Dir, New Dir
        0.130      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.130       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.130       7.826       7.171
+       0.130       7.826       7.820
      For periodic bc, Freq, Dir, New Dir
-       0.130      13.043       7.171
+       0.130      13.043       7.820
      For periodic bc, Freq, Dir, New Dir
-       0.130      18.261      14.457
+       0.130      18.261      15.790
      For periodic bc, Freq, Dir, New Dir
-       0.130      23.478      21.992
+       0.130      23.478      15.790
      For periodic bc, Freq, Dir, New Dir
-       0.130      28.696      21.992
+       0.130      28.696      24.089
      For periodic bc, Freq, Dir, New Dir
-       0.130      33.913      29.954
+       0.130      33.913      32.971
      For periodic bc, Freq, Dir, New Dir
-       0.130      39.130      38.619
+       0.130      39.130      32.971
      For periodic bc, Freq, Dir, New Dir
-       0.130      44.348      38.619
+       0.130      44.348      42.865
      For periodic bc, Freq, Dir, New Dir
-       0.130      49.565      48.500
+       0.130      49.565      42.865
      For periodic bc, Freq, Dir, New Dir
-       0.130      54.783      48.500
+       0.130      54.783      54.719
      For periodic bc, Freq, Dir, New Dir
-       0.130      60.000      48.500
+       0.130      60.000      54.719
      For periodic bc, Freq, Dir, New Dir
-       0.135     -60.000     -56.050
+       0.135     -60.000     -50.625
      For periodic bc, Freq, Dir, New Dir
-       0.135     -54.783     -45.318
+       0.135     -54.783     -50.625
      For periodic bc, Freq, Dir, New Dir
-       0.135     -49.565     -45.318
+       0.135     -49.565     -40.104
      For periodic bc, Freq, Dir, New Dir
-       0.135     -44.348     -36.336
+       0.135     -44.348     -40.104
      For periodic bc, Freq, Dir, New Dir
-       0.135     -39.130     -36.336
+       0.135     -39.130     -31.020
      For periodic bc, Freq, Dir, New Dir
-       0.135     -33.913     -28.295
+       0.135     -33.913     -31.020
      For periodic bc, Freq, Dir, New Dir
-       0.135     -28.696     -28.295
+       0.135     -28.696     -22.737
      For periodic bc, Freq, Dir, New Dir
-       0.135     -23.478     -20.825
+       0.135     -23.478     -22.737
      For periodic bc, Freq, Dir, New Dir
-       0.135     -18.261     -13.710
+       0.135     -18.261     -14.932
      For periodic bc, Freq, Dir, New Dir
-       0.135     -13.043      -6.806
+       0.135     -13.043      -7.402
      For periodic bc, Freq, Dir, New Dir
-       0.135      -7.826      -6.806
+       0.135      -7.826      -7.402
      For periodic bc, Freq, Dir, New Dir
        0.135      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.135       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.135       7.826       6.806
+       0.135       7.826       7.402
      For periodic bc, Freq, Dir, New Dir
-       0.135      13.043       6.806
+       0.135      13.043       7.402
      For periodic bc, Freq, Dir, New Dir
-       0.135      18.261      13.710
+       0.135      18.261      14.932
      For periodic bc, Freq, Dir, New Dir
-       0.135      23.478      20.825
+       0.135      23.478      22.737
      For periodic bc, Freq, Dir, New Dir
-       0.135      28.696      28.295
+       0.135      28.696      22.737
      For periodic bc, Freq, Dir, New Dir
-       0.135      33.913      28.295
+       0.135      33.913      31.020
      For periodic bc, Freq, Dir, New Dir
-       0.135      39.130      36.336
+       0.135      39.130      31.020
      For periodic bc, Freq, Dir, New Dir
-       0.135      44.348      36.336
+       0.135      44.348      40.104
      For periodic bc, Freq, Dir, New Dir
-       0.135      49.565      45.318
+       0.135      49.565      40.104
      For periodic bc, Freq, Dir, New Dir
-       0.135      54.783      45.318
+       0.135      54.783      50.625
      For periodic bc, Freq, Dir, New Dir
-       0.135      60.000      56.050
+       0.135      60.000      50.625
      For periodic bc, Freq, Dir, New Dir
-       0.141     -60.000     -52.048
+       0.141     -60.000     -58.758
      For periodic bc, Freq, Dir, New Dir
-       0.141     -54.783     -52.048
+       0.141     -54.783     -47.125
      For periodic bc, Freq, Dir, New Dir
-       0.141     -49.565     -42.523
+       0.141     -49.565     -47.125
      For periodic bc, Freq, Dir, New Dir
-       0.141     -44.348     -42.523
+       0.141     -44.348     -37.640
      For periodic bc, Freq, Dir, New Dir
-       0.141     -39.130     -34.280
+       0.141     -39.130     -37.640
      For periodic bc, Freq, Dir, New Dir
-       0.141     -33.913     -26.781
+       0.141     -33.913     -29.246
      For periodic bc, Freq, Dir, New Dir
-       0.141     -28.696     -26.781
+       0.141     -28.696     -21.495
      For periodic bc, Freq, Dir, New Dir
-       0.141     -23.478     -19.752
+       0.141     -23.478     -21.495
      For periodic bc, Freq, Dir, New Dir
-       0.141     -18.261     -13.020
+       0.141     -18.261     -14.139
      For periodic bc, Freq, Dir, New Dir
-       0.141     -13.043     -13.020
+       0.141     -13.043      -7.016
      For periodic bc, Freq, Dir, New Dir
-       0.141      -7.826      -6.468
+       0.141      -7.826      -7.016
      For periodic bc, Freq, Dir, New Dir
        0.141      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.141       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.141       7.826       6.468
+       0.141       7.826       7.016
      For periodic bc, Freq, Dir, New Dir
-       0.141      13.043      13.020
+       0.141      13.043       7.016
      For periodic bc, Freq, Dir, New Dir
-       0.141      18.261      13.020
+       0.141      18.261      14.139
      For periodic bc, Freq, Dir, New Dir
-       0.141      23.478      19.752
+       0.141      23.478      21.495
      For periodic bc, Freq, Dir, New Dir
-       0.141      28.696      26.781
+       0.141      28.696      21.495
      For periodic bc, Freq, Dir, New Dir
-       0.141      33.913      26.781
+       0.141      33.913      29.246
      For periodic bc, Freq, Dir, New Dir
-       0.141      39.130      34.280
+       0.141      39.130      37.640
      For periodic bc, Freq, Dir, New Dir
-       0.141      44.348      42.523
+       0.141      44.348      37.640
      For periodic bc, Freq, Dir, New Dir
-       0.141      49.565      42.523
+       0.141      49.565      47.125
      For periodic bc, Freq, Dir, New Dir
-       0.141      54.783      52.048
+       0.141      54.783      47.125
      For periodic bc, Freq, Dir, New Dir
-       0.141      60.000      52.048
+       0.141      60.000      58.758
      For periodic bc, Freq, Dir, New Dir
-       0.147     -60.000     -59.051
+       0.147     -60.000     -54.230
      For periodic bc, Freq, Dir, New Dir
-       0.147     -54.783     -48.627
+       0.147     -54.783     -54.230
      For periodic bc, Freq, Dir, New Dir
-       0.147     -49.565     -48.627
+       0.147     -49.565     -44.064
      For periodic bc, Freq, Dir, New Dir
-       0.147     -44.348     -40.032
+       0.147     -44.348     -44.064
      For periodic bc, Freq, Dir, New Dir
-       0.147     -39.130     -32.413
+       0.147     -39.130     -35.419
      For periodic bc, Freq, Dir, New Dir
-       0.147     -33.913     -32.413
+       0.147     -33.913     -27.622
      For periodic bc, Freq, Dir, New Dir
-       0.147     -28.696     -25.392
+       0.147     -28.696     -27.622
      For periodic bc, Freq, Dir, New Dir
-       0.147     -23.478     -18.760
+       0.147     -23.478     -20.349
      For periodic bc, Freq, Dir, New Dir
-       0.147     -18.261     -12.381
+       0.147     -18.261     -13.404
      For periodic bc, Freq, Dir, New Dir
-       0.147     -13.043     -12.381
+       0.147     -13.043      -6.656
      For periodic bc, Freq, Dir, New Dir
-       0.147      -7.826      -6.154
+       0.147      -7.826      -6.656
      For periodic bc, Freq, Dir, New Dir
        0.147      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.147       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.147       7.826       6.154
+       0.147       7.826       6.656
      For periodic bc, Freq, Dir, New Dir
-       0.147      13.043      12.381
+       0.147      13.043       6.656
      For periodic bc, Freq, Dir, New Dir
-       0.147      18.261      12.381
+       0.147      18.261      13.404
      For periodic bc, Freq, Dir, New Dir
-       0.147      23.478      18.760
+       0.147      23.478      20.349
      For periodic bc, Freq, Dir, New Dir
-       0.147      28.696      25.392
+       0.147      28.696      27.622
      For periodic bc, Freq, Dir, New Dir
-       0.147      33.913      32.413
+       0.147      33.913      27.622
      For periodic bc, Freq, Dir, New Dir
-       0.147      39.130      32.413
+       0.147      39.130      35.419
      For periodic bc, Freq, Dir, New Dir
-       0.147      44.348      40.032
+       0.147      44.348      44.064
      For periodic bc, Freq, Dir, New Dir
-       0.147      49.565      48.627
+       0.147      49.565      44.064
      For periodic bc, Freq, Dir, New Dir
-       0.147      54.783      48.627
+       0.147      54.783      54.230
      For periodic bc, Freq, Dir, New Dir
-       0.147      60.000      59.051
+       0.147      60.000      54.230
      For periodic bc, Freq, Dir, New Dir
-       0.152     -60.000     -54.787
+       0.152     -60.000     -50.414
      For periodic bc, Freq, Dir, New Dir
-       0.152     -54.783     -45.634
+       0.152     -54.783     -50.414
      For periodic bc, Freq, Dir, New Dir
-       0.152     -49.565     -45.634
+       0.152     -49.565     -41.343
      For periodic bc, Freq, Dir, New Dir
-       0.152     -44.348     -37.789
+       0.152     -44.348     -41.343
      For periodic bc, Freq, Dir, New Dir
-       0.152     -39.130     -37.789
+       0.152     -39.130     -33.400
      For periodic bc, Freq, Dir, New Dir
-       0.152     -33.913     -30.706
+       0.152     -33.913     -33.400
      For periodic bc, Freq, Dir, New Dir
-       0.152     -28.696     -24.111
+       0.152     -28.696     -26.128
      For periodic bc, Freq, Dir, New Dir
-       0.152     -23.478     -17.841
+       0.152     -23.478     -19.286
      For periodic bc, Freq, Dir, New Dir
-       0.152     -18.261     -17.841
+       0.152     -18.261     -12.720
      For periodic bc, Freq, Dir, New Dir
-       0.152     -13.043     -11.786
+       0.152     -13.043     -12.720
      For periodic bc, Freq, Dir, New Dir
-       0.152      -7.826      -5.862
+       0.152      -7.826      -6.321
      For periodic bc, Freq, Dir, New Dir
        0.152      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.152       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.152       7.826       5.862
+       0.152       7.826       6.321
      For periodic bc, Freq, Dir, New Dir
-       0.152      13.043      11.786
+       0.152      13.043      12.720
      For periodic bc, Freq, Dir, New Dir
-       0.152      18.261      17.841
+       0.152      18.261      12.720
      For periodic bc, Freq, Dir, New Dir
-       0.152      23.478      17.841
+       0.152      23.478      19.286
      For periodic bc, Freq, Dir, New Dir
-       0.152      28.696      24.111
+       0.152      28.696      26.128
      For periodic bc, Freq, Dir, New Dir
-       0.152      33.913      30.706
+       0.152      33.913      33.400
      For periodic bc, Freq, Dir, New Dir
-       0.152      39.130      37.789
+       0.152      39.130      33.400
      For periodic bc, Freq, Dir, New Dir
-       0.152      44.348      37.789
+       0.152      44.348      41.343
      For periodic bc, Freq, Dir, New Dir
-       0.152      49.565      45.634
+       0.152      49.565      41.343
      For periodic bc, Freq, Dir, New Dir
-       0.152      54.783      45.634
+       0.152      54.783      50.414
      For periodic bc, Freq, Dir, New Dir
-       0.152      60.000      54.787
+       0.152      60.000      50.414
      For periodic bc, Freq, Dir, New Dir
-       0.158     -60.000     -51.171
+       0.158     -60.000     -56.847
      For periodic bc, Freq, Dir, New Dir
-       0.158     -54.783     -51.171
+       0.158     -54.783     -47.101
      For periodic bc, Freq, Dir, New Dir
-       0.158     -49.565     -42.972
+       0.158     -49.565     -47.101
      For periodic bc, Freq, Dir, New Dir
-       0.158     -44.348     -42.972
+       0.158     -44.348     -38.896
      For periodic bc, Freq, Dir, New Dir
-       0.158     -39.130     -35.751
+       0.158     -39.130     -38.896
      For periodic bc, Freq, Dir, New Dir
-       0.158     -33.913     -29.136
+       0.158     -33.913     -31.551
      For periodic bc, Freq, Dir, New Dir
-       0.158     -28.696     -22.924
+       0.158     -28.696     -24.747
      For periodic bc, Freq, Dir, New Dir
-       0.158     -23.478     -22.924
+       0.158     -23.478     -18.298
      For periodic bc, Freq, Dir, New Dir
-       0.158     -18.261     -16.986
+       0.158     -18.261     -12.081
      For periodic bc, Freq, Dir, New Dir
-       0.158     -13.043     -11.230
+       0.158     -13.043     -12.081
      For periodic bc, Freq, Dir, New Dir
-       0.158      -7.826      -5.588
+       0.158      -7.826      -6.007
      For periodic bc, Freq, Dir, New Dir
        0.158      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.158       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.158       7.826       5.588
+       0.158       7.826       6.007
      For periodic bc, Freq, Dir, New Dir
-       0.158      13.043      11.230
+       0.158      13.043      12.081
      For periodic bc, Freq, Dir, New Dir
-       0.158      18.261      16.986
+       0.158      18.261      12.081
      For periodic bc, Freq, Dir, New Dir
-       0.158      23.478      22.924
+       0.158      23.478      18.298
      For periodic bc, Freq, Dir, New Dir
-       0.158      28.696      22.924
+       0.158      28.696      24.747
      For periodic bc, Freq, Dir, New Dir
-       0.158      33.913      29.136
+       0.158      33.913      31.551
      For periodic bc, Freq, Dir, New Dir
-       0.158      39.130      35.751
+       0.158      39.130      38.896
      For periodic bc, Freq, Dir, New Dir
-       0.158      44.348      42.972
+       0.158      44.348      38.896
      For periodic bc, Freq, Dir, New Dir
-       0.158      49.565      42.972
+       0.158      49.565      47.101
      For periodic bc, Freq, Dir, New Dir
-       0.158      54.783      51.171
+       0.158      54.783      47.101
      For periodic bc, Freq, Dir, New Dir
-       0.158      60.000      51.171
+       0.158      60.000      56.847
      For periodic bc, Freq, Dir, New Dir
-       0.164     -60.000     -56.753
+       0.164     -60.000     -52.783
      For periodic bc, Freq, Dir, New Dir
-       0.164     -54.783     -48.021
+       0.164     -54.783     -52.783
      For periodic bc, Freq, Dir, New Dir
-       0.164     -49.565     -48.021
+       0.164     -49.565     -44.171
      For periodic bc, Freq, Dir, New Dir
-       0.164     -44.348     -40.577
+       0.164     -44.348     -44.171
      For periodic bc, Freq, Dir, New Dir
-       0.164     -39.130     -33.886
+       0.164     -39.130     -36.674
      For periodic bc, Freq, Dir, New Dir
-       0.164     -33.913     -33.886
+       0.164     -33.913     -29.849
      For periodic bc, Freq, Dir, New Dir
-       0.164     -28.696     -27.685
+       0.164     -28.696     -23.464
      For periodic bc, Freq, Dir, New Dir
-       0.164     -23.478     -21.820
+       0.164     -23.478     -23.464
      For periodic bc, Freq, Dir, New Dir
-       0.164     -18.261     -16.187
+       0.164     -18.261     -17.375
      For periodic bc, Freq, Dir, New Dir
-       0.164     -13.043     -10.711
+       0.164     -13.043     -11.484
      For periodic bc, Freq, Dir, New Dir
-       0.164      -7.826      -5.332
+       0.164      -7.826      -5.713
      For periodic bc, Freq, Dir, New Dir
        0.164      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.164       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.164       7.826       5.332
+       0.164       7.826       5.713
      For periodic bc, Freq, Dir, New Dir
-       0.164      13.043      10.711
+       0.164      13.043      11.484
      For periodic bc, Freq, Dir, New Dir
-       0.164      18.261      16.187
+       0.164      18.261      17.375
      For periodic bc, Freq, Dir, New Dir
-       0.164      23.478      21.820
+       0.164      23.478      23.464
      For periodic bc, Freq, Dir, New Dir
-       0.164      28.696      27.685
+       0.164      28.696      23.464
      For periodic bc, Freq, Dir, New Dir
-       0.164      33.913      33.886
+       0.164      33.913      29.849
      For periodic bc, Freq, Dir, New Dir
-       0.164      39.130      33.886
+       0.164      39.130      36.674
      For periodic bc, Freq, Dir, New Dir
-       0.164      44.348      40.577
+       0.164      44.348      44.171
      For periodic bc, Freq, Dir, New Dir
-       0.164      49.565      48.021
+       0.164      49.565      44.171
      For periodic bc, Freq, Dir, New Dir
-       0.164      54.783      48.021
+       0.164      54.783      52.783
      For periodic bc, Freq, Dir, New Dir
-       0.164      60.000      56.753
+       0.164      60.000      52.783
      For periodic bc, Freq, Dir, New Dir
-       0.169     -60.000     -52.999
+       0.169     -60.000     -58.504
      For periodic bc, Freq, Dir, New Dir
-       0.169     -54.783     -52.999
+       0.169     -54.783     -49.282
      For periodic bc, Freq, Dir, New Dir
-       0.169     -49.565     -45.226
+       0.169     -49.565     -49.282
      For periodic bc, Freq, Dir, New Dir
-       0.169     -44.348     -38.400
+       0.169     -44.348     -41.544
      For periodic bc, Freq, Dir, New Dir
-       0.169     -39.130     -38.400
+       0.169     -39.130     -34.642
      For periodic bc, Freq, Dir, New Dir
-       0.169     -33.913     -32.169
+       0.169     -33.913     -28.275
      For periodic bc, Freq, Dir, New Dir
-       0.169     -28.696     -26.339
+       0.169     -28.696     -28.275
      For periodic bc, Freq, Dir, New Dir
-       0.169     -23.478     -20.790
+       0.169     -23.478     -22.270
      For periodic bc, Freq, Dir, New Dir
-       0.169     -18.261     -15.439
+       0.169     -18.261     -16.513
      For periodic bc, Freq, Dir, New Dir
-       0.169     -13.043     -10.223
+       0.169     -13.043     -10.923
      For periodic bc, Freq, Dir, New Dir
-       0.169      -7.826      -5.091
+       0.169      -7.826      -5.436
      For periodic bc, Freq, Dir, New Dir
        0.169      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.169       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.169       7.826       5.091
+       0.169       7.826       5.436
      For periodic bc, Freq, Dir, New Dir
-       0.169      13.043      10.223
+       0.169      13.043      10.923
      For periodic bc, Freq, Dir, New Dir
-       0.169      18.261      15.439
+       0.169      18.261      16.513
      For periodic bc, Freq, Dir, New Dir
-       0.169      23.478      20.790
+       0.169      23.478      22.270
      For periodic bc, Freq, Dir, New Dir
-       0.169      28.696      26.339
+       0.169      28.696      28.275
      For periodic bc, Freq, Dir, New Dir
-       0.169      33.913      32.169
+       0.169      33.913      28.275
      For periodic bc, Freq, Dir, New Dir
-       0.169      39.130      38.400
+       0.169      39.130      34.642
      For periodic bc, Freq, Dir, New Dir
-       0.169      44.348      38.400
+       0.169      44.348      41.544
      For periodic bc, Freq, Dir, New Dir
-       0.169      49.565      45.226
+       0.169      49.565      49.282
      For periodic bc, Freq, Dir, New Dir
-       0.169      54.783      52.999
+       0.169      54.783      49.282
      For periodic bc, Freq, Dir, New Dir
-       0.169      60.000      52.999
+       0.169      60.000      58.504
      For periodic bc, Freq, Dir, New Dir
-       0.175     -60.000     -57.985
+       0.175     -60.000     -54.289
      For periodic bc, Freq, Dir, New Dir
-       0.175     -54.783     -49.740
+       0.175     -54.783     -54.289
      For periodic bc, Freq, Dir, New Dir
-       0.175     -49.565     -42.713
+       0.175     -49.565     -46.199
      For periodic bc, Freq, Dir, New Dir
-       0.175     -44.348     -42.713
+       0.175     -44.348     -39.163
      For periodic bc, Freq, Dir, New Dir
-       0.175     -39.130     -36.408
+       0.175     -39.130     -32.773
      For periodic bc, Freq, Dir, New Dir
-       0.175     -33.913     -30.580
+       0.175     -33.913     -32.773
      For periodic bc, Freq, Dir, New Dir
-       0.175     -28.696     -25.084
+       0.175     -28.696     -26.814
      For periodic bc, Freq, Dir, New Dir
-       0.175     -23.478     -19.826
+       0.175     -23.478     -21.154
      For periodic bc, Freq, Dir, New Dir
-       0.175     -18.261     -14.736
+       0.175     -18.261     -15.703
      For periodic bc, Freq, Dir, New Dir
-       0.175     -13.043      -9.763
+       0.175     -13.043     -10.395
      For periodic bc, Freq, Dir, New Dir
-       0.175      -7.826      -4.864
+       0.175      -7.826      -5.176
      For periodic bc, Freq, Dir, New Dir
        0.175      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.175       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.175       7.826       4.864
+       0.175       7.826       5.176
      For periodic bc, Freq, Dir, New Dir
-       0.175      13.043       9.763
+       0.175      13.043      10.395
      For periodic bc, Freq, Dir, New Dir
-       0.175      18.261      14.736
+       0.175      18.261      15.703
      For periodic bc, Freq, Dir, New Dir
-       0.175      23.478      19.826
+       0.175      23.478      21.154
      For periodic bc, Freq, Dir, New Dir
-       0.175      28.696      25.084
+       0.175      28.696      26.814
      For periodic bc, Freq, Dir, New Dir
-       0.175      33.913      30.580
+       0.175      33.913      32.773
      For periodic bc, Freq, Dir, New Dir
-       0.175      39.130      36.408
+       0.175      39.130      32.773
      For periodic bc, Freq, Dir, New Dir
-       0.175      44.348      42.713
+       0.175      44.348      39.163
      For periodic bc, Freq, Dir, New Dir
-       0.175      49.565      42.713
+       0.175      49.565      46.199
      For periodic bc, Freq, Dir, New Dir
-       0.175      54.783      49.740
+       0.175      54.783      54.289
      For periodic bc, Freq, Dir, New Dir
-       0.175      60.000      57.985
+       0.175      60.000      54.289
      For periodic bc, Freq, Dir, New Dir
-       0.181     -60.000     -54.160
+       0.181     -60.000     -59.263
      For periodic bc, Freq, Dir, New Dir
-       0.181     -54.783     -54.160
+       0.181     -54.783     -50.676
      For periodic bc, Freq, Dir, New Dir
-       0.181     -49.565     -46.852
+       0.181     -49.565     -43.442
      For periodic bc, Freq, Dir, New Dir
-       0.181     -44.348     -40.430
+       0.181     -44.348     -43.442
      For periodic bc, Freq, Dir, New Dir
-       0.181     -39.130     -34.573
+       0.181     -39.130     -36.989
      For periodic bc, Freq, Dir, New Dir
-       0.181     -33.913     -29.104
+       0.181     -33.913     -31.045
      For periodic bc, Freq, Dir, New Dir
-       0.181     -28.696     -23.912
+       0.181     -28.696     -25.453
      For periodic bc, Freq, Dir, New Dir
-       0.181     -23.478     -18.921
+       0.181     -23.478     -20.109
      For periodic bc, Freq, Dir, New Dir
-       0.181     -18.261     -14.075
+       0.181     -18.261     -14.943
      For periodic bc, Freq, Dir, New Dir
-       0.181     -13.043      -9.331
+       0.181     -13.043      -9.899
      For periodic bc, Freq, Dir, New Dir
-       0.181      -7.826      -4.650
+       0.181      -7.826      -4.931
      For periodic bc, Freq, Dir, New Dir
        0.181      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.181       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.181       7.826       4.650
+       0.181       7.826       4.931
      For periodic bc, Freq, Dir, New Dir
-       0.181      13.043       9.331
+       0.181      13.043       9.899
      For periodic bc, Freq, Dir, New Dir
-       0.181      18.261      14.075
+       0.181      18.261      14.943
      For periodic bc, Freq, Dir, New Dir
-       0.181      23.478      18.921
+       0.181      23.478      20.109
      For periodic bc, Freq, Dir, New Dir
-       0.181      28.696      23.912
+       0.181      28.696      25.453
      For periodic bc, Freq, Dir, New Dir
-       0.181      33.913      29.104
+       0.181      33.913      31.045
      For periodic bc, Freq, Dir, New Dir
-       0.181      39.130      34.573
+       0.181      39.130      36.989
      For periodic bc, Freq, Dir, New Dir
-       0.181      44.348      40.430
+       0.181      44.348      43.442
      For periodic bc, Freq, Dir, New Dir
-       0.181      49.565      46.852
+       0.181      49.565      43.442
      For periodic bc, Freq, Dir, New Dir
-       0.181      54.783      54.160
+       0.181      54.783      50.676
      For periodic bc, Freq, Dir, New Dir
-       0.181      60.000      54.160
+       0.181      60.000      59.263
      For periodic bc, Freq, Dir, New Dir
-       0.186     -60.000     -58.536
+       0.186     -60.000     -55.009
      For periodic bc, Freq, Dir, New Dir
-       0.186     -54.783     -50.843
+       0.186     -54.783     -47.503
      For periodic bc, Freq, Dir, New Dir
-       0.186     -49.565     -44.257
+       0.186     -49.565     -47.503
      For periodic bc, Freq, Dir, New Dir
-       0.186     -44.348     -44.257
+       0.186     -44.348     -40.949
      For periodic bc, Freq, Dir, New Dir
-       0.186     -39.130     -38.341
+       0.186     -39.130     -34.993
      For periodic bc, Freq, Dir, New Dir
-       0.186     -33.913     -32.874
+       0.186     -33.913     -29.442
      For periodic bc, Freq, Dir, New Dir
-       0.186     -28.696     -27.727
+       0.186     -28.696     -24.181
      For periodic bc, Freq, Dir, New Dir
-       0.186     -23.478     -22.812
+       0.186     -23.478     -19.129
      For periodic bc, Freq, Dir, New Dir
-       0.186     -18.261     -18.069
+       0.186     -18.261     -14.227
      For periodic bc, Freq, Dir, New Dir
-       0.186     -13.043      -8.922
+       0.186     -13.043      -9.430
      For periodic bc, Freq, Dir, New Dir
-       0.186      -7.826      -4.447
+       0.186      -7.826      -4.699
      For periodic bc, Freq, Dir, New Dir
        0.186      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.186       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.186       7.826       4.447
+       0.186       7.826       4.699
      For periodic bc, Freq, Dir, New Dir
-       0.186      13.043       8.922
+       0.186      13.043       9.430
      For periodic bc, Freq, Dir, New Dir
-       0.186      18.261      18.069
+       0.186      18.261      14.227
      For periodic bc, Freq, Dir, New Dir
-       0.186      23.478      22.812
+       0.186      23.478      19.129
      For periodic bc, Freq, Dir, New Dir
-       0.186      28.696      27.727
+       0.186      28.696      24.181
      For periodic bc, Freq, Dir, New Dir
-       0.186      33.913      32.874
+       0.186      33.913      29.442
      For periodic bc, Freq, Dir, New Dir
-       0.186      39.130      38.341
+       0.186      39.130      34.993
      For periodic bc, Freq, Dir, New Dir
-       0.186      44.348      44.257
+       0.186      44.348      40.949
      For periodic bc, Freq, Dir, New Dir
-       0.186      49.565      44.257
+       0.186      49.565      47.503
      For periodic bc, Freq, Dir, New Dir
-       0.186      54.783      50.843
+       0.186      54.783      47.503
      For periodic bc, Freq, Dir, New Dir
-       0.186      60.000      58.536
+       0.186      60.000      55.009
      For periodic bc, Freq, Dir, New Dir
-       0.192     -60.000     -54.712
+       0.192     -60.000     -59.237
      For periodic bc, Freq, Dir, New Dir
-       0.192     -54.783     -54.712
+       0.192     -54.783     -51.368
      For periodic bc, Freq, Dir, New Dir
-       0.192     -49.565     -47.907
+       0.192     -49.565     -44.673
      For periodic bc, Freq, Dir, New Dir
-       0.192     -44.348     -41.901
+       0.192     -44.348     -38.678
      For periodic bc, Freq, Dir, New Dir
-       0.192     -39.130     -36.416
+       0.192     -39.130     -38.678
      For periodic bc, Freq, Dir, New Dir
-       0.192     -33.913     -31.294
+       0.192     -33.913     -33.149
      For periodic bc, Freq, Dir, New Dir
-       0.192     -28.696     -26.438
+       0.192     -28.696     -27.950
      For periodic bc, Freq, Dir, New Dir
-       0.192     -23.478     -21.779
+       0.192     -23.478     -22.991
      For periodic bc, Freq, Dir, New Dir
-       0.192     -18.261     -17.267
+       0.192     -18.261     -18.208
      For periodic bc, Freq, Dir, New Dir
-       0.192     -13.043     -12.863
+       0.192     -13.043      -8.988
      For periodic bc, Freq, Dir, New Dir
-       0.192      -7.826      -4.256
+       0.192      -7.826      -4.480
      For periodic bc, Freq, Dir, New Dir
        0.192      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.192       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.192       7.826       4.256
+       0.192       7.826       4.480
      For periodic bc, Freq, Dir, New Dir
-       0.192      13.043      12.863
+       0.192      13.043       8.988
      For periodic bc, Freq, Dir, New Dir
-       0.192      18.261      17.267
+       0.192      18.261      18.208
      For periodic bc, Freq, Dir, New Dir
-       0.192      23.478      21.779
+       0.192      23.478      22.991
      For periodic bc, Freq, Dir, New Dir
-       0.192      28.696      26.438
+       0.192      28.696      27.950
      For periodic bc, Freq, Dir, New Dir
-       0.192      33.913      31.294
+       0.192      33.913      33.149
      For periodic bc, Freq, Dir, New Dir
-       0.192      39.130      36.416
+       0.192      39.130      38.678
      For periodic bc, Freq, Dir, New Dir
-       0.192      44.348      41.901
+       0.192      44.348      38.678
      For periodic bc, Freq, Dir, New Dir
-       0.192      49.565      47.907
+       0.192      49.565      44.673
      For periodic bc, Freq, Dir, New Dir
-       0.192      54.783      54.712
+       0.192      54.783      51.368
      For periodic bc, Freq, Dir, New Dir
-       0.192      60.000      54.712
+       0.192      60.000      59.237
      For periodic bc, Freq, Dir, New Dir
-       0.198     -60.000     -58.483
+       0.198     -60.000     -55.055
      For periodic bc, Freq, Dir, New Dir
-       0.198     -54.783     -51.393
+       0.198     -54.783     -48.175
      For periodic bc, Freq, Dir, New Dir
-       0.198     -49.565     -45.268
+       0.198     -49.565     -48.175
      For periodic bc, Freq, Dir, New Dir
-       0.198     -44.348     -39.744
+       0.198     -44.348     -42.118
      For periodic bc, Freq, Dir, New Dir
-       0.198     -39.130     -34.633
+       0.198     -39.130     -36.594
      For periodic bc, Freq, Dir, New Dir
-       0.198     -33.913     -29.820
+       0.198     -33.913     -31.441
      For periodic bc, Freq, Dir, New Dir
-       0.198     -28.696     -25.229
+       0.198     -28.696     -26.558
      For periodic bc, Freq, Dir, New Dir
-       0.198     -23.478     -20.806
+       0.198     -23.478     -21.875
      For periodic bc, Freq, Dir, New Dir
-       0.198     -18.261     -16.509
+       0.198     -18.261     -17.342
      For periodic bc, Freq, Dir, New Dir
-       0.198     -13.043     -12.305
+       0.198     -13.043     -12.918
      For periodic bc, Freq, Dir, New Dir
-       0.198      -7.826      -4.074
+       0.198      -7.826      -4.274
      For periodic bc, Freq, Dir, New Dir
        0.198      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.198       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.198       7.826       4.074
+       0.198       7.826       4.274
      For periodic bc, Freq, Dir, New Dir
-       0.198      13.043      12.305
+       0.198      13.043      12.918
      For periodic bc, Freq, Dir, New Dir
-       0.198      18.261      16.509
+       0.198      18.261      17.342
      For periodic bc, Freq, Dir, New Dir
-       0.198      23.478      20.806
+       0.198      23.478      21.875
      For periodic bc, Freq, Dir, New Dir
-       0.198      28.696      25.229
+       0.198      28.696      26.558
      For periodic bc, Freq, Dir, New Dir
-       0.198      33.913      29.820
+       0.198      33.913      31.441
      For periodic bc, Freq, Dir, New Dir
-       0.198      39.130      34.633
+       0.198      39.130      36.594
      For periodic bc, Freq, Dir, New Dir
-       0.198      44.348      39.744
+       0.198      44.348      42.118
      For periodic bc, Freq, Dir, New Dir
-       0.198      49.565      45.268
+       0.198      49.565      48.175
      For periodic bc, Freq, Dir, New Dir
-       0.198      54.783      51.393
+       0.198      54.783      48.175
      For periodic bc, Freq, Dir, New Dir
-       0.198      60.000      58.483
+       0.198      60.000      55.055
      For periodic bc, Freq, Dir, New Dir
-       0.203     -60.000     -54.729
+       0.203     -60.000     -58.581
      For periodic bc, Freq, Dir, New Dir
-       0.203     -54.783     -54.729
+       0.203     -54.783     -51.468
      For periodic bc, Freq, Dir, New Dir
-       0.203     -49.565     -48.451
+       0.203     -49.565     -45.328
      For periodic bc, Freq, Dir, New Dir
-       0.203     -44.348     -42.871
+       0.203     -44.348     -39.794
      For periodic bc, Freq, Dir, New Dir
-       0.203     -39.130     -37.757
+       0.203     -39.130     -34.675
      For periodic bc, Freq, Dir, New Dir
-       0.203     -33.913     -32.976
+       0.203     -33.913     -29.855
      For periodic bc, Freq, Dir, New Dir
-       0.203     -28.696     -28.441
+       0.203     -28.696     -25.258
      For periodic bc, Freq, Dir, New Dir
-       0.203     -23.478     -19.888
+       0.203     -23.478     -20.829
      For periodic bc, Freq, Dir, New Dir
-       0.203     -18.261     -15.792
+       0.203     -18.261     -16.526
      For periodic bc, Freq, Dir, New Dir
-       0.203     -13.043     -11.777
+       0.203     -13.043     -12.318
      For periodic bc, Freq, Dir, New Dir
-       0.203      -7.826      -7.821
+       0.203      -7.826      -4.078
      For periodic bc, Freq, Dir, New Dir
        0.203      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.203       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.203       7.826       7.821
+       0.203       7.826       4.078
      For periodic bc, Freq, Dir, New Dir
-       0.203      13.043      11.777
+       0.203      13.043      12.318
      For periodic bc, Freq, Dir, New Dir
-       0.203      18.261      15.792
+       0.203      18.261      16.526
      For periodic bc, Freq, Dir, New Dir
-       0.203      23.478      19.888
+       0.203      23.478      20.829
      For periodic bc, Freq, Dir, New Dir
-       0.203      28.696      28.441
+       0.203      28.696      25.258
      For periodic bc, Freq, Dir, New Dir
-       0.203      33.913      32.976
+       0.203      33.913      29.855
      For periodic bc, Freq, Dir, New Dir
-       0.203      39.130      37.757
+       0.203      39.130      34.675
      For periodic bc, Freq, Dir, New Dir
-       0.203      44.348      42.871
+       0.203      44.348      39.794
      For periodic bc, Freq, Dir, New Dir
-       0.203      49.565      48.451
+       0.203      49.565      45.328
      For periodic bc, Freq, Dir, New Dir
-       0.203      54.783      54.729
+       0.203      54.783      51.468
      For periodic bc, Freq, Dir, New Dir
-       0.203      60.000      54.729
+       0.203      60.000      58.581
      For periodic bc, Freq, Dir, New Dir
-       0.209     -60.000     -57.924
+       0.209     -60.000     -54.564
      For periodic bc, Freq, Dir, New Dir
-       0.209     -54.783     -51.459
+       0.209     -54.783     -54.564
      For periodic bc, Freq, Dir, New Dir
-       0.209     -49.565     -45.806
+       0.209     -49.565     -48.319
      For periodic bc, Freq, Dir, New Dir
-       0.209     -44.348     -40.678
+       0.209     -44.348     -42.763
      For periodic bc, Freq, Dir, New Dir
-       0.209     -39.130     -35.918
+       0.209     -39.130     -37.667
      For periodic bc, Freq, Dir, New Dir
-       0.209     -33.913     -31.429
+       0.209     -33.913     -32.900
      For periodic bc, Freq, Dir, New Dir
-       0.209     -28.696     -27.146
+       0.209     -28.696     -28.377
      For periodic bc, Freq, Dir, New Dir
-       0.209     -23.478     -23.022
+       0.209     -23.478     -19.845
      For periodic bc, Freq, Dir, New Dir
-       0.209     -18.261     -15.113
+       0.209     -18.261     -15.759
      For periodic bc, Freq, Dir, New Dir
-       0.209     -13.043     -11.276
+       0.209     -13.043     -11.753
      For periodic bc, Freq, Dir, New Dir
-       0.209      -7.826      -7.490
+       0.209      -7.826      -7.804
      For periodic bc, Freq, Dir, New Dir
        0.209      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.209       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.209       7.826       7.490
+       0.209       7.826       7.804
      For periodic bc, Freq, Dir, New Dir
-       0.209      13.043      11.276
+       0.209      13.043      11.753
      For periodic bc, Freq, Dir, New Dir
-       0.209      18.261      15.113
+       0.209      18.261      15.759
      For periodic bc, Freq, Dir, New Dir
-       0.209      23.478      23.022
+       0.209      23.478      19.845
      For periodic bc, Freq, Dir, New Dir
-       0.209      28.696      27.146
+       0.209      28.696      28.377
      For periodic bc, Freq, Dir, New Dir
-       0.209      33.913      31.429
+       0.209      33.913      32.900
      For periodic bc, Freq, Dir, New Dir
-       0.209      39.130      35.918
+       0.209      39.130      37.667
      For periodic bc, Freq, Dir, New Dir
-       0.209      44.348      40.678
+       0.209      44.348      42.763
      For periodic bc, Freq, Dir, New Dir
-       0.209      49.565      45.806
+       0.209      49.565      48.319
      For periodic bc, Freq, Dir, New Dir
-       0.209      54.783      51.459
+       0.209      54.783      54.564
      For periodic bc, Freq, Dir, New Dir
-       0.209      60.000      57.924
+       0.209      60.000      54.564
      For periodic bc, Freq, Dir, New Dir
-       0.215     -60.000     -54.298
+       0.215     -60.000     -57.471
      For periodic bc, Freq, Dir, New Dir
-       0.215     -54.783     -54.298
+       0.215     -54.783     -51.102
      For periodic bc, Freq, Dir, New Dir
-       0.215     -49.565     -48.555
+       0.215     -49.565     -45.513
      For periodic bc, Freq, Dir, New Dir
-       0.215     -44.348     -43.403
+       0.215     -44.348     -40.433
      For periodic bc, Freq, Dir, New Dir
-       0.215     -39.130     -38.657
+       0.215     -39.130     -35.711
      For periodic bc, Freq, Dir, New Dir
-       0.215     -33.913     -29.982
+       0.215     -33.913     -31.255
      For periodic bc, Freq, Dir, New Dir
-       0.215     -28.696     -25.929
+       0.215     -28.696     -27.000
      For periodic bc, Freq, Dir, New Dir
-       0.215     -23.478     -22.012
+       0.215     -23.478     -22.900
      For periodic bc, Freq, Dir, New Dir
-       0.215     -18.261     -18.200
+       0.215     -18.261     -15.036
      For periodic bc, Freq, Dir, New Dir
-       0.215     -13.043     -10.801
+       0.215     -13.043     -11.219
      For periodic bc, Freq, Dir, New Dir
-       0.215      -7.826      -7.177
+       0.215      -7.826      -7.453
      For periodic bc, Freq, Dir, New Dir
        0.215      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.215       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.215       7.826       7.177
+       0.215       7.826       7.453
      For periodic bc, Freq, Dir, New Dir
-       0.215      13.043      10.801
+       0.215      13.043      11.219
      For periodic bc, Freq, Dir, New Dir
-       0.215      18.261      18.200
+       0.215      18.261      15.036
      For periodic bc, Freq, Dir, New Dir
-       0.215      23.478      22.012
+       0.215      23.478      22.900
      For periodic bc, Freq, Dir, New Dir
-       0.215      28.696      25.929
+       0.215      28.696      27.000
      For periodic bc, Freq, Dir, New Dir
-       0.215      33.913      29.982
+       0.215      33.913      31.255
      For periodic bc, Freq, Dir, New Dir
-       0.215      39.130      38.657
+       0.215      39.130      35.711
      For periodic bc, Freq, Dir, New Dir
-       0.215      44.348      43.403
+       0.215      44.348      40.433
      For periodic bc, Freq, Dir, New Dir
-       0.215      49.565      48.555
+       0.215      49.565      45.513
      For periodic bc, Freq, Dir, New Dir
-       0.215      54.783      54.298
+       0.215      54.783      51.102
      For periodic bc, Freq, Dir, New Dir
-       0.215      60.000      54.298
+       0.215      60.000      57.471
      For periodic bc, Freq, Dir, New Dir
-       0.220     -60.000     -56.970
+       0.220     -60.000     -53.685
      For periodic bc, Freq, Dir, New Dir
-       0.220     -54.783     -51.123
+       0.220     -54.783     -53.685
      For periodic bc, Freq, Dir, New Dir
-       0.220     -49.565     -45.940
+       0.220     -49.565     -48.055
      For periodic bc, Freq, Dir, New Dir
-       0.220     -44.348     -41.203
+       0.220     -44.348     -42.985
      For periodic bc, Freq, Dir, New Dir
-       0.220     -39.130     -36.787
+       0.220     -39.130     -38.303
      For periodic bc, Freq, Dir, New Dir
-       0.220     -33.913     -32.613
+       0.220     -33.913     -33.907
      For periodic bc, Freq, Dir, New Dir
-       0.220     -28.696     -28.625
+       0.220     -28.696     -25.714
      For periodic bc, Freq, Dir, New Dir
-       0.220     -23.478     -21.058
+       0.220     -23.478     -21.833
      For periodic bc, Freq, Dir, New Dir
-       0.220     -18.261     -17.423
+       0.220     -18.261     -18.054
      For periodic bc, Freq, Dir, New Dir
-       0.220     -13.043     -10.350
+       0.220     -13.043     -10.716
      For periodic bc, Freq, Dir, New Dir
-       0.220      -7.826      -6.879
+       0.220      -7.826      -7.121
      For periodic bc, Freq, Dir, New Dir
        0.220      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.220       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.220       7.826       6.879
+       0.220       7.826       7.121
      For periodic bc, Freq, Dir, New Dir
-       0.220      13.043      10.350
+       0.220      13.043      10.716
      For periodic bc, Freq, Dir, New Dir
-       0.220      18.261      17.423
+       0.220      18.261      18.054
      For periodic bc, Freq, Dir, New Dir
-       0.220      23.478      21.058
+       0.220      23.478      21.833
      For periodic bc, Freq, Dir, New Dir
-       0.220      28.696      28.625
+       0.220      28.696      25.714
      For periodic bc, Freq, Dir, New Dir
-       0.220      33.913      32.613
+       0.220      33.913      33.907
      For periodic bc, Freq, Dir, New Dir
-       0.220      39.130      36.787
+       0.220      39.130      38.303
      For periodic bc, Freq, Dir, New Dir
-       0.220      44.348      41.203
+       0.220      44.348      42.985
      For periodic bc, Freq, Dir, New Dir
-       0.220      49.565      45.940
+       0.220      49.565      48.055
      For periodic bc, Freq, Dir, New Dir
-       0.220      54.783      51.123
+       0.220      54.783      53.685
      For periodic bc, Freq, Dir, New Dir
-       0.220      60.000      56.970
+       0.220      60.000      53.685
      For periodic bc, Freq, Dir, New Dir
-       0.226     -60.000     -59.478
+       0.226     -60.000     -56.078
      For periodic bc, Freq, Dir, New Dir
-       0.226     -54.783     -53.514
+       0.226     -54.783     -50.401
      For periodic bc, Freq, Dir, New Dir
-       0.226     -49.565     -48.295
+       0.226     -49.565     -45.337
      For periodic bc, Freq, Dir, New Dir
-       0.226     -44.348     -43.563
+       0.226     -44.348     -40.691
      For periodic bc, Freq, Dir, New Dir
-       0.226     -39.130     -35.050
+       0.226     -39.130     -36.350
      For periodic bc, Freq, Dir, New Dir
-       0.226     -33.913     -31.122
+       0.226     -33.913     -32.238
      For periodic bc, Freq, Dir, New Dir
-       0.226     -28.696     -27.350
+       0.226     -28.696     -28.305
      For periodic bc, Freq, Dir, New Dir
-       0.226     -23.478     -20.156
+       0.226     -23.478     -20.832
      For periodic bc, Freq, Dir, New Dir
-       0.226     -18.261     -16.687
+       0.226     -18.261     -17.239
      For periodic bc, Freq, Dir, New Dir
-       0.226     -13.043      -9.921
+       0.226     -13.043     -10.242
      For periodic bc, Freq, Dir, New Dir
-       0.226      -7.826      -6.595
+       0.226      -7.826      -6.808
      For periodic bc, Freq, Dir, New Dir
        0.226      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.226       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.226       7.826       6.595
+       0.226       7.826       6.808
      For periodic bc, Freq, Dir, New Dir
-       0.226      13.043       9.921
+       0.226      13.043      10.242
      For periodic bc, Freq, Dir, New Dir
-       0.226      18.261      16.687
+       0.226      18.261      17.239
      For periodic bc, Freq, Dir, New Dir
-       0.226      23.478      20.156
+       0.226      23.478      20.832
      For periodic bc, Freq, Dir, New Dir
-       0.226      28.696      27.350
+       0.226      28.696      28.305
      For periodic bc, Freq, Dir, New Dir
-       0.226      33.913      31.122
+       0.226      33.913      32.238
      For periodic bc, Freq, Dir, New Dir
-       0.226      39.130      35.050
+       0.226      39.130      36.350
      For periodic bc, Freq, Dir, New Dir
-       0.226      44.348      43.563
+       0.226      44.348      40.691
      For periodic bc, Freq, Dir, New Dir
-       0.226      49.565      48.295
+       0.226      49.565      45.337
      For periodic bc, Freq, Dir, New Dir
-       0.226      54.783      53.514
+       0.226      54.783      50.401
      For periodic bc, Freq, Dir, New Dir
-       0.226      60.000      59.478
+       0.226      60.000      56.078
      For periodic bc, Freq, Dir, New Dir
-       0.232     -60.000     -55.730
+       0.232     -60.000     -58.291
      For periodic bc, Freq, Dir, New Dir
-       0.232     -54.783     -50.471
+       0.232     -54.783     -52.562
      For periodic bc, Freq, Dir, New Dir
-       0.232     -49.565     -45.743
+       0.232     -49.565     -47.502
      For periodic bc, Freq, Dir, New Dir
-       0.232     -44.348     -41.385
+       0.232     -44.348     -42.889
      For periodic bc, Freq, Dir, New Dir
-       0.232     -39.130     -37.303
+       0.232     -39.130     -38.599
      For periodic bc, Freq, Dir, New Dir
-       0.232     -33.913     -33.431
+       0.232     -33.913     -30.693
      For periodic bc, Freq, Dir, New Dir
-       0.232     -28.696     -26.151
+       0.232     -28.696     -26.983
      For periodic bc, Freq, Dir, New Dir
-       0.232     -23.478     -22.684
+       0.232     -23.478     -23.391
      For periodic bc, Freq, Dir, New Dir
-       0.232     -18.261     -15.990
+       0.232     -18.261     -16.474
      For periodic bc, Freq, Dir, New Dir
-       0.232     -13.043     -12.731
+       0.232     -13.043      -9.796
      For periodic bc, Freq, Dir, New Dir
-       0.232      -7.826      -6.326
+       0.232      -7.826      -6.513
      For periodic bc, Freq, Dir, New Dir
        0.232      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.232       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.232       7.826       6.326
+       0.232       7.826       6.513
      For periodic bc, Freq, Dir, New Dir
-       0.232      13.043      12.731
+       0.232      13.043       9.796
      For periodic bc, Freq, Dir, New Dir
-       0.232      18.261      15.990
+       0.232      18.261      16.474
      For periodic bc, Freq, Dir, New Dir
-       0.232      23.478      22.684
+       0.232      23.478      23.391
      For periodic bc, Freq, Dir, New Dir
-       0.232      28.696      26.151
+       0.232      28.696      26.983
      For periodic bc, Freq, Dir, New Dir
-       0.232      33.913      33.431
+       0.232      33.913      30.693
      For periodic bc, Freq, Dir, New Dir
-       0.232      39.130      37.303
+       0.232      39.130      38.599
      For periodic bc, Freq, Dir, New Dir
-       0.232      44.348      41.385
+       0.232      44.348      42.889
      For periodic bc, Freq, Dir, New Dir
-       0.232      49.565      45.743
+       0.232      49.565      47.502
      For periodic bc, Freq, Dir, New Dir
-       0.232      54.783      50.471
+       0.232      54.783      52.562
      For periodic bc, Freq, Dir, New Dir
-       0.232      60.000      55.730
+       0.232      60.000      58.291
      For periodic bc, Freq, Dir, New Dir
-       0.237     -60.000     -57.774
+       0.237     -60.000     -54.549
      For periodic bc, Freq, Dir, New Dir
-       0.237     -54.783     -52.475
+       0.237     -54.783     -54.549
      For periodic bc, Freq, Dir, New Dir
-       0.237     -49.565     -47.749
+       0.237     -49.565     -49.491
      For periodic bc, Freq, Dir, New Dir
-       0.237     -44.348     -43.420
+       0.237     -44.348     -40.669
      For periodic bc, Freq, Dir, New Dir
-       0.237     -39.130     -35.563
+       0.237     -39.130     -36.683
      For periodic bc, Freq, Dir, New Dir
-       0.237     -33.913     -31.919
+       0.237     -33.913     -32.893
      For periodic bc, Freq, Dir, New Dir
-       0.237     -28.696     -28.415
+       0.237     -28.696     -25.751
      For periodic bc, Freq, Dir, New Dir
-       0.237     -23.478     -21.722
+       0.237     -23.478     -22.343
      For periodic bc, Freq, Dir, New Dir
-       0.237     -18.261     -15.329
+       0.237     -18.261     -15.756
      For periodic bc, Freq, Dir, New Dir
-       0.237     -13.043     -12.210
+       0.237     -13.043     -12.546
      For periodic bc, Freq, Dir, New Dir
-       0.237      -7.826      -6.070
+       0.237      -7.826      -6.235
      For periodic bc, Freq, Dir, New Dir
        0.237      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.237       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.237       7.826       6.070
+       0.237       7.826       6.235
      For periodic bc, Freq, Dir, New Dir
-       0.237      13.043      12.210
+       0.237      13.043      12.546
      For periodic bc, Freq, Dir, New Dir
-       0.237      18.261      15.329
+       0.237      18.261      15.756
      For periodic bc, Freq, Dir, New Dir
-       0.237      23.478      21.722
+       0.237      23.478      22.343
      For periodic bc, Freq, Dir, New Dir
-       0.237      28.696      28.415
+       0.237      28.696      25.751
      For periodic bc, Freq, Dir, New Dir
-       0.237      33.913      31.919
+       0.237      33.913      32.893
      For periodic bc, Freq, Dir, New Dir
-       0.237      39.130      35.563
+       0.237      39.130      36.683
      For periodic bc, Freq, Dir, New Dir
-       0.237      44.348      43.420
+       0.237      44.348      40.669
      For periodic bc, Freq, Dir, New Dir
-       0.237      49.565      47.749
+       0.237      49.565      49.491
      For periodic bc, Freq, Dir, New Dir
-       0.237      54.783      52.475
+       0.237      54.783      54.549
      For periodic bc, Freq, Dir, New Dir
-       0.237      60.000      57.774
+       0.237      60.000      54.549
      For periodic bc, Freq, Dir, New Dir
-       0.243     -60.000     -59.648
+       0.243     -60.000     -56.374
      For periodic bc, Freq, Dir, New Dir
-       0.243     -54.783     -54.309
+       0.243     -54.783     -51.318
      For periodic bc, Freq, Dir, New Dir
-       0.243     -49.565     -45.288
+       0.243     -49.565     -46.768
      For periodic bc, Freq, Dir, New Dir
-       0.243     -44.348     -41.292
+       0.243     -44.348     -42.574
      For periodic bc, Freq, Dir, New Dir
-       0.243     -39.130     -37.527
+       0.243     -39.130     -38.646
      For periodic bc, Freq, Dir, New Dir
-       0.243     -33.913     -30.505
+       0.243     -33.913     -31.360
      For periodic bc, Freq, Dir, New Dir
-       0.243     -28.696     -27.184
+       0.243     -28.696     -27.929
      For periodic bc, Freq, Dir, New Dir
-       0.243     -23.478     -20.814
+       0.243     -23.478     -21.364
      For periodic bc, Freq, Dir, New Dir
-       0.243     -18.261     -17.732
+       0.243     -18.261     -18.195
      For periodic bc, Freq, Dir, New Dir
-       0.243     -13.043     -11.715
+       0.243     -13.043     -12.015
      For periodic bc, Freq, Dir, New Dir
-       0.243      -7.826      -5.827
+       0.243      -7.826      -5.974
      For periodic bc, Freq, Dir, New Dir
        0.243      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.243       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.243       7.826       5.827
+       0.243       7.826       5.974
      For periodic bc, Freq, Dir, New Dir
-       0.243      13.043      11.715
+       0.243      13.043      12.015
      For periodic bc, Freq, Dir, New Dir
-       0.243      18.261      17.732
+       0.243      18.261      18.195
      For periodic bc, Freq, Dir, New Dir
-       0.243      23.478      20.814
+       0.243      23.478      21.364
      For periodic bc, Freq, Dir, New Dir
-       0.243      28.696      27.184
+       0.243      28.696      27.929
      For periodic bc, Freq, Dir, New Dir
-       0.243      33.913      30.505
+       0.243      33.913      31.360
      For periodic bc, Freq, Dir, New Dir
-       0.243      39.130      37.527
+       0.243      39.130      38.646
      For periodic bc, Freq, Dir, New Dir
-       0.243      44.348      41.292
+       0.243      44.348      42.574
      For periodic bc, Freq, Dir, New Dir
-       0.243      49.565      45.288
+       0.243      49.565      46.768
      For periodic bc, Freq, Dir, New Dir
-       0.243      54.783      54.309
+       0.243      54.783      51.318
      For periodic bc, Freq, Dir, New Dir
-       0.243      60.000      59.648
+       0.243      60.000      56.374
      For periodic bc, Freq, Dir, New Dir
-       0.249     -60.000     -55.981
+       0.249     -60.000     -58.050
      For periodic bc, Freq, Dir, New Dir
-       0.249     -54.783     -51.269
+       0.249     -54.783     -52.997
      For periodic bc, Freq, Dir, New Dir
-       0.249     -49.565     -46.999
+       0.249     -49.565     -48.477
      For periodic bc, Freq, Dir, New Dir
-       0.249     -44.348     -43.046
+       0.249     -44.348     -44.329
      For periodic bc, Freq, Dir, New Dir
-       0.249     -39.130     -35.808
+       0.249     -39.130     -36.795
      For periodic bc, Freq, Dir, New Dir
-       0.249     -33.913     -32.433
+       0.249     -33.913     -33.301
      For periodic bc, Freq, Dir, New Dir
-       0.249     -28.696     -26.027
+       0.249     -28.696     -26.693
      For periodic bc, Freq, Dir, New Dir
-       0.249     -23.478     -22.957
+       0.249     -23.478     -20.450
      For periodic bc, Freq, Dir, New Dir
-       0.249     -18.261     -17.010
+       0.249     -18.261     -17.426
      For periodic bc, Freq, Dir, New Dir
-       0.249     -13.043     -11.246
+       0.249     -13.043     -11.516
      For periodic bc, Freq, Dir, New Dir
-       0.249      -7.826      -5.596
+       0.249      -7.826      -5.729
      For periodic bc, Freq, Dir, New Dir
        0.249      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.249       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.249       7.826       5.596
+       0.249       7.826       5.729
      For periodic bc, Freq, Dir, New Dir
-       0.249      13.043      11.246
+       0.249      13.043      11.516
      For periodic bc, Freq, Dir, New Dir
-       0.249      18.261      17.010
+       0.249      18.261      17.426
      For periodic bc, Freq, Dir, New Dir
-       0.249      23.478      22.957
+       0.249      23.478      20.450
      For periodic bc, Freq, Dir, New Dir
-       0.249      28.696      26.027
+       0.249      28.696      26.693
      For periodic bc, Freq, Dir, New Dir
-       0.249      33.913      32.433
+       0.249      33.913      33.301
      For periodic bc, Freq, Dir, New Dir
-       0.249      39.130      35.808
+       0.249      39.130      36.795
      For periodic bc, Freq, Dir, New Dir
-       0.249      44.348      43.046
+       0.249      44.348      44.329
      For periodic bc, Freq, Dir, New Dir
-       0.249      49.565      46.999
+       0.249      49.565      48.477
      For periodic bc, Freq, Dir, New Dir
-       0.249      54.783      51.269
+       0.249      54.783      52.997
      For periodic bc, Freq, Dir, New Dir
-       0.249      60.000      55.981
+       0.249      60.000      58.050
      For periodic bc, Freq, Dir, New Dir
-       0.255     -60.000     -57.495
+       0.255     -60.000     -59.590
      For periodic bc, Freq, Dir, New Dir
-       0.255     -54.783     -52.796
+       0.255     -54.783     -54.539
      For periodic bc, Freq, Dir, New Dir
-       0.255     -49.565     -48.559
+       0.255     -49.565     -45.946
      For periodic bc, Freq, Dir, New Dir
-       0.255     -44.348     -40.990
+       0.255     -44.348     -42.127
      For periodic bc, Freq, Dir, New Dir
-       0.255     -39.130     -37.523
+       0.255     -39.130     -38.525
      For periodic bc, Freq, Dir, New Dir
-       0.255     -33.913     -31.023
+       0.255     -33.913     -31.806
      For periodic bc, Freq, Dir, New Dir
-       0.255     -28.696     -27.938
+       0.255     -28.696     -28.628
      For periodic bc, Freq, Dir, New Dir
-       0.255     -23.478     -22.013
+       0.255     -23.478     -22.538
      For periodic bc, Freq, Dir, New Dir
-       0.255     -18.261     -16.327
+       0.255     -18.261     -16.707
      For periodic bc, Freq, Dir, New Dir
-       0.255     -13.043     -10.802
+       0.255     -13.043     -11.049
      For periodic bc, Freq, Dir, New Dir
-       0.255      -7.826      -5.377
+       0.255      -7.826      -5.499
      For periodic bc, Freq, Dir, New Dir
        0.255      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
        0.255       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.255       7.826       5.377
+       0.255       7.826       5.499
      For periodic bc, Freq, Dir, New Dir
-       0.255      13.043      10.802
+       0.255      13.043      11.049
      For periodic bc, Freq, Dir, New Dir
-       0.255      18.261      16.327
+       0.255      18.261      16.707
      For periodic bc, Freq, Dir, New Dir
-       0.255      23.478      22.013
+       0.255      23.478      22.538
      For periodic bc, Freq, Dir, New Dir
-       0.255      28.696      27.938
+       0.255      28.696      28.628
      For periodic bc, Freq, Dir, New Dir
-       0.255      33.913      31.023
+       0.255      33.913      31.806
      For periodic bc, Freq, Dir, New Dir
-       0.255      39.130      37.523
+       0.255      39.130      38.525
      For periodic bc, Freq, Dir, New Dir
-       0.255      44.348      40.990
+       0.255      44.348      42.127
      For periodic bc, Freq, Dir, New Dir
-       0.255      49.565      48.559
+       0.255      49.565      45.946
      For periodic bc, Freq, Dir, New Dir
-       0.255      54.783      52.796
+       0.255      54.783      54.539
      For periodic bc, Freq, Dir, New Dir
-       0.255      60.000      57.495
+       0.255      60.000      59.590
      For periodic bc, Freq, Dir, New Dir
-       0.260     -60.000     -58.858
+       0.260     -60.000     -55.959
      For periodic bc, Freq, Dir, New Dir
-       0.260     -54.783     -54.178
+       0.260     -54.783     -51.500
      For periodic bc, Freq, Dir, New Dir
-       0.260     -49.565     -46.116
+       0.260     -49.565     -47.440
      For periodic bc, Freq, Dir, New Dir
-       0.260     -44.348     -42.509
+       0.260     -44.348     -43.672
      For periodic bc, Freq, Dir, New Dir
-       0.260     -39.130     -39.098
+       0.260     -39.130     -36.760
      For periodic bc, Freq, Dir, New Dir
-       0.260     -33.913     -32.722
+       0.260     -33.913     -33.534
      For periodic bc, Freq, Dir, New Dir
-       0.260     -28.696     -26.774
+       0.260     -28.696     -27.410
      For periodic bc, Freq, Dir, New Dir
-       0.260     -23.478     -21.123
+       0.260     -23.478     -21.610
      For periodic bc, Freq, Dir, New Dir
-       0.260     -18.261     -15.681
+       0.260     -18.261     -16.034
      For periodic bc, Freq, Dir, New Dir
-       0.260     -13.043     -13.017
+       0.260     -13.043     -10.611
      For periodic bc, Freq, Dir, New Dir
-       0.260      -7.826      -7.767
+       0.260      -7.826      -5.283
      For periodic bc, Freq, Dir, New Dir
-       0.260      -2.609      -2.582
+       0.260      -2.609      -0.000
      For periodic bc, Freq, Dir, New Dir
-       0.260       2.609       2.582
+       0.260       2.609       0.000
      For periodic bc, Freq, Dir, New Dir
-       0.260       7.826       7.767
+       0.260       7.826       5.283
      For periodic bc, Freq, Dir, New Dir
-       0.260      13.043      13.017
+       0.260      13.043      10.611
      For periodic bc, Freq, Dir, New Dir
-       0.260      18.261      15.681
+       0.260      18.261      16.034
      For periodic bc, Freq, Dir, New Dir
-       0.260      23.478      21.123
+       0.260      23.478      21.610
      For periodic bc, Freq, Dir, New Dir
-       0.260      28.696      26.774
+       0.260      28.696      27.410
      For periodic bc, Freq, Dir, New Dir
-       0.260      33.913      32.722
+       0.260      33.913      33.534
      For periodic bc, Freq, Dir, New Dir
-       0.260      39.130      39.098
+       0.260      39.130      36.760
      For periodic bc, Freq, Dir, New Dir
-       0.260      44.348      42.509
+       0.260      44.348      43.672
      For periodic bc, Freq, Dir, New Dir
-       0.260      49.565      46.116
+       0.260      49.565      47.440
      For periodic bc, Freq, Dir, New Dir
-       0.260      54.783      54.178
+       0.260      54.783      51.500
      For periodic bc, Freq, Dir, New Dir
-       0.260      60.000      58.858
+       0.260      60.000      55.959
      For periodic bc, Freq, Dir, New Dir
-       0.266     -60.000     -55.424
+       0.266     -60.000     -57.270
      For periodic bc, Freq, Dir, New Dir
-       0.266     -54.783     -51.264
+       0.266     -54.783     -52.840
      For periodic bc, Freq, Dir, New Dir
-       0.266     -49.565     -47.451
+       0.266     -49.565     -48.823
      For periodic bc, Freq, Dir, New Dir
-       0.266     -44.348     -43.897
+       0.266     -44.348     -41.616
      For periodic bc, Freq, Dir, New Dir
-       0.266     -39.130     -37.351
+       0.266     -39.130     -38.306
      For periodic bc, Freq, Dir, New Dir
-       0.266     -33.913     -31.334
+       0.266     -33.913     -32.094
      For periodic bc, Freq, Dir, New Dir
-       0.266     -28.696     -28.470
+       0.266     -28.696     -26.280
      For periodic bc, Freq, Dir, New Dir
-       0.266     -23.478     -22.956
+       0.266     -23.478     -20.745
      For periodic bc, Freq, Dir, New Dir
-       0.266     -18.261     -17.659
+       0.266     -18.261     -18.055
      For periodic bc, Freq, Dir, New Dir
-       0.266     -13.043     -12.514
+       0.266     -13.043     -12.790
      For periodic bc, Freq, Dir, New Dir
-       0.266      -7.826      -7.470
+       0.266      -7.826      -7.633
      For periodic bc, Freq, Dir, New Dir
-       0.266      -2.609      -2.484
+       0.266      -2.609      -2.538
      For periodic bc, Freq, Dir, New Dir
-       0.266       2.609       2.484
+       0.266       2.609       2.538
      For periodic bc, Freq, Dir, New Dir
-       0.266       7.826       7.470
+       0.266       7.826       7.633
      For periodic bc, Freq, Dir, New Dir
-       0.266      13.043      12.514
+       0.266      13.043      12.790
      For periodic bc, Freq, Dir, New Dir
-       0.266      18.261      17.659
+       0.266      18.261      18.055
      For periodic bc, Freq, Dir, New Dir
-       0.266      23.478      22.956
+       0.266      23.478      20.745
      For periodic bc, Freq, Dir, New Dir
-       0.266      28.696      28.470
+       0.266      28.696      26.280
      For periodic bc, Freq, Dir, New Dir
-       0.266      33.913      31.334
+       0.266      33.913      32.094
      For periodic bc, Freq, Dir, New Dir
-       0.266      39.130      37.351
+       0.266      39.130      38.306
      For periodic bc, Freq, Dir, New Dir
-       0.266      44.348      43.897
+       0.266      44.348      41.616
      For periodic bc, Freq, Dir, New Dir
-       0.266      49.565      47.451
+       0.266      49.565      48.823
      For periodic bc, Freq, Dir, New Dir
-       0.266      54.783      51.264
+       0.266      54.783      52.840
      For periodic bc, Freq, Dir, New Dir
-       0.266      60.000      55.424
+       0.266      60.000      57.270
      For periodic bc, Freq, Dir, New Dir
-       0.272     -60.000     -56.543
+       0.272     -60.000     -58.485
      For periodic bc, Freq, Dir, New Dir
-       0.272     -54.783     -52.428
+       0.272     -54.783     -54.084
      For periodic bc, Freq, Dir, New Dir
-       0.272     -49.565     -48.666
+       0.272     -49.565     -46.438
      For periodic bc, Freq, Dir, New Dir
-       0.272     -44.348     -41.870
+       0.272     -44.348     -43.000
      For periodic bc, Freq, Dir, New Dir
-       0.272     -39.130     -38.736
+       0.272     -39.130     -36.638
      For periodic bc, Freq, Dir, New Dir
-       0.272     -33.913     -32.840
+       0.272     -33.913     -33.650
      For periodic bc, Freq, Dir, New Dir
-       0.272     -28.696     -27.314
+       0.272     -28.696     -27.961
      For periodic bc, Freq, Dir, New Dir
-       0.272     -23.478     -22.051
+       0.272     -23.478     -22.558
      For periodic bc, Freq, Dir, New Dir
-       0.272     -18.261     -16.978
+       0.272     -18.261     -17.360
      For periodic bc, Freq, Dir, New Dir
-       0.272     -13.043     -12.039
+       0.272     -13.043     -12.306
      For periodic bc, Freq, Dir, New Dir
-       0.272      -7.826      -7.189
+       0.272      -7.826      -7.347
      For periodic bc, Freq, Dir, New Dir
-       0.272      -2.609      -2.391
+       0.272      -2.609      -2.443
      For periodic bc, Freq, Dir, New Dir
-       0.272       2.609       2.391
+       0.272       2.609       2.443
      For periodic bc, Freq, Dir, New Dir
-       0.272       7.826       7.189
+       0.272       7.826       7.347
      For periodic bc, Freq, Dir, New Dir
-       0.272      13.043      12.039
+       0.272      13.043      12.306
      For periodic bc, Freq, Dir, New Dir
-       0.272      18.261      16.978
+       0.272      18.261      17.360
      For periodic bc, Freq, Dir, New Dir
-       0.272      23.478      22.051
+       0.272      23.478      22.558
      For periodic bc, Freq, Dir, New Dir
-       0.272      28.696      27.314
+       0.272      28.696      27.961
      For periodic bc, Freq, Dir, New Dir
-       0.272      33.913      32.840
+       0.272      33.913      33.650
      For periodic bc, Freq, Dir, New Dir
-       0.272      39.130      38.736
+       0.272      39.130      36.638
      For periodic bc, Freq, Dir, New Dir
-       0.272      44.348      41.870
+       0.272      44.348      43.000
      For periodic bc, Freq, Dir, New Dir
-       0.272      49.565      48.666
+       0.272      49.565      46.438
      For periodic bc, Freq, Dir, New Dir
-       0.272      54.783      52.428
+       0.272      54.783      54.084
      For periodic bc, Freq, Dir, New Dir
-       0.272      60.000      56.543
+       0.272      60.000      58.485
      For periodic bc, Freq, Dir, New Dir
-       0.277     -60.000     -57.546
+       0.277     -60.000     -59.614
      For periodic bc, Freq, Dir, New Dir
-       0.277     -54.783     -53.479
+       0.277     -54.783     -51.305
      For periodic bc, Freq, Dir, New Dir
-       0.277     -49.565     -46.326
+       0.277     -49.565     -47.681
      For periodic bc, Freq, Dir, New Dir
-       0.277     -44.348     -43.086
+       0.277     -44.348     -44.293
      For periodic bc, Freq, Dir, New Dir
-       0.277     -39.130     -37.066
+       0.277     -39.130     -38.037
      For periodic bc, Freq, Dir, New Dir
-       0.277     -33.913     -31.491
+       0.277     -33.913     -32.277
      For periodic bc, Freq, Dir, New Dir
-       0.277     -28.696     -26.232
+       0.277     -28.696     -26.863
      For periodic bc, Freq, Dir, New Dir
-       0.277     -23.478     -21.201
+       0.277     -23.478     -21.697
      For periodic bc, Freq, Dir, New Dir
-       0.277     -18.261     -16.336
+       0.277     -18.261     -16.711
      For periodic bc, Freq, Dir, New Dir
-       0.277     -13.043     -11.590
+       0.277     -13.043     -11.852
      For periodic bc, Freq, Dir, New Dir
-       0.277      -7.826      -6.924
+       0.277      -7.826      -7.079
      For periodic bc, Freq, Dir, New Dir
-       0.277      -2.609      -2.303
+       0.277      -2.609      -2.354
      For periodic bc, Freq, Dir, New Dir
-       0.277       2.609       2.303
+       0.277       2.609       2.354
      For periodic bc, Freq, Dir, New Dir
-       0.277       7.826       6.924
+       0.277       7.826       7.079
      For periodic bc, Freq, Dir, New Dir
-       0.277      13.043      11.590
+       0.277      13.043      11.852
      For periodic bc, Freq, Dir, New Dir
-       0.277      18.261      16.336
+       0.277      18.261      16.711
      For periodic bc, Freq, Dir, New Dir
-       0.277      23.478      21.201
+       0.277      23.478      21.697
      For periodic bc, Freq, Dir, New Dir
-       0.277      28.696      26.232
+       0.277      28.696      26.863
      For periodic bc, Freq, Dir, New Dir
-       0.277      33.913      31.491
+       0.277      33.913      32.277
      For periodic bc, Freq, Dir, New Dir
-       0.277      39.130      37.066
+       0.277      39.130      38.037
      For periodic bc, Freq, Dir, New Dir
-       0.277      44.348      43.086
+       0.277      44.348      44.293
      For periodic bc, Freq, Dir, New Dir
-       0.277      49.565      46.326
+       0.277      49.565      47.681
      For periodic bc, Freq, Dir, New Dir
-       0.277      54.783      53.479
+       0.277      54.783      51.305
      For periodic bc, Freq, Dir, New Dir
-       0.277      60.000      57.546
+       0.277      60.000      59.614
      For periodic bc, Freq, Dir, New Dir
-       0.283     -60.000     -58.442
+       0.283     -60.000     -56.323
      For periodic bc, Freq, Dir, New Dir
-       0.283     -54.783     -54.428
+       0.283     -54.783     -52.425
      For periodic bc, Freq, Dir, New Dir
-       0.283     -49.565     -47.385
+       0.283     -49.565     -48.844
      For periodic bc, Freq, Dir, New Dir
-       0.283     -44.348     -44.201
+       0.283     -44.348     -42.351
      For periodic bc, Freq, Dir, New Dir
-       0.283     -39.130     -38.296
+       0.283     -39.130     -36.471
      For periodic bc, Freq, Dir, New Dir
-       0.283     -33.913     -32.837
+       0.283     -33.913     -33.696
      For periodic bc, Freq, Dir, New Dir
-       0.283     -28.696     -27.697
+       0.283     -28.696     -28.394
      For periodic bc, Freq, Dir, New Dir
-       0.283     -23.478     -22.788
+       0.283     -23.478     -23.346
      For periodic bc, Freq, Dir, New Dir
-       0.283     -18.261     -18.051
+       0.283     -18.261     -16.105
      For periodic bc, Freq, Dir, New Dir
-       0.283     -13.043     -11.167
+       0.283     -13.043     -11.428
      For periodic bc, Freq, Dir, New Dir
-       0.283      -7.826      -6.673
+       0.283      -7.826      -6.828
      For periodic bc, Freq, Dir, New Dir
-       0.283      -2.609      -2.220
+       0.283      -2.609      -2.271
      For periodic bc, Freq, Dir, New Dir
-       0.283       2.609       2.220
+       0.283       2.609       2.271
      For periodic bc, Freq, Dir, New Dir
-       0.283       7.826       6.673
+       0.283       7.826       6.828
      For periodic bc, Freq, Dir, New Dir
-       0.283      13.043      11.167
+       0.283      13.043      11.428
      For periodic bc, Freq, Dir, New Dir
-       0.283      18.261      18.051
+       0.283      18.261      16.105
      For periodic bc, Freq, Dir, New Dir
-       0.283      23.478      22.788
+       0.283      23.478      23.346
      For periodic bc, Freq, Dir, New Dir
-       0.283      28.696      27.697
+       0.283      28.696      28.394
      For periodic bc, Freq, Dir, New Dir
-       0.283      33.913      32.837
+       0.283      33.913      33.696
      For periodic bc, Freq, Dir, New Dir
-       0.283      39.130      38.296
+       0.283      39.130      36.471
      For periodic bc, Freq, Dir, New Dir
-       0.283      44.348      44.201
+       0.283      44.348      42.351
      For periodic bc, Freq, Dir, New Dir
-       0.283      49.565      47.385
+       0.283      49.565      48.844
      For periodic bc, Freq, Dir, New Dir
-       0.283      54.783      54.428
+       0.283      54.783      52.425
      For periodic bc, Freq, Dir, New Dir
-       0.283      60.000      58.442
+       0.283      60.000      56.323
      For periodic bc, Freq, Dir, New Dir
-       0.289     -60.000     -59.243
+       0.289     -60.000     -57.340
      For periodic bc, Freq, Dir, New Dir
-       0.289     -54.783     -51.685
+       0.289     -54.783     -53.477
      For periodic bc, Freq, Dir, New Dir
-       0.289     -49.565     -48.353
+       0.289     -49.565     -46.643
      For periodic bc, Freq, Dir, New Dir
-       0.289     -44.348     -42.262
+       0.289     -44.348     -43.537
      For periodic bc, Freq, Dir, New Dir
-       0.289     -39.130     -36.713
+       0.289     -39.130     -37.755
      For periodic bc, Freq, Dir, New Dir
-       0.289     -33.913     -31.539
+       0.289     -33.913     -32.395
      For periodic bc, Freq, Dir, New Dir
-       0.289     -28.696     -26.638
+       0.289     -28.696     -27.336
      For periodic bc, Freq, Dir, New Dir
-       0.289     -23.478     -21.939
+       0.289     -23.478     -22.500
      For periodic bc, Freq, Dir, New Dir
-       0.289     -18.261     -17.392
+       0.289     -18.261     -17.827
      For periodic bc, Freq, Dir, New Dir
-       0.289     -13.043     -12.954
+       0.289     -13.043     -11.031
      For periodic bc, Freq, Dir, New Dir
-       0.289      -7.826      -6.436
+       0.289      -7.826      -6.592
      For periodic bc, Freq, Dir, New Dir
-       0.289      -2.609      -2.141
+       0.289      -2.609      -2.193
      For periodic bc, Freq, Dir, New Dir
-       0.289       2.609       2.141
+       0.289       2.609       2.193
      For periodic bc, Freq, Dir, New Dir
-       0.289       7.826       6.436
+       0.289       7.826       6.592
      For periodic bc, Freq, Dir, New Dir
-       0.289      13.043      12.954
+       0.289      13.043      11.031
      For periodic bc, Freq, Dir, New Dir
-       0.289      18.261      17.392
+       0.289      18.261      17.827
      For periodic bc, Freq, Dir, New Dir
-       0.289      23.478      21.939
+       0.289      23.478      22.500
      For periodic bc, Freq, Dir, New Dir
-       0.289      28.696      26.638
+       0.289      28.696      27.336
      For periodic bc, Freq, Dir, New Dir
-       0.289      33.913      31.539
+       0.289      33.913      32.395
      For periodic bc, Freq, Dir, New Dir
-       0.289      39.130      36.713
+       0.289      39.130      37.755
      For periodic bc, Freq, Dir, New Dir
-       0.289      44.348      42.262
+       0.289      44.348      43.537
      For periodic bc, Freq, Dir, New Dir
-       0.289      49.565      48.353
+       0.289      49.565      46.643
      For periodic bc, Freq, Dir, New Dir
-       0.289      54.783      51.685
+       0.289      54.783      53.477
      For periodic bc, Freq, Dir, New Dir
-       0.289      60.000      59.243
+       0.289      60.000      57.340
      For periodic bc, Freq, Dir, New Dir
-       0.294     -60.000     -59.958
+       0.294     -60.000     -58.300
      For periodic bc, Freq, Dir, New Dir
-       0.294     -54.783     -52.516
+       0.294     -54.783     -54.471
      For periodic bc, Freq, Dir, New Dir
-       0.294     -49.565     -49.240
+       0.294     -49.565     -47.718
      For periodic bc, Freq, Dir, New Dir
-       0.294     -44.348     -43.260
+       0.294     -44.348     -41.748
      For periodic bc, Freq, Dir, New Dir
-       0.294     -39.130     -37.819
+       0.294     -39.130     -38.966
      For periodic bc, Freq, Dir, New Dir
-       0.294     -33.913     -32.754
+       0.294     -33.913     -33.702
      For periodic bc, Freq, Dir, New Dir
-       0.294     -28.696     -27.963
+       0.294     -28.696     -26.353
      For periodic bc, Freq, Dir, New Dir
-       0.294     -23.478     -23.376
+       0.294     -23.478     -21.711
      For periodic bc, Freq, Dir, New Dir
-       0.294     -18.261     -16.771
+       0.294     -18.261     -17.214
      For periodic bc, Freq, Dir, New Dir
-       0.294     -13.043     -12.499
+       0.294     -13.043     -12.824
      For periodic bc, Freq, Dir, New Dir
-       0.294      -7.826      -6.212
+       0.294      -7.826      -6.372
      For periodic bc, Freq, Dir, New Dir
-       0.294      -2.609      -2.067
+       0.294      -2.609      -2.120
      For periodic bc, Freq, Dir, New Dir
-       0.294       2.609       2.067
+       0.294       2.609       2.120
      For periodic bc, Freq, Dir, New Dir
-       0.294       7.826       6.212
+       0.294       7.826       6.372
      For periodic bc, Freq, Dir, New Dir
-       0.294      13.043      12.499
+       0.294      13.043      12.824
      For periodic bc, Freq, Dir, New Dir
-       0.294      18.261      16.771
+       0.294      18.261      17.214
      For periodic bc, Freq, Dir, New Dir
-       0.294      23.478      23.376
+       0.294      23.478      21.711
      For periodic bc, Freq, Dir, New Dir
-       0.294      28.696      27.963
-     For periodic bc, Freq, Dir, New Dir
-       0.294      33.913      32.754
-     For periodic bc, Freq, Dir, New Dir
-       0.294      39.130      37.819
-     For periodic bc, Freq, Dir, New Dir
-       0.294      44.348      43.260
-     For periodic bc, Freq, Dir, New Dir
-       0.294      49.565      49.240
-     For periodic bc, Freq, Dir, New Dir
-       0.294      54.783      52.516
-     For periodic bc, Freq, Dir, New Dir
-       0.294      60.000      59.958
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -60.000     -56.756
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -54.783     -53.273
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -49.565     -47.038
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -44.348     -44.183
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -39.130     -38.848
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -33.913     -33.887
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -28.696     -26.938
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -23.478     -22.540
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -18.261     -16.188
-     For periodic bc, Freq, Dir, New Dir
-       0.300     -13.043     -12.069
-     For periodic bc, Freq, Dir, New Dir
-       0.300      -7.826      -6.001
-     For periodic bc, Freq, Dir, New Dir
-       0.300      -2.609      -1.997
-     For periodic bc, Freq, Dir, New Dir
-       0.300       2.609       1.997
-     For periodic bc, Freq, Dir, New Dir
-       0.300       7.826       6.001
-     For periodic bc, Freq, Dir, New Dir
-       0.300      13.043      12.069
-     For periodic bc, Freq, Dir, New Dir
-       0.300      18.261      16.188
-     For periodic bc, Freq, Dir, New Dir
-       0.300      23.478      22.540
-     For periodic bc, Freq, Dir, New Dir
-       0.300      28.696      26.938
-     For periodic bc, Freq, Dir, New Dir
-       0.300      33.913      33.887
-     For periodic bc, Freq, Dir, New Dir
-       0.300      39.130      38.848
-     For periodic bc, Freq, Dir, New Dir
-       0.300      44.348      44.183
-     For periodic bc, Freq, Dir, New Dir
-       0.300      49.565      47.038
-     For periodic bc, Freq, Dir, New Dir
-       0.300      54.783      53.273
-     For periodic bc, Freq, Dir, New Dir
-       0.300      60.000      56.756
- ----------------- STATISTICS ----------------
-  TIME        DT
-  0.0000E+00  0.0000E+00
-  MassVolume  Energy      MaxEta      MinEta      Max U       Max V 
-  0.0000E+00  0.1199E+09  0.1374E+01  0.0000E+00  0.0000E+00  0.0000E+00
-  MaxTotalU   PhaseS      Froude      WetDryMass
-  0.0000E+00  0.9905E+00  0.0000E+00  0.0000E+00
-   PRINTING FILE NO.     0  TIME/TOTAL:        0.000 /     200.000
- ----------------- STATISTICS ----------------
-  TIME        DT
-  0.2070E+01  0.7961E-01
-  MassVolume  Energy      MaxEta      MinEta      Max U       Max V 
- -0.1229E+04  0.1198E+09  0.1374E+01 -0.3998E+00  0.2711E+00  0.6399E-01
-  MaxTotalU   PhaseS      Froude      WetDryMass
-  0.2711E+00  0.9726E+01  0.2787E-01  0.0000E+00
-   PRINTING FILE NO.     1  TIME/TOTAL:        2.070 /     200.000
- ----------------- STATISTICS ----------------
-  TIME        DT
-  0.4060E+01  0.7961E-01
-  MassVolume  Energy      MaxEta      MinEta      Max U       Max V 
-  0.2140E+02  0.1199E+09  0.1374E+01 -0.3396E+00  0.2869E+00  0.6033E-01
-  MaxTotalU   PhaseS      Froude      WetDryMass
-  0.2896E+00  0.1013E+02  0.2858E-01  0.0000E+00
-   PRINTING FILE NO.     2  TIME/TOTAL:        4.060 /     200.000
- ----------------- STATISTICS ----------------
-  TIME        DT
-  0.6051E+01  0.7961E-01
-  MassVolume  Energy      MaxEta      MinEta      Max U       Max V 
-  0.1981E+04  0.1201E+09  0.1374E+01 -0.3024E+00  0.3793E+00  0.9928E-01
-  MaxTotalU   PhaseS      Froude      WetDryMass
-  0.3799E+00  0.1016E+02  0.3740E-01  0.0000E+00
-   PRINTING FILE NO.     3  TIME/TOTAL:        6.051 /     200.000
- ----------------- STATISTICS ----------------
-  TIME        DT
-  0.8041E+01  0.7961E-01
-  MassVolume  Energy      MaxEta      MinEta      Max U       Max V 

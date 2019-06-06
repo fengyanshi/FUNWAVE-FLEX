@@ -47,8 +47,6 @@ RESULT_FOLDER = output/
  StretchGrid = T
  X_FILE = x.txt
  Y_FILE = y.txt
- DX_wavemaker = 2.0
- DY_wavemaker = 2.0
    ! ----------------WAVEMAKER------------------------------ 
    !  wave maker 
    ! LEF_SOL- left boundary solitary, need AMP,DEP, LAGTIME 
@@ -65,7 +63,7 @@ RESULT_FOLDER = output/
    !          need input WaveCompFile (including 3 columns: per,amp,pha) 
    !          NumWaveComp,PeakPeriod,DEP_WK,Xc_WK,Ywidth_WK 
 WAVEMAKER = WK_IRR
-DEP_WK = 8.0 
+DEP_WK = 10.0 
 Xc_WK = 150.0 
 Yc_WK = 0.0 
 FreqPeak = 0.0833 

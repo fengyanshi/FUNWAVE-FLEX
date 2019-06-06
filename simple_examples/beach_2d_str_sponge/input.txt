@@ -16,20 +16,20 @@ TITLE = 2D_beach
    !              DEPTH_TYPE=SLOPE: idealized slope,  
    !                                 need slope,SLP starting point, Xslp 
    !                                 and depth_flat 
- DEPTH_TYPE = DATA 
+ DEPTH_TYPE = DATA
   ! if depth is flat and slope, specify flat_depth
 DEPTH_FLAT = 8.0
   if depth is slope, specify slope and starting point
 SLP = 0.05
 Xslp = 800.0
-DEPTH_FILE = depth1.txt
+DEPTH_FILE = depth.txt
    ! -------------------PRINT--------------------------------- 
    ! PRINT*, 
    ! result folder 
 RESULT_FOLDER = output/ 
    ! ------------------DIMENSION----------------------------- 
    ! global grid dimension 
- Mglob = 360
+ Mglob = 500
  Nglob = 250 
 
    ! ----------------- TIME---------------------------------- 
@@ -44,9 +44,9 @@ RESULT_FOLDER = output/
    ! if use spherical grid, in decimal degrees 
  DX = 2.0 
  DY = 2.0 
- StretchGrid = F
- DX_FILE = dx.txt
- DY_FILE = dy.txt
+ StretchGrid = T
+ X_FILE = x.txt
+ Y_FILE = y.txt
    ! ----------------WAVEMAKER------------------------------ 
    !  wave maker 
    ! LEF_SOL- left boundary solitary, need AMP,DEP, LAGTIME 
@@ -62,10 +62,13 @@ RESULT_FOLDER = output/
    !                 and then use Wei and Kirby 1999  
    !          need input WaveCompFile (including 3 columns: per,amp,pha) 
    !          NumWaveComp,PeakPeriod,DEP_WK,Xc_WK,Ywidth_WK 
-WAVEMAKER = WK_IRR
+WAVEMAKER = WK_REG
 DEP_WK = 10.0 
-Xc_WK = 150.0 
+Xc_WK = 15149.0 
 Yc_WK = 0.0 
+Tperiod = 10.0
+AMP_WK = 0.5
+Theta_WK = 0.0
 FreqPeak = 0.0833 
 FreqMin = 0.05
 FreqMax = 0.3 
@@ -87,8 +90,8 @@ FRICTION_SPONGE = T
 DIRECT_SPONGE = T 
 Csp = 0.0 
 CDsponge = 1.0 
-Sponge_west_width =  100.0 
-Sponge_east_width =  0.0 
+Sponge_west_width =  0.0 
+Sponge_east_width =  50.0 
 Sponge_south_width = 0.0 
 Sponge_north_width = 0.0 
 
